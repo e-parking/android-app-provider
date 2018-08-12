@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.GarageRegistrationFragment">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/mParkingPlacePhoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_add_picture" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Basic Parking Information."
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="Parking Rate Per Hour: "/>
+
+            <EditText
+                android:id="@+id/mProviderRateET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Amount In TK" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="Vehicle Type: "/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioCar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Car"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioBike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Bike" />
+
+                <RadioButton
+                    android:id="@+id/radioCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Bicycle" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/mProviderRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Add Parking Place"/>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
