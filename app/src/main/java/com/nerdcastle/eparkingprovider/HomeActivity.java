@@ -596,6 +596,10 @@ public class HomeActivity extends AppCompatActivity implements
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);
         }
+
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            addParkPlaceLocation (data);
+        }
     }
     //--------------------------- Location Picker ---------------------
     private void startPlacePickerActivity() {
@@ -625,6 +629,28 @@ public class HomeActivity extends AppCompatActivity implements
         mFirebaseLocationUpdate.child("mLatitude").setValue(mSelectedLatitude);
         mFirebaseLocationUpdate.child("mLongitude").setValue(mSelectedLongitude);
     }
+
+
+
+    private void addParkPlaceLocation(Intent data) {
+
+        System.out.println(">>>>>>>>>>>>> "+"ProviderList/"+mProviderID+"/ParkPlaceList/"+TempHolder.mParkPlaceID+"/");
+        Place placeSelected = PlacePicker.getPlace(data, this);
+        String mProviderAddress = placeSelected.getAddress().toString();
+        String mSelectedLatitude = Double.toString(placeSelected.getLatLng().latitude);
+        String mSelectedLongitude = Double.toString(placeSelected.getLatLng().longitude);
+
+        if (!TempHolder.mParkPlaceID.equals("")) {
+            mFirebaseLocationUpdate = mFirebaseInstance.getReference("ProviderList/" + mProviderID + "/ParkPlaceList/" + TempHolder.mParkPlaceID + "/");
+
+            mFirebaseLocationUpdate.child("mParkingIsApproved").setValue("false");
+            mFirebaseLocationUpdate.child("mAddress").setValue(mProviderAddress);
+            mFirebaseLocationUpdate.child("mLatitude").setValue(mSelectedLatitude);
+            mFirebaseLocationUpdate.child("mLongitude").setValue(mSelectedLongitude);
+            TempHolder.mParkPlaceID = "";
+        }
+    }
+
 
     //-----------------------------------------------------------------
 

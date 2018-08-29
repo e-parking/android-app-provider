@@ -29,6 +29,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,14 +55,18 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 
-public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.Viewholder> {
+
+public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.Viewholder> implements ParkPlaceAdapterInterface {
 
     private List<ParkPlace> parkPlaceList;
     private ParkPlace model;
     static Context context;
     static Activity mActivity;
     public static Request mRequest;
+    private Dialog mAddLocationDialog;
+    private DatabaseReference mFirebaseLocationUpdate;
 
     //------------ Firebase -----------------------------
     public static FirebaseDatabase mFirebaseInstance;
@@ -103,6 +113,9 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
     public static TransactionHistory mTransactionHistory;
 
 
+    private final int REQUEST_CODE_PLACEPICKER = 200;
+    private static LatLngBounds BOUNDS_BD;
+
     public long mHour;
     public long mMinute;
     public long mSecond;
@@ -118,6 +131,8 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
         mProviderID = mAuth.getCurrentUser().getUid();
         mProviderName = mAuth.getCurrentUser().getDisplayName();
         this.mActivity = mActivity;
+        BOUNDS_BD =  new LatLngBounds(new LatLng(23.725289 , 90.393089), new LatLng(23.899557,90.408220 ));
+
 
     }
 
@@ -179,8 +194,18 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
 
                         getParkedUserInfo(mParkPlaceID,mRequestID);
 
+
                     }
 
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    TempHolder.mParkPlaceID = parkPlaceList.get(getAdapterPosition()).getmParkPlaceID();
+                    showAddLocationDialogBox ();
+                    return true;
                 }
             });
 
@@ -723,6 +748,68 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
 
         }
     }
+
+
+    public void showAddLocationDialogBox ()
+    {
+        mAddLocationDialog = new Dialog (mActivity);
+        mAddLocationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mAddLocationDialog.setContentView(R.layout.dialog_add_location);
+        mAddLocationDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mAddLocationDialog.setCancelable(false);
+
+        TextView mAddLocation = mAddLocationDialog.findViewById(R.id.mAddLocation);
+
+        mAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlacePickerActivity();
+                mAddLocationDialog.dismiss();
+            }
+        });
+        mAddLocationDialog.show();
+    }
+
+    //--------------------------- Location Picker ---------------------
+    private void startPlacePickerActivity() {
+
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        builder.setLatLngBounds(BOUNDS_BD);
+        try {
+            mActivity.startActivityForResult(builder.build(mActivity), REQUEST_CODE_PLACEPICKER);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+
+        System.out.println(">>>>>>>>>>>>> "+"ProviderList/"+mProviderID+"/ParkPlaceList/"+mParkPlaceID+"/");
+        Place placeSelected = PlacePicker.getPlace(data, context);
+        String mProviderAddress = placeSelected.getAddress().toString();
+        String mSelectedLatitude = Double.toString(placeSelected.getLatLng().latitude);
+        String mSelectedLongitude = Double.toString(placeSelected.getLatLng().longitude);
+
+        mFirebaseLocationUpdate = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/"+mParkPlaceID+"/");
+
+        mFirebaseLocationUpdate.child("mParkingIsApproved").setValue("false");
+        mFirebaseLocationUpdate.child("mAddress").setValue(mProviderAddress);
+        //mFirebaseLocationUpdate.child("mLatitude").setValue(mSelectedLatitude);
+        //mFirebaseLocationUpdate.child("mLongitude").setValue(mSelectedLongitude);
+    }
+
 
 
 }
