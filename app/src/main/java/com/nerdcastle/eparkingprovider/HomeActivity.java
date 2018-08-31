@@ -48,6 +48,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nerdcastle.eparkingprovider.Activities.AddParkPlaceActivity;
 import com.nerdcastle.eparkingprovider.Activities.LoginActivity;
 import com.nerdcastle.eparkingprovider.Activities.SignUpActivity;
 import com.nerdcastle.eparkingprovider.DataModel.Provider;
@@ -66,13 +67,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener
-        ,GarageRegistrationFragment.GarageRegistrationFragmentInterface
-        ,MainFragment.MainFragmentInterface
-        ,PaymentFragment.PaymentFragmentInterface
-        ,AddParkPlaceFragment.AddParkPlaceFragmentInterface
-        ,NotificationFragment.NotificationFragmentInterface {
-
-
+        , GarageRegistrationFragment.GarageRegistrationFragmentInterface
+        , MainFragment.MainFragmentInterface
+        , PaymentFragment.PaymentFragmentInterface
+        , AddParkPlaceFragment.AddParkPlaceFragmentInterface
+        , NotificationFragment.NotificationFragmentInterface {
 
 
     private FragmentManager fm;
@@ -116,7 +115,7 @@ public class HomeActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        BOUNDS_BD =  new LatLngBounds(new LatLng(23.725289 , 90.393089), new LatLng(23.899557,90.408220 ));
+        BOUNDS_BD = new LatLngBounds(new LatLng(23.725289, 90.393089), new LatLng(23.899557, 90.408220));
 
 
         //-------------- Custom Dialog -------------------
@@ -129,11 +128,9 @@ public class HomeActivity extends AppCompatActivity implements
         ft = fm.beginTransaction();
         //------------------------------------------------------------------------------------------
         mInternetStatus = isNetworkAvailable();
-        if (!mInternetStatus)
-        {
+        if (!mInternetStatus) {
             showInternetDialogBox();
-        }else
-        {
+        } else {
             //--------------------------------------------------------------------------------------
             MainFragment mainFragment = new MainFragment();
             ft.replace(R.id.fragmentContainer, mainFragment);
@@ -182,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
-            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelId = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
@@ -213,8 +210,6 @@ public class HomeActivity extends AppCompatActivity implements
 */
 
 
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +227,6 @@ public class HomeActivity extends AppCompatActivity implements
         addRequestChangeListener();
         getUserInformations();
     }
-
 
 
     @Override
@@ -287,23 +281,7 @@ public class HomeActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_payments) {
             goToPayment();
         } else if (id == R.id.nav_addParkPlace) {
-
-            Double lat = Double.parseDouble( TempHolder.mProvider.getmLatitude());
-            Double lng = Double.parseDouble(TempHolder.mProvider.getmLongitude());
-
-            if (mGPSstatusCheck())
-            {
-                if (lat == 0 && lng == 0)
-                {
-                    showAddLocationDialogBox ();
-                }else
-                {
-                    goToAddPark();
-                }
-            }
-
-
-            //goToParkRegistration();
+            startActivity(new Intent(HomeActivity.this, AddParkPlaceActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
@@ -317,8 +295,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-    public void signOut ()
-    {
+    public void signOut() {
 
         mAuth.signOut();
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
@@ -328,21 +305,20 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-
     private void addRequestChangeListener() {
         // User requestList change listener
         String mProviderID = mAuth.getCurrentUser().getUid();
-        System.out.println(">>>>>>>>>>>>>> Provider ID >>>>>>>> "+mProviderID);
+        System.out.println(">>>>>>>>>>>>>> Provider ID >>>>>>>> " + mProviderID);
         mFirebaseInstance = FirebaseDatabase.getInstance();
-        mFirebaseRequestRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/Request");
+        mFirebaseRequestRef = mFirebaseInstance.getReference("ProviderList/" + mProviderID + "/Request");
         mFirebaseRequestRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot data:dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Request request = data.getValue(Request.class);
-                    System.out.println(">>>>>>>>>>>>>> Sent By >>>>>>>> "+request);
-                    setNotification(request.getmRequstSenderName(),"Wants to park a "+request.getmVehicleType());
+                    System.out.println(">>>>>>>>>>>>>> Sent By >>>>>>>> " + request);
+                    setNotification(request.getmRequstSenderName(), "Wants to park a " + request.getmVehicleType());
                 }
 
             }
@@ -395,10 +371,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-
-    public void setNotification (String title,String msg)
-    {
-
+    public void setNotification(String title, String msg) {
 
 
         Intent notificationIntent = new Intent(this, HomeActivity.class);
@@ -454,10 +427,9 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-    public void getUserInformations()
-    {
-        
-        mFirebaseUserRef =mFirebaseInstance.getReference("ProviderList/"+mProviderID);
+    public void getUserInformations() {
+
+        mFirebaseUserRef = mFirebaseInstance.getReference("ProviderList/" + mProviderID);
         System.out.println(">>>>>>>>>>>>>> Get User  Called");
         mFirebaseUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -465,23 +437,19 @@ public class HomeActivity extends AppCompatActivity implements
 
                 TempHolder.mProvider = dataSnapshot.getValue(Provider.class);
                 System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
-                if (TempHolder.mProvider != null)
-                {
+                if (TempHolder.mProvider != null) {
 
-                    if (!TempHolder.mProvider.getmName().equals(""))
-                    {
+                    if (!TempHolder.mProvider.getmName().equals("")) {
                         mUserName.setText(TempHolder.mProvider.getmName());
                     }
 
-                    if (!TempHolder.mProvider.getmEmail().contains("@mail.com"))
-                    {
+                    if (!TempHolder.mProvider.getmEmail().contains("@mail.com")) {
                         mUserEmailAddress.setText(TempHolder.mProvider.getmEmail());
                     }
 
-                    if (!TempHolder.mProvider.getmProfilePhoto().equals("")){
+                    if (!TempHolder.mProvider.getmProfilePhoto().equals("")) {
                         Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).into(mProfileImage);
-                    }else
-                    {
+                    } else {
                         mProfileImage.setImageResource(R.drawable.profile);
                     }
 
@@ -499,8 +467,7 @@ public class HomeActivity extends AppCompatActivity implements
     //----------------------- Initial Device Status check --------------------------
 
 
-    public void showGPSDialogBox ()
-    {
+    public void showGPSDialogBox() {
         mGpsDialog = new Dialog(this);
         mGpsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mGpsDialog.setContentView(R.layout.dialog_gps);
@@ -519,8 +486,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-    public void showInternetDialogBox ()
-    {
+    public void showInternetDialogBox() {
         mInternetDialog = new Dialog(this);
         mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mInternetDialog.setContentView(R.layout.dialog_internet);
@@ -532,7 +498,7 @@ public class HomeActivity extends AppCompatActivity implements
         mRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();
@@ -543,8 +509,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-    public void showAddLocationDialogBox ()
-    {
+    public void showAddLocationDialogBox() {
         mAddLocationDialog = new Dialog(this);
         mAddLocationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mAddLocationDialog.setContentView(R.layout.dialog_add_location);
@@ -572,7 +537,6 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-
     public Boolean mGPSstatusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -583,8 +547,6 @@ public class HomeActivity extends AppCompatActivity implements
         }
         return true;
     }
-
-
 
 
     //------------------- onActivityResult ---------------------------
@@ -598,9 +560,10 @@ public class HomeActivity extends AppCompatActivity implements
         }
 
         if (requestCode == 200 && resultCode == RESULT_OK) {
-            addParkPlaceLocation (data);
+            addParkPlaceLocation(data);
         }
     }
+
     //--------------------------- Location Picker ---------------------
     private void startPlacePickerActivity() {
 
@@ -623,7 +586,7 @@ public class HomeActivity extends AppCompatActivity implements
         mSelectedLatitude = Double.toString(placeSelected.getLatLng().latitude);
         mSelectedLongitude = Double.toString(placeSelected.getLatLng().longitude);
         mProviderAddress = address;
-        mFirebaseLocationUpdate = mFirebaseInstance.getReference("ProviderList/"+mProviderID);
+        mFirebaseLocationUpdate = mFirebaseInstance.getReference("ProviderList/" + mProviderID);
 
         mFirebaseLocationUpdate.child("mAddress").setValue(mProviderAddress);
         mFirebaseLocationUpdate.child("mLatitude").setValue(mSelectedLatitude);
@@ -631,10 +594,9 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-
     private void addParkPlaceLocation(Intent data) {
 
-        System.out.println(">>>>>>>>>>>>> "+"ProviderList/"+mProviderID+"/ParkPlaceList/"+TempHolder.mParkPlaceID+"/");
+        System.out.println(">>>>>>>>>>>>> " + "ProviderList/" + mProviderID + "/ParkPlaceList/" + TempHolder.mParkPlaceID + "/");
         Place placeSelected = PlacePicker.getPlace(data, this);
         String mProviderAddress = placeSelected.getAddress().toString();
         String mSelectedLatitude = Double.toString(placeSelected.getLatLng().latitude);
@@ -653,7 +615,6 @@ public class HomeActivity extends AppCompatActivity implements
 
 
     //-----------------------------------------------------------------
-
 
 
 }

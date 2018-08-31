@@ -51,30 +51,28 @@ public class PasswordActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private String mPhoneNumber = "";
-    private String mEmailAddress= "";
+    private String mEmailAddress = "";
     private String mPassword = "";
     private String mUserType = "";
     TextView mTitleTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_password);
         mTitleTV = findViewById(R.id.titleTV);
 
         Intent intent = getIntent();
 
 
-        if (intent != null)
-        {
-             mUserType = intent.getStringExtra("user");
+        if (intent != null) {
+            mUserType = intent.getStringExtra("user");
 
-            if (mUserType.equals("old_user"))
-            {
+            if (mUserType.equals("old_user")) {
                 mPhoneNumber = intent.getStringExtra("mobile");
                 mTitleTV.setText("Welcome back, sign in to continue");
-            }else if (mUserType.equals("new_user"))
-            {
+            } else if (mUserType.equals("new_user")) {
                 mTitleTV.setText("Please give a password, to sign in.");
             }
             //Toast.makeText(this, mPhoneNumber, Toast.LENGTH_SHORT).show();
@@ -107,8 +105,7 @@ public class PasswordActivity extends AppCompatActivity {
     void nextActivity() {
 
         fabProgressCircle.show();
-        if (mUserType.equals("new_user"))
-        {
+        if (mUserType.equals("new_user")) {
             mAuth.getCurrentUser().updatePassword(etPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
 
                 @Override
@@ -135,11 +132,10 @@ public class PasswordActivity extends AppCompatActivity {
                     }, 1000);
                 }
             });
-        }else if (mUserType.equals("old_user"))
-        {
-            mEmailAddress = mPhoneNumber+"@mail.com";
+        } else if (mUserType.equals("old_user")) {
+            mEmailAddress = mPhoneNumber + "@mail.com";
             mPassword = etPass.getText().toString();
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+mEmailAddress+"   "+mPassword);
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + mEmailAddress + "   " + mPassword);
 
             //Toast.makeText(this, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+mEmailAddress+"   "+mPassword, Toast.LENGTH_SHORT).show();
 
@@ -154,8 +150,8 @@ public class PasswordActivity extends AppCompatActivity {
 
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Password Activity", "createUserWithEmail:success");
-                        Log.d("Password Activity", "Email :"+mEmailAddress);
-                        Log.d("Password Activity", "Password :"+etPass.getText().toString());
+                        Log.d("Password Activity", "Email :" + mEmailAddress);
+                        Log.d("Password Activity", "Password :" + etPass.getText().toString());
                         //FirebaseUser user = mAuth.getCurrentUser();
                         Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
                         startActivity(intent);

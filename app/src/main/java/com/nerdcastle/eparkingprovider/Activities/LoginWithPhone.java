@@ -88,7 +88,7 @@ public class LoginWithPhone extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_with_phone);
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -277,7 +277,7 @@ public class LoginWithPhone extends AppCompatActivity {
         String mobile = etPhoneNo.getText().toString().trim();
 
 
-        if(mobile.isEmpty() || mobile.length() < 11){
+        if (mobile.isEmpty() || mobile.length() < 11) {
             etPhoneNo.setError("Enter a valid mobile");
             etPhoneNo.requestFocus();
             return;
@@ -288,23 +288,21 @@ public class LoginWithPhone extends AppCompatActivity {
         getAllConsumer();
 
 
-
         etPhoneNo.setCursorVisible(false);
         rootFrame.setAlpha(0.4f);
         fabProgressCircle.show();
 
 
-
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                /*Intent intent = new Intent(LoginWithPhone.this, PasswordActivity.class);
+                *//*Intent intent = new Intent(LoginWithPhone.this, PasswordActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
-                startActivity(intent, options.toBundle());*/
+                startActivity(intent, options.toBundle());*//*
 
             }
-        }, 1000);
+        }, 1000);*/
     }
 
     @OnClick(R.id.ivback)
@@ -313,27 +311,23 @@ public class LoginWithPhone extends AppCompatActivity {
     }
 
 
-
-    public void getAllConsumer()
-    {
+    public void getAllConsumer() {
 
         status = false;
         mFirebaseRefConsumer.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot data:dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Consumer consumer = data.getValue(Consumer.class);
                     System.out.println(consumer);
                     consumerList.add(consumer);
 
-                    if (consumer != null && consumer.getmPhone() != null)
-                    {
-                        if (consumer.getmPhone().contains(phoneNumber) || consumer.getmPhone().equals("+88"+phoneNumber) )
-                        {
+                    if (consumer != null && consumer.getmPhone() != null) {
+                        if (consumer.getmPhone().contains(phoneNumber) || consumer.getmPhone().equals("+88" + phoneNumber)) {
                             isConsumer = true;
                             etPhoneNo.setText("");
-                            showInternetDialogBox ();
+                            showInternetDialogBox();
 
                             etPhoneNo.setCursorVisible(true);
                             rootFrame.setAlpha(1.0f);
@@ -343,11 +337,9 @@ public class LoginWithPhone extends AppCompatActivity {
                     }
                 }
 
-                if (isConsumer == false)
-                {
+                if (isConsumer == false) {
                     getAllProvider();
                 }
-
 
 
             }
@@ -360,24 +352,20 @@ public class LoginWithPhone extends AppCompatActivity {
     }
 
 
-
-    public void getAllProvider()
-    {
+    public void getAllProvider() {
 
         status = false;
         mFirebaseRefProvider.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot data:dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Provider provider = data.getValue(Provider.class);
                     System.out.println(provider);
                     providerList.add(provider);
 
-                    if (provider != null || provider.getmPhone() != null)
-                    {
-                        if (provider.getmPhone().contains(phoneNumber) || provider.getmPhone().equals("+88"+phoneNumber) )
-                        {
+                    if (provider != null || provider.getmPhone() != null) {
+                        if (provider.getmPhone().contains(phoneNumber) || provider.getmPhone().equals("+88" + phoneNumber)) {
                             //Toast.makeText(LoginWithPhone.this, "Match Found", Toast.LENGTH_SHORT).show();
                             status = true;
                             break;
@@ -385,20 +373,17 @@ public class LoginWithPhone extends AppCompatActivity {
                     }
                 }
 
-                if (status)
-                {
+                if (status) {
                     Intent intent = new Intent(LoginWithPhone.this, PasswordActivity.class);
-                    intent.putExtra("user","old_user");
-                    intent.putExtra("mobile",phoneNumber);
+                    intent.putExtra("user", "old_user");
+                    intent.putExtra("mobile", phoneNumber);
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
                     startActivity(intent, options.toBundle());
-                }else
-                {
+                } else {
                     Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
                     intent.putExtra("mobile", phoneNumber);
                     startActivity(intent);
                 }
-
 
 
             }
@@ -411,9 +396,7 @@ public class LoginWithPhone extends AppCompatActivity {
     }
 
 
-
-    public void showInternetDialogBox ()
-    {
+    public void showInternetDialogBox() {
         mUserAlertDialog = new Dialog(this);
         mUserAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mUserAlertDialog.setContentView(R.layout.dialog_alert);
@@ -430,9 +413,6 @@ public class LoginWithPhone extends AppCompatActivity {
         });
         mUserAlertDialog.show();
     }
-
-
-
 
 
 }

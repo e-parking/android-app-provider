@@ -13,8 +13,8 @@
             android:id="@+id/ivUberLogo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/eparking_logo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/parking_logo"
             tools:ignore="Suspicious0dp" />
 
         <LinearLayout
