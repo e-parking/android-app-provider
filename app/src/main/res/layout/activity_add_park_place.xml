@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AllActivities.AddParkPlaceActivity">
-
-
-
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/mFabBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="bottom|left"
-        android:src="@drawable/ic_back_button" />-->
-
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,9 +24,9 @@
                     android:id="@+id/mParkingPlacePhoto"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:padding="5dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@null"
+                    android:padding="5dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_add_picture" />
 
@@ -50,9 +35,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:text="Name Goes Here"
-                    />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/mContactNumber"
@@ -60,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Contact Number"
-                    />
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -68,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <EditText
@@ -83,8 +68,8 @@
                     android:id="@+id/mProviderAddressET"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:gravity="center|bottom"
                     android:hint="Address manually" />
 
             </LinearLayout>
@@ -93,50 +78,48 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:text="Rate Per Hour: "
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="Rate Per Hour: "/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/mProviderRateET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:hint="Amount In TK" />
+                android:hint="Amount In TK"
+                android:inputType="numberDecimal" />
 
         </LinearLayout>
-
-
-
 
 
         <LinearLayout
             android:id="@+id/mVehicleTypeSectionLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:text="Vehicle Type: "
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="Vehicle Type: "/>
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -149,20 +132,14 @@
                     android:id="@+id/radioCar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Car"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:text="Car" />
 
                 <RadioButton
                     android:id="@+id/radioBike"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Bike" />
-
-                <RadioButton
-                    android:id="@+id/radioCycle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Bicycle" />
 
             </RadioGroup>
 
@@ -178,18 +155,16 @@
             <FrameLayout
                 android:id="@+id/fragmentContainerOnAddPark"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                >
+                android:layout_height="150dp">
 
             </FrameLayout>
-
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/mHouseNoET"
@@ -204,8 +179,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="Road No" />
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -250,13 +223,6 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
-
-
 </RelativeLayout>

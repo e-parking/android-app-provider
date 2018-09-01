@@ -18,8 +18,8 @@
             android:title="Payments" />
         <item
             android:id="@+id/nav_addParkPlace"
-            android:icon="@drawable/ic_add_park_place"
-            android:title="Add Parking Place" />
+            android:icon="@drawable/parking_icon"
+            android:title="My Parking Places" />
     </group>
 
     <item android:title="Communicate">

@@ -268,7 +268,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 mRadioButton = findViewById(checkedId);
                 mParkingType = mRadioButton.getText().toString();
-                Toast.makeText(AddParkPlaceActivity.this, "You Selected " + mRadioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -358,7 +357,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         }
     }
 
-
     private void getDeviceCurrentLocation() {
         if (checkLocationPermission()) {
             client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -378,7 +376,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         }
     }
 
-
     public void addParkPlaceToFirebase() {
         if (mParkPlaceTitle.isEmpty()) {
             mPlaceTitle.setError("Give a title in order to identify.");
@@ -396,7 +393,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
             //mProviderRatePerHour = mProviderRateET.getText().toString();
             mParkPlaceTitle = mPlaceTitle.getText().toString();
             mParkPlaceID = mFirebaseRefParkPlace.push().getKey();
-            createNewParkPlace(new ParkPlace(mProviderID, mParkPlaceID, mParkPlaceTitle, mParkingType, "true", "null", mProviderRatePerHour, mProviderAddress, mSelectedLatitude, mSelectedLongitude, "false", mParkPlaceHouseNo, mParkPlaceRoadNo, mParkPlaceCityName, mParkPlaceAreaName, mParkPlacePhotoUrl));
+            createNewParkPlace(new ParkPlace(mProviderID, mParkPlaceID, mParkPlaceTitle, mParkingType, "true", mParkingType, mProviderRatePerHour, mProviderAddress, mSelectedLatitude, mSelectedLongitude, "false", mParkPlaceHouseNo, mParkPlaceRoadNo, mParkPlaceCityName, mParkPlaceAreaName, mParkPlacePhotoUrl));
         }
     }
 
@@ -435,7 +432,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         });
     }
 
-
     //--------------------------- Location Picker ---------------------
     private void startPlacePickerActivity() {
 
@@ -460,16 +456,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mParkPlacePhotoUrl = encodeToBase64(imageBitmap, Bitmap.CompressFormat.JPEG, 50);
             mParkingPlacePhoto.setImageBitmap(imageBitmap);
-        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-
-            Uri uri = data.getData();
-            if (uri != null) {
-                addProfilePictureToFirebase(uri);
-            } else {
-                Toast.makeText(this, "No image found", Toast.LENGTH_SHORT).show();
-            }
-            //addProfilePictureToFirebase(picUri);
-
         } else if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);
         } else if (requestCode == IMG4_REQUEST && resultCode == RESULT_OK && data != null) {
@@ -702,8 +688,6 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 dispatchTakePictureIntent();
                 mImagePickerDialog.dismiss();
             }

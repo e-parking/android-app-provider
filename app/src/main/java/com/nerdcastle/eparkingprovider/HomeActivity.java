@@ -281,7 +281,7 @@ public class HomeActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_payments) {
             goToPayment();
         } else if (id == R.id.nav_addParkPlace) {
-            startActivity(new Intent(HomeActivity.this, AddParkPlaceActivity.class));
+            goToAddPark();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
