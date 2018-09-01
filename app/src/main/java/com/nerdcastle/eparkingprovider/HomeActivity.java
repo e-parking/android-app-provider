@@ -57,6 +57,7 @@ import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.Fragment.AddParkPlaceFragment;
 import com.nerdcastle.eparkingprovider.Fragment.GarageRegistrationFragment;
 import com.nerdcastle.eparkingprovider.Fragment.MainFragment;
+import com.nerdcastle.eparkingprovider.Fragment.MyParkingPlacesFragment;
 import com.nerdcastle.eparkingprovider.Fragment.NotificationFragment;
 import com.nerdcastle.eparkingprovider.Fragment.PaymentFragment;
 import com.squareup.picasso.Picasso;
@@ -71,7 +72,8 @@ public class HomeActivity extends AppCompatActivity implements
         , MainFragment.MainFragmentInterface
         , PaymentFragment.PaymentFragmentInterface
         , AddParkPlaceFragment.AddParkPlaceFragmentInterface
-        , NotificationFragment.NotificationFragmentInterface {
+        , NotificationFragment.NotificationFragmentInterface
+        , MyParkingPlacesFragment.MainFragmentInterface {
 
 
     private FragmentManager fm;
@@ -281,7 +283,8 @@ public class HomeActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_payments) {
             goToPayment();
         } else if (id == R.id.nav_addParkPlace) {
-            goToAddPark();
+            //goToAddPark();
+            goToMyParkingPlace();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
@@ -358,6 +361,15 @@ public class HomeActivity extends AppCompatActivity implements
         MainFragment mainFragment = new MainFragment();
         ft.replace(R.id.fragmentContainer, mainFragment);
         ft.addToBackStack("goToMain");
+        ft.commit();
+    }
+
+    @Override
+    public void goToMyParkingPlace() {
+        ft = fm.beginTransaction();
+        MyParkingPlacesFragment myParkingPlacesFragment = new MyParkingPlacesFragment();
+        ft.replace(R.id.fragmentContainer, myParkingPlacesFragment);
+        ft.addToBackStack("goToMyPlace");
         ft.commit();
     }
 
@@ -612,9 +624,6 @@ public class HomeActivity extends AppCompatActivity implements
             TempHolder.mParkPlaceID = "";
         }
     }
-
-
-    //-----------------------------------------------------------------
 
 
 }

@@ -91,8 +91,6 @@ import static android.content.ContentValues.TAG;
 public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback {
 
     private DatabaseReference mFirebaseRefParkPlace;
-    private DatabaseReference mFirebaseDatabaseForMoment;
-    private DatabaseReference mFirebaseRefParkPlaceInfo;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private StorageReference mStorage;
