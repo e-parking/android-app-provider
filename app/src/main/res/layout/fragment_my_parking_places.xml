@@ -7,10 +7,14 @@
 
     <!-- TODO: Update blank fragment layout -->
     <Button
+        android:layout_margin="10dp"
         android:id="@+id/addPlaceBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add New Parking Place"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/josefinsans_regular"
+        android:textColor="@color/white"
         android:textAllCaps="false" />
 
 

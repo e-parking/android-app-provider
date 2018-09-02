@@ -20,9 +20,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:text="@string/enter_no"
-            android:textColor="#262626"
             android:textColorHint="#DADBDF"
             android:textSize="18sp"
+            android:fontFamily="@font/josefinsans_bold"
             android:transitionName="@string/transition_tvPhoneNo" />
 
 
@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="+88"
-                android:textColor="#0E0E0E"
                 android:textSize="18sp"
+                android:fontFamily="@font/josefinsans_regular"
                 android:transitionName="@string/transition_tvCode" />
 
             <EditText
@@ -65,6 +65,7 @@
                 android:hint="@string/phone_hint"
                 android:inputType="phone"
                 android:textColorHint="#DADBDF"
+                android:fontFamily="@font/josefinsans_regular"
                 android:textSize="18sp" />
 
             <!--android:text="01789116882"-->

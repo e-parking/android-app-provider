@@ -22,6 +22,7 @@
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
             android:padding="10dp"
+            android:tint="@color/white"
             android:scaleType="fitCenter"
             android:src="@drawable/parking_icon" />
 
@@ -47,8 +48,8 @@
                     android:maxLines="2"
                     android:singleLine="false"
                     android:text="Park Place Status"
-                    android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/josefinsans_regular"
                     android:textStyle="bold" />
             </LinearLayout>

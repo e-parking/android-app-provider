@@ -17,11 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_weight="30"
+            android:fontFamily="@font/josefinsans_regular"
             android:textColor="@color/white"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:background="@color/DialogPrimaryColor"/>
+            android:background="@color/colorAccent"/>
 
 
 
@@ -66,6 +67,7 @@
                 android:layout_weight="1"
                 android:textSize="20dp"
                 android:gravity="center"
+                android:fontFamily="@font/josefinsans_regular"
                 android:text="Aqib Mehedi"/>
 
             <TextView
@@ -74,6 +76,7 @@
                 android:layout_weight="1"
                 android:textSize="30dp"
                 android:gravity="center"
+                android:fontFamily="@font/josefinsans_regular"
                 android:textColor="@color/green"
                 android:text="Congratulation!"/>
 
@@ -88,6 +91,7 @@
                     android:layout_height="match_parent"
                     android:textSize="20dp"
                     android:gravity="center"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:text="The fare is "/>
 
                 <TextView
@@ -98,6 +102,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/green"
                     android:gravity="center"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:text="120"/>
 
                 <TextView
@@ -105,6 +110,7 @@
                     android:layout_height="match_parent"
                     android:textSize="20dp"
                     android:gravity="center"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:text=" Taka"/>
 
 
@@ -117,7 +123,8 @@
                 android:layout_margin="5dp"
                 android:text="FINISH"
                 android:textStyle="bold"
-                android:background="@color/DialogPrimaryColor"
+                android:fontFamily="@font/josefinsans_regular"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_weight="1"/>
 

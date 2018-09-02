@@ -32,7 +32,7 @@
                 android:layout_marginBottom="20dp"
                 android:paddingLeft="20dp"
                 android:text="@string/get_moving"
-                android:textColor="#262626"
+                android:fontFamily="@font/josefinsans_bold"
                 android:textSize="24sp" />
 
 
@@ -62,8 +62,8 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:text="+88"
-                    android:textColor="#0E0E0E"
                     android:textSize="16sp"
+                    android:fontFamily="@font/josefinsans_bold"
                     android:transitionName="@string/transition_tvCode" />
 
                 <TextView
@@ -74,6 +74,7 @@
                     android:hint="@string/phone_hint"
                     android:textColorHint="#DADBDF"
                     android:textSize="20sp"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:transitionName="@string/transition_tvPhoneNo" />
 
             </LinearLayout>

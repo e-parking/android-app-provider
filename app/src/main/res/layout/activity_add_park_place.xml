@@ -37,6 +37,8 @@
                     android:gravity="center"
                     android:text="Name Goes Here"
                     android:textStyle="bold"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
 
                 <TextView
@@ -45,6 +47,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Contact Number"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -62,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:hint="Place Title" />
 
                 <EditText
@@ -70,6 +75,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:gravity="center|bottom"
+                    android:fontFamily="@font/josefinsans_regular"
                     android:hint="Address manually" />
 
             </LinearLayout>
@@ -91,6 +97,8 @@
                 android:gravity="center_vertical"
                 android:text="Rate Per Hour: "
                 android:textSize="18dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <EditText
@@ -100,6 +108,8 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:hint="Amount In TK"
+                android:fontFamily="@font/josefinsans_regular"
+                android:textColor="@color/white"
                 android:inputType="numberDecimal" />
 
         </LinearLayout>
@@ -119,6 +129,7 @@
                 android:gravity="center_vertical"
                 android:text="Vehicle Type: "
                 android:textSize="18dp"
+                android:fontFamily="@font/josefinsans_bold"
                 android:textStyle="bold" />
 
             <RadioGroup
@@ -133,12 +144,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:checked="true"
+                    android:fontFamily="@font/josefinsans_bold"
                     android:text="Car" />
 
                 <RadioButton
                     android:id="@+id/radioBike"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/josefinsans_bold"
                     android:text="Bike" />
 
             </RadioGroup>
@@ -219,6 +232,7 @@
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="Add Parking Place"
+                android:fontFamily="@font/josefinsans_regular"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:textStyle="bold" />
