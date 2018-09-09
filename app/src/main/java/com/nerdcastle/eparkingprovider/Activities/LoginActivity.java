@@ -1,23 +1,12 @@
 package com.nerdcastle.eparkingprovider.Activities;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.ChangeBounds;
-import android.transition.Transition;
-import android.util.DisplayMetrics;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -25,37 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nerdcastle.eparkingprovider.HomeActivity;
 import com.nerdcastle.eparkingprovider.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
-
-
-    @BindView(R.id.llphone)
-    LinearLayout llphone;
-
-    @BindView(R.id.ivUberLogo)
-    ImageView uber;
-
-    @BindView(R.id.tvMoving)
-    TextView tvMoving;
-
-    @BindView(R.id.tvPhoneNo)
-    TextView tvPhoneNo;
-
-    @BindView(R.id.llInfo)
-    LinearLayout llInfo;
-
-    @BindView(R.id.ivFlag)
-    ImageView ivFlag;
-
-    @BindView(R.id.tvCode)
-    TextView tvCode;
-
-    @BindView(R.id.ivback)
-    ImageView ivBack;
-
 
     //Firebase Section
     private FirebaseAuth mAuth;
@@ -63,33 +23,45 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseInstance;
 
 
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+        linearLayout=findViewById(R.id.info_id);
 
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            finish();
+            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
 
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginActivity.this, LoginWithPhone.class);
+                startActivity(intent);
+            }
+        });
 
+
+        //ButterKnife.bind(this);
+
+/*
         setupWindowAnimations();
-        ButterKnife.bind(this);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         uber.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (0.65 * height)));
-        ivBack.setImageAlpha(0);
+        ivBack.setImageAlpha(0);*/
 
     }
 
-    private void setupWindowAnimations() {
+   /* private void setupWindowAnimations() {
 
         ChangeBounds exitTransition = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -192,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4, p5);
         startActivity(intent, options.toBundle());
-    }
+    }*/
 
 
 }

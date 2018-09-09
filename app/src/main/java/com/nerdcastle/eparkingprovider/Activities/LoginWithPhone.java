@@ -98,11 +98,11 @@ public class LoginWithPhone extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        setupWindowAnimations();
+        //setupWindowAnimations();
 
     }
 
-    private void setupWindowAnimations() {
+   /* private void setupWindowAnimations() {
 
         ChangeBounds enterTransition = new ChangeBounds();
         enterTransition.setDuration(1000);
@@ -267,7 +267,7 @@ public class LoginWithPhone extends AppCompatActivity {
         public void onTransitionResume(Transition transition) {
 
         }
-    };
+    };*/
 
 
     @OnClick(R.id.fabProgressCircle)
@@ -307,7 +307,7 @@ public class LoginWithPhone extends AppCompatActivity {
 
     @OnClick(R.id.ivback)
     void startReturnTransition() {
-        super.onBackPressed();
+        this.finish();
     }
 
 
@@ -380,7 +380,9 @@ public class LoginWithPhone extends AppCompatActivity {
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
                     startActivity(intent, options.toBundle());
                 } else {
-                    Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
+
+                    Intent intent=new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("mobile", phoneNumber);
                     startActivity(intent);
                 }

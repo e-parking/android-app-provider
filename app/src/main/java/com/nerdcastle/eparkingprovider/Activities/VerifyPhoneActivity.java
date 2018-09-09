@@ -162,6 +162,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
 
                             Intent intent = new Intent(VerifyPhoneActivity.this, PasswordActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("mobile",mPhoneNumber);
                             intent.putExtra("user","new_user");
                             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(VerifyPhoneActivity.this);

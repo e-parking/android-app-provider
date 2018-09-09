@@ -85,7 +85,7 @@ public class PasswordActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Slide enterSlide = new Slide(RIGHT);
+       /* Slide enterSlide = new Slide(RIGHT);
         enterSlide.setDuration(700);
         enterSlide.addTarget(R.id.llphone);
         enterSlide.setInterpolator(new DecelerateInterpolator(2));
@@ -95,7 +95,7 @@ public class PasswordActivity extends AppCompatActivity {
         returnSlide.setDuration(700);
         returnSlide.addTarget(R.id.llphone);
         returnSlide.setInterpolator(new DecelerateInterpolator());
-        getWindow().setReturnTransition(returnSlide);
+        getWindow().setReturnTransition(returnSlide);*/
 
 
     }
@@ -126,6 +126,7 @@ public class PasswordActivity extends AppCompatActivity {
 
                             fabProgressCircle.hide();
                             Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
                         }
@@ -154,6 +155,7 @@ public class PasswordActivity extends AppCompatActivity {
                         Log.d("Password Activity", "Password :" + etPass.getText().toString());
                         //FirebaseUser user = mAuth.getCurrentUser();
                         Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
 
@@ -170,6 +172,6 @@ public class PasswordActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivback)
     void back() {
-        onBackPressed();
+        this.finish();
     }
 }

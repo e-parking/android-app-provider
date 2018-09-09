@@ -12,18 +12,18 @@
         <ImageView
             android:id="@+id/ivUberLogo"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/parking_logo"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:src="@drawable/eparking_logo_png"
             tools:ignore="Suspicious0dp" />
 
         <LinearLayout
-            android:id="@+id/llphone"
+            android:id="@+id/phone"
+            android:layout_weight=".5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
-            android:orientation="vertical"
-            android:transitionName="@string/transition_llPhone">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvMoving"
@@ -37,7 +37,7 @@
 
 
             <LinearLayout
-                android:id="@+id/llInfo"
+                android:id="@+id/info_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -52,8 +52,7 @@
                     android:layout_height="35dp"
                     android:layout_marginEnd="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bd_flag"
-                    android:transitionName="@string/transition_ivFlag" />
+                    android:src="@drawable/bd_flag" />
 
                 <TextView
                     android:id="@+id/tvCode"
@@ -63,8 +62,7 @@
                     android:gravity="center"
                     android:text="+88"
                     android:textSize="16sp"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:transitionName="@string/transition_tvCode" />
+                    android:fontFamily="@font/josefinsans_bold"/>
 
                 <TextView
                     android:id="@+id/tvPhoneNo"
@@ -74,8 +72,7 @@
                     android:hint="@string/phone_hint"
                     android:textColorHint="#DADBDF"
                     android:textSize="20sp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:transitionName="@string/transition_tvPhoneNo" />
+                    android:fontFamily="@font/josefinsans_regular" />
 
             </LinearLayout>
 
@@ -92,13 +89,5 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ivback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:padding="15dp"
-        android:src="@drawable/ic_arrow_back"
-        android:transitionName="@string/transition_arrow" />
 
 </FrameLayout>

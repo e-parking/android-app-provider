@@ -10,8 +10,7 @@
         android:layout_height="match_parent"
         android:background="#fff"
         android:paddingTop="80dp"
-        android:orientation="vertical"
-        android:transitionName="@string/transition_llPhone">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvMoving"
@@ -22,9 +21,7 @@
             android:text="@string/enter_no"
             android:textColorHint="#DADBDF"
             android:textSize="18sp"
-            android:fontFamily="@font/josefinsans_bold"
-            android:transitionName="@string/transition_tvPhoneNo" />
-
+            android:fontFamily="@font/josefinsans_bold" />
 
         <LinearLayout
             android:id="@+id/llInfo"
@@ -43,7 +40,6 @@
                 android:layout_marginEnd="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bd_flag"
-                android:transitionName="@string/transition_ivFlag"
                 android:layout_marginRight="10dp" />
 
             <TextView
@@ -53,8 +49,7 @@
                 android:layout_marginRight="10dp"
                 android:text="+88"
                 android:textSize="18sp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:transitionName="@string/transition_tvCode" />
+                android:fontFamily="@font/josefinsans_regular" />
 
             <EditText
                 android:id="@+id/etPhoneNo"

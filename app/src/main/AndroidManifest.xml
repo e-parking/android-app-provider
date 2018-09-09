@@ -69,13 +69,16 @@
         <activity
             android:name=".Activities.LoginWithPhone"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activities.LoginActivity"/>
         <activity
             android:name=".Activities.PasswordActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.ReportActivity" />
-        <activity android:name=".Activities.VerifyPhoneActivity" />
+        <activity android:name=".Activities.VerifyPhoneActivity"
+            android:parentActivityName=".Activities.LoginActivity"/>
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
