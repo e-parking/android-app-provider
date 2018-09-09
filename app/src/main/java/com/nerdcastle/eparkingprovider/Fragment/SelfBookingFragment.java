@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +46,8 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
     private String placeId;
     private String bookId;
     private SelfBook selfBook;
-    private long fromTimeInMilis, toTimeInMilis, dateInmilis;
+    String formattedCurrentDate;
+    private long fromTimeInMilis, toTimeInMilis;
 
     public SelfBookingFragment() {
 
@@ -78,9 +80,9 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
         toTimeTV.setOnClickListener(this);
         saveBtn.setOnClickListener(this);
         dateTV.setOnClickListener(this);
-        Format formatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-        String date = formatter.format(new Date());
-        dateTV.setText(date);
+        Format formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        formattedCurrentDate = formatter.format(new Date());
+        dateTV.setText(formattedCurrentDate);
 
     }
 
@@ -88,9 +90,9 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.date:
+            /*case R.id.date:
                 selectDate();
-                break;
+                break;*/
             case R.id.fromTime:
                 selectFromTime(fromTimeTV);
                 break;
@@ -156,7 +158,7 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
         timePickerDialog.show();
     }
 
-    private void selectDate() {
+   /* private void selectDate() {
 
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -182,7 +184,7 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
                 }, year, month, day);
 
         datePickerDialog.show();
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -196,10 +198,11 @@ public class SelfBookingFragment extends Fragment implements View.OnClickListene
 
         databaseReference = FirebaseDatabase.getInstance().getReference("ProviderList/" + providerId + "/ParkPlaceList/" + placeId + "/SelfBookList");
         bookId = databaseReference.push().getKey();
-        databaseReference.child(bookId).setValue(new SelfBook(bookId, dateInmilis, fromTimeInMilis, toTimeInMilis)).addOnSuccessListener(new OnSuccessListener<Void>() {
+        databaseReference.child(bookId).setValue(new SelfBook(bookId, formattedCurrentDate, fromTimeInMilis, toTimeInMilis)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.e("Success", "onSuccess: ");
+                Toast.makeText(context, "Self Booking Successful", Toast.LENGTH_SHORT).show();
                 ft = fm.beginTransaction();
                 MyParkingPlacesFragment fragment = new MyParkingPlacesFragment();
                 ft.replace(R.id.fragmentContainer, fragment);

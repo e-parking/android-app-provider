@@ -19,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
+import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
 import com.nerdcastle.eparkingprovider.DataModel.Request;
+import com.nerdcastle.eparkingprovider.DataModel.Status;
 import com.nerdcastle.eparkingprovider.DataModel.StatusOfConsumer;
 import com.nerdcastle.eparkingprovider.DataModel.StatusOfProvider;
 import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
@@ -42,9 +44,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public static DatabaseReference mToPath;
     public static FirebaseAuth auth;
     public static ProgressDialog progressDialog;
-    public static List<Request> requestList;
+    public static List<ParkingRequest> requestList;
     public static List<ParkPlace> parkPlaceList = new ArrayList<>();
-    private Request model;
+    private ParkingRequest model;
     public static Context context;
     public static String mConsumerID;
     public static String mConsumerName;
@@ -55,13 +57,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public static String mParkPlaceID;
     public static String mRequestID;
 
-    public NotificationAdapter(List<Request> requestList, Context context) {
+    public NotificationAdapter(List<ParkingRequest> requestList, Context context) {
         this.requestList = requestList;
         this.context = context;
         mFirebaseInstance = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mProviderID = auth.getCurrentUser().getUid();
-        getAllParkingPlaces ();
+        //getAllParkingPlaces ();
     }
 
     public static class Viewholder extends RecyclerView.ViewHolder {
@@ -91,50 +93,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             mAcceptButton = (Button)itemView.findViewById(R.id.mAcceptButton);
 
 
-
+/*
             mIgnoreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    removeRequest(requestList.get(getAdapterPosition()).getmRequestID());
+
 
                 }
-            });
+            });*/
 
 
-            mAcceptButton.setOnClickListener(new View.OnClickListener() {
+           /* mAcceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    //Toast.makeText(context, "You Tapped. and the size "+parkPlaceList.size(), Toast.LENGTH_SHORT).show();
-                    for (ParkPlace mParkPlace: parkPlaceList)
-                    {
-                        if (!mParkPlace.getmParkedVehicle().equals("null") && TempHolder.mProvider !=null)
-                        {
-                            System.out.println("All Place is booked.");
-                            Toast.makeText(context, "All Place is booked.", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-
-                            mParkPlaceID =mParkPlace.getmParkPlaceID();
-                            mRequestID =  requestList.get(getAdapterPosition()).getmRequestID();
-
-                            mDatabaseParkPlacingRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/"+mParkPlaceID);
-                            mDatabaseParkPlacingRef.child("mParkedVehicle").setValue(mRequestID);
-                            mFromPath = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/Request/"+mRequestID);
-                            mToPath = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/"+mParkPlaceID+"/Request/"+mRequestID);
-
-                            parkTheCar(mFromPath,mToPath);
-                            removeRequest(requestList.get(getAdapterPosition()).getmRequestID());
-                            break;
-                        }
-                    }
-
 
                 }
-            });
-
+            });*/
 
         }
     }
@@ -143,7 +119,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.model_notification, parent, false);
-
         return new Viewholder(itemView);
     }
 
@@ -151,9 +126,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(Viewholder holder, int position) {
 
         model = requestList.get(position);
-        holder.mRequestSenderName.setText(model.getmRequstSenderName());
-        holder.mRequestSenderInfo.setText("wants to park a "+model.getmVehicleType()+" in your garage.");
+        holder.mRequestSenderName.setText(model.getmConsumerName());
+        holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
+        holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
         // 3. set the requestList to your Views here
+
+        holder.mIgnoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
+                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
+                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
+
+                parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED);
+                consumerRequestDB.child("mStatus").setValue(Status.REJECTED);
+                parkPlaceDB.child("mIsAvailable").setValue("true");
+
+            }
+        });
+
+        holder.mAcceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
+                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
+                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
+
+                parkPlaceRequestDB.child("mStatus").setValue(Status.ACCEPTED);
+                consumerRequestDB.child("mStatus").setValue(Status.ACCEPTED);
+                parkPlaceDB.child("mIsAvailable").setValue("false");
+
+            }
+        });
 
     }
 
@@ -167,7 +172,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
 
-    public static void getAllParkingPlaces ()
+  /*  public static void getAllParkingPlaces ()
     {
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mDatabaseParkPlaceRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList");
@@ -281,7 +286,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     }
 
-
+*/
 
 
 }

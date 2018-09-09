@@ -2,23 +2,23 @@ package com.nerdcastle.eparkingprovider.DataModel;
 
 public class SelfBook {
 
-    private long date;
+    private String date;
     private long startTime;
     private long endTime;
     private String selfBookId;
 
-    public SelfBook(String selfBookId, long date, long startTime, long endTime) {
+    public SelfBook(String selfBookId, String date, long startTime, long endTime) {
         this.selfBookId = selfBookId;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -10,15 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.nerdcastle.eparkingprovider.Adapters.NotificationAdapter;
+import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
+import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
 import com.nerdcastle.eparkingprovider.DataModel.Request;
+import com.nerdcastle.eparkingprovider.DataModel.Status;
 import com.nerdcastle.eparkingprovider.R;
 
 import java.util.ArrayList;
@@ -32,7 +37,7 @@ public class NotificationFragment extends Fragment {
 
     //---------------------------------------------------
     private NotificationAdapter notificationAdapter;
-    private List<Request> requestList = new ArrayList<>();
+    private List<ParkingRequest> requestList = new ArrayList<>();
     private RecyclerView mNotificationRecyclerView;
     private LinearLayoutManager llm;
 
@@ -42,6 +47,7 @@ public class NotificationFragment extends Fragment {
     private DatabaseReference mFirebaseRequestRef;
     private FirebaseDatabase mFirebaseInstance;
     private DatabaseReference mFirebaseDatabase;
+    String mProviderID;
 
     //---------------------------------------------------
     private TextView mInfoText;
@@ -63,7 +69,7 @@ public class NotificationFragment extends Fragment {
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-
+        mProviderID = auth.getCurrentUser().getUid();
 
         mNotificationRecyclerView = (RecyclerView) view.findViewById(R.id.mNotificationRecyclerView);
         llm = new LinearLayoutManager(view.getContext());
@@ -81,19 +87,42 @@ public class NotificationFragment extends Fragment {
 
     private void addRequestChangeListener() {
         // User requestList change listener
-        String mProviderID = auth.getCurrentUser().getUid();
+
         System.out.println(">>>>>>>>>>>>>> Provider ID >>>>>>>> "+mProviderID);
         mFirebaseInstance = FirebaseDatabase.getInstance();
-        mFirebaseRequestRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/Request");
-        mFirebaseRequestRef.addValueEventListener(new ValueEventListener() {
+        mFirebaseRequestRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList");
+        mFirebaseRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requestList.clear();
                 for(DataSnapshot data:dataSnapshot.getChildren()){
-                    Request request = data.getValue(Request.class);
-                    requestList.add(request);
+                    ParkPlace parkPlace = data.getValue(ParkPlace.class);
+                    DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
+                    Query query=requestDB.orderByChild("mStatus").equalTo(Status.PENDING);
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot data:dataSnapshot.getChildren()) {
+
+                                ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
+                                requestList.add(parkingRequest);
+                                //Toast.makeText(getActivity(), parkingRequest.getmStatus(), Toast.LENGTH_SHORT).show();
+
+                                setNotifactionRecyclerView ();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
                 }
-                setNotifactionRecyclerView ();
             }
 
             @Override
