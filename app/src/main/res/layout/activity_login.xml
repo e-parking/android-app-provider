@@ -12,14 +12,15 @@
         <ImageView
             android:id="@+id/ivUberLogo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:src="@drawable/eparking_logo_png"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:layout_weight=".35"
+            android:src="@drawable/parking_logo"
             tools:ignore="Suspicious0dp" />
 
         <LinearLayout
-            android:id="@+id/phone"
-            android:layout_weight=".5"
+            android:id="@+id/llphone"
+            android:layout_weight=".65"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
@@ -62,7 +63,7 @@
                     android:gravity="center"
                     android:text="+88"
                     android:textSize="16sp"
-                    android:fontFamily="@font/josefinsans_bold"/>
+                    android:fontFamily="@font/josefinsans_bold" />
 
                 <TextView
                     android:id="@+id/tvPhoneNo"
@@ -72,7 +73,7 @@
                     android:hint="@string/phone_hint"
                     android:textColorHint="#DADBDF"
                     android:textSize="20sp"
-                    android:fontFamily="@font/josefinsans_regular" />
+                    android:fontFamily="@font/josefinsans_regular"/>
 
             </LinearLayout>
 

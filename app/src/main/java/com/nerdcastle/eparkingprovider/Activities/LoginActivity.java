@@ -36,7 +36,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
             Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            this.finish();
         }
 
         linearLayout.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
 import android.util.Log;
@@ -43,7 +44,7 @@ public class PasswordActivity extends AppCompatActivity {
     FrameLayout rootFrame;
 
     @BindView(R.id.etPass)
-    EditText etPass;
+    TextInputEditText etPass;
 
 
     //Firebase Section
@@ -128,7 +129,7 @@ public class PasswordActivity extends AppCompatActivity {
                             Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
+                            PasswordActivity.this.finish();
                         }
                     }, 1000);
                 }
@@ -157,7 +158,7 @@ public class PasswordActivity extends AppCompatActivity {
                         Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        finish();
+                        PasswordActivity.this.finish();
 
                     } else {
                         // If sign in fails, display a message to the user.
