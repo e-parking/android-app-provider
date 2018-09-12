@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -18,17 +16,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -44,20 +39,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.DataModel.Process;
-import com.nerdcastle.eparkingprovider.DataModel.Provider;
 import com.nerdcastle.eparkingprovider.DataModel.Request;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfConsumer;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfProvider;
 import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.DataModel.TransactionHistory;
-import com.nerdcastle.eparkingprovider.Fragment.MainFragment;
 import com.nerdcastle.eparkingprovider.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.Viewholder> {

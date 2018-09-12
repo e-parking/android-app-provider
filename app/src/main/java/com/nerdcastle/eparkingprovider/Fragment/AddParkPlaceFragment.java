@@ -69,10 +69,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.nerdcastle.eparkingprovider.Activities.AddParkPlaceActivity;
 import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.R;
-import com.nerdcastle.eparkingprovider.UserPreferences;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -434,8 +432,8 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
                     mPlaceTitle.setText("");
 
                     ft = fm.beginTransaction();
-                    MainFragment mainFragment = new MainFragment();
-                    ft.replace(R.id.fragmentContainer, mainFragment);
+                    DashBoardFragment dashBoardFragment = new DashBoardFragment();
+                    ft.replace(R.id.fragmentContainer, dashBoardFragment);
                     ft.addToBackStack("goToMain");
                     ft.commit();
                 }

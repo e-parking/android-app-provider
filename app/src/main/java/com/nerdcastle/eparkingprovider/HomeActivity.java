@@ -16,7 +16,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -48,7 +47,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.nerdcastle.eparkingprovider.Activities.AddParkPlaceActivity;
 import com.nerdcastle.eparkingprovider.Activities.LoginActivity;
 import com.nerdcastle.eparkingprovider.Activities.SignUpActivity;
 import com.nerdcastle.eparkingprovider.DataModel.Provider;
@@ -56,20 +54,20 @@ import com.nerdcastle.eparkingprovider.DataModel.Request;
 import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.Fragment.AddParkPlaceFragment;
 import com.nerdcastle.eparkingprovider.Fragment.GarageRegistrationFragment;
+import com.nerdcastle.eparkingprovider.Fragment.DashBoardFragment;
 import com.nerdcastle.eparkingprovider.Fragment.MainFragment;
 import com.nerdcastle.eparkingprovider.Fragment.MyParkingPlacesFragment;
 import com.nerdcastle.eparkingprovider.Fragment.NotificationFragment;
 import com.nerdcastle.eparkingprovider.Fragment.PaymentFragment;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener
         , GarageRegistrationFragment.GarageRegistrationFragmentInterface
-        , MainFragment.MainFragmentInterface
+        , DashBoardFragment.MainFragmentInterface
+        ,MainFragment.MainFragmentInterface
         , PaymentFragment.PaymentFragmentInterface
         , AddParkPlaceFragment.AddParkPlaceFragmentInterface
         , NotificationFragment.NotificationFragmentInterface
@@ -277,7 +275,7 @@ public class HomeActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            goToMain();
+            goToDashBoard();
         } else if (id == R.id.nav_requests) {
             goToNotification();
         } else if (id == R.id.nav_payments) {
@@ -352,6 +350,15 @@ public class HomeActivity extends AppCompatActivity implements
         GarageRegistrationFragment garageRegistrationFragment = new GarageRegistrationFragment();
         ft.replace(R.id.fragmentContainer, garageRegistrationFragment);
         ft.addToBackStack("goToParkRegistration");
+        ft.commit();
+    }
+
+    @Override
+    public void goToDashBoard() {
+        ft = fm.beginTransaction();
+        DashBoardFragment dashBoardFragment = new DashBoardFragment();
+        ft.replace(R.id.fragmentContainer, dashBoardFragment);
+        ft.addToBackStack("goToDashBoard");
         ft.commit();
     }
 
@@ -624,6 +631,5 @@ public class HomeActivity extends AppCompatActivity implements
             TempHolder.mParkPlaceID = "";
         }
     }
-
 
 }

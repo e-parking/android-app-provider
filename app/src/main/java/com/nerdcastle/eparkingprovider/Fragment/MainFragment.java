@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
     private TextView mItemInfo;
 
     public interface  MainFragmentInterface {
-      public void goToMain ();
+        public void goToMain ();
 
     }
     public MainFragment() {

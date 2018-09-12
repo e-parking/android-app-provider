@@ -1,6 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="9dp"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:foreground="?selectableItemBackground">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/mSenderImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:src="@drawable/profile"
+                    android:scaleType="centerCrop"
+                    android:textColor="@color/red"
+                    android:text="60 TK"/>
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:paddingLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mRequestSenderName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:textColor="@color/white"
+                    android:text="Aqib Mehedi"/>
+
+                <TextView
+                    android:id="@+id/mRequestSenderInfo"
+                    android:gravity="left"
+                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:maxLines="2"
+                    android:lines="2"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="wants to park a car in your parking place."
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/mVehicleNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Vehicle Number: Cha-15642 DMC"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/phoneNumberTV"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:textColor="@color/white"
+                        android:gravity="left|center"
+                        android:text="017xxxxxxxx"/>
+                    <Button
+                        android:id="@+id/callButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_call_icon"
+                        android:backgroundTint="@color/white"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    android:gravity="right">
+
+                    <TextView
+                        android:id="@+id/durationTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:textColor="@color/white"
+                        android:text="00:00:00s"/>
+
+
+                    <Button
+                        android:id="@+id/mAcceptButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/green"
+                        android:text="Start"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
