@@ -393,7 +393,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
             //mProviderRatePerHour = mProviderRateET.getText().toString();
             mParkPlaceTitle = mPlaceTitle.getText().toString();
             mParkPlaceID = mFirebaseRefParkPlace.push().getKey();
-            createNewParkPlace(new ParkPlace(mProviderID, mParkPlaceID, mParkPlaceTitle, mParkingType, "true", mParkingType, mProviderRatePerHour, mProviderAddress, mSelectedLatitude, mSelectedLongitude, "false", mParkPlaceHouseNo, mParkPlaceRoadNo, mParkPlaceCityName, mParkPlaceAreaName, mParkPlacePhotoUrl));
+            createNewParkPlace(new ParkPlace(mProviderID, mParkPlaceID, mParkPlaceTitle, mParkingType, "true", mParkingType, mProviderRatePerHour, mProviderAddress, mSelectedLatitude, mSelectedLongitude, "false", mParkPlaceHouseNo, mParkPlaceRoadNo, mParkPlaceCityName, mParkPlaceAreaName, mParkPlacePhotoUrl,"true"));
         }
     }
 

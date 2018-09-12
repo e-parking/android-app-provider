@@ -138,7 +138,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
                 DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
 
-                parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED);
+                parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED,new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        Toast.makeText(context, Status.REJECTED+" Successfully !", Toast.LENGTH_LONG).show();
+                    }
+                });
                 consumerRequestDB.child("mStatus").setValue(Status.REJECTED);
                 parkPlaceDB.child("mIsAvailable").setValue("true");
 
@@ -153,9 +158,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
                 DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
 
-                parkPlaceRequestDB.child("mStatus").setValue(Status.ACCEPTED);
+                parkPlaceRequestDB.child("mStatus").setValue(Status.ACCEPTED, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        Toast.makeText(context, Status.ACCEPTED+" ! Please Check in your Dashboard", Toast.LENGTH_LONG).show();
+                    }
+                });
                 consumerRequestDB.child("mStatus").setValue(Status.ACCEPTED);
                 parkPlaceDB.child("mIsAvailable").setValue("false");
+
 
             }
         });

@@ -213,7 +213,7 @@
                 android:layout_margin="5dp"
                 android:background="@color/gps"
                 android:padding="10dp"
-                android:src="@drawable/ic_add_location_icon" />
+                android:src="@drawable/ic_map_picker" />
 
             <Button
                 android:id="@+id/mRegisterParkingPlace"

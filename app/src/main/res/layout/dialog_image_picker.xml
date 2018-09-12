@@ -43,7 +43,7 @@
                     android:id="@+id/mCameraImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_camera_icon"
+                    android:src="@drawable/ic_menu_camera"
                     android:layout_gravity="center"
                     android:padding="15dp"/>
 
@@ -68,7 +68,7 @@
                     android:id="@+id/mGalleryImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_gallery_icon"
+                    android:src="@drawable/ic_menu_gallery"
                     android:layout_gravity="center"
                     android:padding="15dp"/>
 
