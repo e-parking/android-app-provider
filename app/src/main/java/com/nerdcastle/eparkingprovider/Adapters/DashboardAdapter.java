@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,37 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
-import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
-import com.nerdcastle.eparkingprovider.DataModel.Request;
 import com.nerdcastle.eparkingprovider.DataModel.Status;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfConsumer;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfProvider;
-import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Viewholder> {
 
     public static FirebaseDatabase mFirebaseInstance;
-    public static DatabaseReference mDatabaseNotificationRef;
-    public static DatabaseReference mDatabaseParkPlaceRef;
-    public static DatabaseReference mDatabaseParkPlacingRef;
-
-    public static DatabaseReference mDatabaseConsumerStatus;
-    public static DatabaseReference mDatabaseProviderStatus;
-
-    public static DatabaseReference mFromPath;
-    public static DatabaseReference mToPath;
     public static FirebaseAuth auth;
     public static ProgressDialog progressDialog;
     public static List<ParkingRequest> requestList;
@@ -66,7 +46,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         mFirebaseInstance = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mProviderID = auth.getCurrentUser().getUid();
-        //getAllParkingPlaces ();
     }
 
     public static class Viewholder extends RecyclerView.ViewHolder {
@@ -123,16 +102,33 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         final long startTime=model.getmStartTime();
 
 
-        if (startTime!=0){
-            long currentTime=System.currentTimeMillis();
-            long timeDistance=currentTime-startTime;
+        if (model.getmStatus().equals(Status.STARTED))
+        {
+            if (startTime!=0){
+                holder.mDurationTV.setVisibility(View.VISIBLE);
+                long currentTime=System.currentTimeMillis();
+                long timeDistance=currentTime-startTime;
+                int hour= (int) (timeDistance/3600000);
+                timeDistance=timeDistance-(hour*3600000);
+                int min= (int) (timeDistance/60000);
+                timeDistance=timeDistance-(min*60000);
+                int sec= (int) (timeDistance/1000);
+                holder.mDurationTV.setText(hour+"h:"+min+"m:"+sec+"s ago");
+            }
+        }
+        else if (model.getmStatus().equals(Status.ENDED))
+        {
+            holder.mDurationTV.setVisibility(View.VISIBLE);
+            long endTime=model.getmEndTime();
+            long timeDistance=endTime-startTime;
             int hour= (int) (timeDistance/3600000);
             timeDistance=timeDistance-(hour*3600000);
             int min= (int) (timeDistance/60000);
             timeDistance=timeDistance-(min*60000);
             int sec= (int) (timeDistance/1000);
-            holder.mDurationTV.setText(hour+":"+min+":"+sec);
+            holder.mDurationTV.setText("Total- "+hour+"h:"+min+"m:"+sec+"s");
         }
+
 
 
 
@@ -141,6 +137,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         if (mStatus.equals(Status.STARTED))
         {
             holder.mStartButton.setText(Status.STARTED);
+            holder.mStartButton.setEnabled(false);
+        }
+        else if (mStatus.equals(Status.ENDED)){
+            holder.mStartButton.setText(Status.ENDED);
+            holder.mStartButton.setEnabled(false);
+        }
+        else if (mStatus.equals(Status.REJECTED)){
+            holder.mStartButton.setText(Status.REJECTED);
             holder.mStartButton.setEnabled(false);
         }
 

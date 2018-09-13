@@ -123,7 +123,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     @Override
-    public void onBindViewHolder(Viewholder holder, int position) {
+    public void onBindViewHolder(final Viewholder holder, int position) {
 
         model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
@@ -146,6 +146,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 });
                 consumerRequestDB.child("mStatus").setValue(Status.REJECTED);
                 parkPlaceDB.child("mIsAvailable").setValue("true");
+                holder.mAcceptButton.setEnabled(false);
+                holder.mIgnoreButton.setEnabled(false);
+                holder.mIgnoreButton.setText(Status.REJECTED);
 
             }
         });
@@ -166,6 +169,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 });
                 consumerRequestDB.child("mStatus").setValue(Status.ACCEPTED);
                 parkPlaceDB.child("mIsAvailable").setValue("false");
+
+                holder.mAcceptButton.setEnabled(false);
+                holder.mIgnoreButton.setEnabled(false);
+                holder.mAcceptButton.setText(Status.ACCEPTED);
 
 
             }

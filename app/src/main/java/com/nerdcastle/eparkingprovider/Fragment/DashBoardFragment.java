@@ -99,22 +99,24 @@ public class DashBoardFragment extends Fragment {
                     ParkPlace parkPlace = data.getValue(ParkPlace.class);
                     DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
 
+                    Query query=requestDB.orderByKey().limitToLast(4);
 
 
-                    requestDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot data:dataSnapshot.getChildren()) {
 
                                 ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
-                                if (parkingRequest.getmStatus().equals(Status.ACCEPTED) || parkingRequest.getmStatus().equals(Status.STARTED))
+                                if (parkingRequest.getmStatus().equals(Status.ACCEPTED)
+                                        || parkingRequest.getmStatus().equals(Status.STARTED)
+                                        || parkingRequest.getmStatus().equals(Status.ENDED)
+                                        || parkingRequest.getmStatus().equals(Status.REJECTED))
                                 {
                                     requestList.add(parkingRequest);
                                     //Toast.makeText(getActivity(), parkingRequest.getmStatus(), Toast.LENGTH_SHORT).show();
                                     setNotifactionRecyclerView ();
                                 }
-
-
                             }
                         }
 
