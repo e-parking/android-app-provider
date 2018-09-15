@@ -1,8 +1,14 @@
 package com.nerdcastle.eparkingprovider.Adapters;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,9 +80,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public me.zhanghai.android.materialratingbar.MaterialRatingBar mSenderRating;
         public TextView mRequestSenderName;
         public TextView mRequestSenderInfo;
-        public TextView mVehicleNumber;
+        public TextView mVehicleNumber,phoneNumberTv;
         public Button mIgnoreButton;
-        public Button mAcceptButton;
+        public Button mAcceptButton,callButton;
+
 
 
         public Viewholder(final View itemView) {
@@ -91,6 +98,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             mVehicleNumber = (TextView)itemView.findViewById(R.id.mVehicleNumber);
             mIgnoreButton = (Button)itemView.findViewById(R.id.mIgnoreButton);
             mAcceptButton = (Button)itemView.findViewById(R.id.mAcceptButton);
+            callButton=(Button)itemView.findViewById(R.id.callButton);
+            phoneNumberTv=(TextView)itemView.findViewById(R.id.phoneNumberTV);
 
 
 /*
@@ -129,7 +138,28 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.mRequestSenderName.setText(model.getmConsumerName());
         holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
+        holder.phoneNumberTv.setText(model.getmConsumerPhone());
         // 3. set the requestList to your Views here
+
+
+        holder.callButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(context, "You are calling "+model.getmConsumerPhone(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + model.getmConsumerPhone()));
+                        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 456);
+                            return;
+                        }
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            context.startActivity(intent);
+                        }
+                    }
+        });
+
+
 
         holder.mIgnoreButton.setOnClickListener(new View.OnClickListener() {
             @Override

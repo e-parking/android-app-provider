@@ -99,7 +99,7 @@ public class DashBoardFragment extends Fragment {
                     ParkPlace parkPlace = data.getValue(ParkPlace.class);
                     DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
 
-                    Query query=requestDB.orderByKey().limitToLast(4);
+                    Query query=requestDB.orderByKey().limitToLast(7);
 
 
                     query.addListenerForSingleValueEvent(new ValueEventListener() {

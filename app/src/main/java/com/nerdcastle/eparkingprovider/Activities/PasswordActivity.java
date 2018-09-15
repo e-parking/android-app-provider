@@ -105,70 +105,88 @@ public class PasswordActivity extends AppCompatActivity {
     @OnClick(R.id.fabProgressCircle)
     void nextActivity() {
 
-        fabProgressCircle.show();
-        if (mUserType.equals("new_user")) {
-            mAuth.getCurrentUser().updatePassword(etPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+        int length = etPass.getText().toString().length();
 
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    //Toast.makeText(PasswordActivity.this, "Password added successfully.", Toast.LENGTH_SHORT).show();
 
-                    etPass.setCursorVisible(false);
-                    rootFrame.setAlpha(0.4f);
+        if (length > 0) {
 
-                    mFirebaseDatabase.child(mAuth.getUid()).child("mPassword").setValue(etPass.getText().toString());
-                    InputMethodManager imm = (InputMethodManager) getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etPass.getWindowToken(), 0);
+            fabProgressCircle.show();
+            if (mUserType.equals("new_user")) {
+                mAuth.getCurrentUser().updatePassword(etPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //Toast.makeText(PasswordActivity.this, "Password added successfully.", Toast.LENGTH_SHORT).show();
 
-                            fabProgressCircle.hide();
+                        etPass.setCursorVisible(false);
+                        rootFrame.setAlpha(0.4f);
+
+                        if (etPass.getText().toString().length()<6)
+                        {
+                            Toast.makeText(PasswordActivity.this, "Minimum 6 Characters", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            mFirebaseDatabase.child(mAuth.getUid()).child("mPassword").setValue(etPass.getText().toString());
+                            InputMethodManager imm = (InputMethodManager) getSystemService(
+                                    Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(etPass.getWindowToken(), 0);
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    fabProgressCircle.hide();
+                                    Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    PasswordActivity.this.finish();
+                                }
+                            }, 1000);
+                        }
+
+
+                    }
+                });
+            } else if (mUserType.equals("old_user")) {
+                mEmailAddress = mPhoneNumber + "@mail.com";
+                mPassword = etPass.getText().toString();
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + mEmailAddress + "   " + mPassword);
+
+                //Toast.makeText(this, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+mEmailAddress+"   "+mPassword, Toast.LENGTH_SHORT).show();
+
+                mAuth.signInWithEmailAndPassword(mEmailAddress, mPassword).addOnCompleteListener(PasswordActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (task.isSuccessful()) {
+
+
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("Password Activity", "createUserWithEmail:success");
+                            Log.d("Password Activity", "Email :" + mEmailAddress);
+                            Log.d("Password Activity", "Password :" + etPass.getText().toString());
+                            //FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             PasswordActivity.this.finish();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("Password Activity", "createUserWithEmail:failure", task.getException());
+                            fabProgressCircle.hide();
+                            Toast.makeText(PasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
-                    }, 1000);
-                }
-            });
-        } else if (mUserType.equals("old_user")) {
-            mEmailAddress = mPhoneNumber + "@mail.com";
-            mPassword = etPass.getText().toString();
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + mEmailAddress + "   " + mPassword);
-
-            //Toast.makeText(this, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+mEmailAddress+"   "+mPassword, Toast.LENGTH_SHORT).show();
-
-            mAuth.signInWithEmailAndPassword(mEmailAddress, mPassword).addOnCompleteListener(PasswordActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (task.isSuccessful()) {
-
-
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("Password Activity", "createUserWithEmail:success");
-                        Log.d("Password Activity", "Email :" + mEmailAddress);
-                        Log.d("Password Activity", "Password :" + etPass.getText().toString());
-                        //FirebaseUser user = mAuth.getCurrentUser();
-                        Intent intent = new Intent(PasswordActivity.this, HomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        PasswordActivity.this.finish();
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("Password Activity", "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(PasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
-        }
+                });
+            }
 
+        }
+        else {
+            Toast.makeText(this, "Enter your password", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.ivback)

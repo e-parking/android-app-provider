@@ -366,7 +366,7 @@ public class LoginWithPhone extends AppCompatActivity {
 
                     if (provider != null && provider.getmPhone() != null) {
                         if (provider.getmPhone().contains(phoneNumber) || provider.getmPhone().equals("+88" + phoneNumber)){
-                            Toast.makeText(LoginWithPhone.this, "Match Found", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginWithPhone.this, "Match Found", Toast.LENGTH_SHORT).show();
                             status = true;
                             break;
                         }

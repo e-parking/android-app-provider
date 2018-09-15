@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,8 +53,32 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String mThisDate;
     String mPhoneNumber;
     String mEmail;
-
+    String mobile;
+    private int waitingTime=15;
+    private Handler handler = new Handler();
+    private TextView resendOTP,waitingTimeTV;
     String mProviderID;
+
+    private Runnable timedTask = new Runnable() {
+        @Override
+        public void run() {
+
+
+            if (waitingTime>0)
+            {
+                waitingTime--;
+                waitingTimeTV.setText("Wait "+String.valueOf(waitingTime)+" Seconds for Resend");
+            }
+
+            if (waitingTime<1)
+            {
+                resendOTP.setVisibility(View.VISIBLE);
+            }
+
+            handler.postDelayed(timedTask, 1000);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +92,31 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+        handler.post(timedTask);
+
         //initializing objects
         editTextCode = findViewById(R.id.editTextCode);
-
+        resendOTP=findViewById(R.id.resend_code_id);
+        waitingTimeTV=findViewById(R.id.textView_id);
 
         //getting mobile number from the previous activity
         //and sending the verification code to the number
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
+        mobile = intent.getStringExtra("mobile");
         mPhoneNumber = mobile;
         sendVerificationCode(mobile);
 
+
+
+        resendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sendVerificationCode(mobile);
+                resendOTP.setVisibility(View.GONE);
+                waitingTime=15;
+            }
+        });
 
         //if the automatic sms detection did not work, user can also enter the code manually
         //so adding a click listener to the button

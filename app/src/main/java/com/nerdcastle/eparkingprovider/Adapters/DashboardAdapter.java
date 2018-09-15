@@ -34,7 +34,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public static FirebaseAuth auth;
     public static ProgressDialog progressDialog;
     public static List<ParkingRequest> requestList;
-    private ParkingRequest model;
     public static Context context;
 
     public static String mProviderID;
@@ -88,20 +87,44 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     @Override
     public void onBindViewHolder(final Viewholder holder, int position) {
 
-        model = requestList.get(position);
+        final ParkingRequest model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
         holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
-        Picasso.get().load(model.getmConsumerPhotoUrl())
-                .placeholder(context.getResources().getDrawable(R.drawable.header_cover))
-                .error(context.getResources().getDrawable(R.drawable.header_cover))
-                .into(holder.mSenderImage);
-        holder.phoneNumberTV.setText(model.getmConsumerPhone());
+
+        if (model.getmConsumerPhotoUrl().isEmpty()){
+        }
+        else {
+            Picasso.get().load(model.getmConsumerPhotoUrl())
+                    .placeholder(context.getResources().getDrawable(R.drawable.header_cover))
+                    .error(context.getResources().getDrawable(R.drawable.header_cover))
+                    .into(holder.mSenderImage);
+        }
+
+        final String number=model.getmConsumerPhone().toString();
+
+        holder.phoneNumberTV.setText(number);
+
+        holder.callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "You are calling "+number, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + number));
+                if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 456);
+                    return;
+                }
+                if (intent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(intent);
+                }
+            }
+        });
+
 
 
         final long startTime=model.getmStartTime();
-
-
         if (model.getmStatus().equals(Status.STARTED))
         {
             if (startTime!=0){
@@ -148,6 +171,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             holder.mStartButton.setEnabled(false);
         }
 
+
         // 3. set the requestList to your Views here
 
 
@@ -179,22 +203,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             }
         });
 
-        holder.callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Toast.makeText(context, "You are calling "+model.getmConsumerPhone(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse("tel:" + model.getmConsumerPhone()));
-                if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 456);
-                    return;
-                }
-                if (intent.resolveActivity(context.getPackageManager()) != null) {
-                    context.startActivity(intent);
-                }
-            }
-        });
 
     }
 

@@ -131,10 +131,7 @@ public class HomeActivity extends AppCompatActivity implements
         if (!mInternetStatus) {
             showInternetDialogBox();
         } else {
-            //--------------------------------------------------------------------------------------
-            MainFragment mainFragment = new MainFragment();
-            ft.replace(R.id.fragmentContainer, mainFragment);
-            ft.commit();
+            goToMyParkingPlace();
         }
 
 
