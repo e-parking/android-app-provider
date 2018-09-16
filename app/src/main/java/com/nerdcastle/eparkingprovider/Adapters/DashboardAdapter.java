@@ -89,10 +89,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
         final ParkingRequest model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
-        holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
+        holder.mRequestSenderInfo.setText(model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
 
-        if (model.getmConsumerPhotoUrl().isEmpty()){
+        if (model.getmConsumerPhotoUrl().isEmpty())
+        {
         }
         else {
             Picasso.get().load(model.getmConsumerPhotoUrl())
@@ -136,7 +137,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                 int min= (int) (timeDistance/60000);
                 timeDistance=timeDistance-(min*60000);
                 int sec= (int) (timeDistance/1000);
-                holder.mDurationTV.setText(hour+"h:"+min+"m:"+sec+"s ago");
+                holder.mDurationTV.setText(hour+"h:"+min+"m"+" ago");
             }
         }
         else if (model.getmStatus().equals(Status.ENDED))
@@ -149,7 +150,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             int min= (int) (timeDistance/60000);
             timeDistance=timeDistance-(min*60000);
             int sec= (int) (timeDistance/1000);
-            holder.mDurationTV.setText("Total- "+hour+"h:"+min+"m:"+sec+"s");
+            holder.mDurationTV.setText(hour+"h:"+min+"m");
         }
 
 

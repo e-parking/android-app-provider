@@ -37,7 +37,7 @@
                     android:textSize="30dp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:src="@drawable/profile"
+                    android:src="@drawable/header_cover"
                     android:scaleType="centerCrop"
                     android:textColor="@color/red"
                     android:text="60 TK"/>
@@ -55,17 +55,34 @@
                 android:paddingLeft="10dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/mRequestSenderName"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:fontFamily="@font/roboto_condensed_bold"
-                    android:textColor="@color/white"
-                    android:text="Aqib Mehedi"/>
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/mRequestSenderName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:textColor="@color/white"
+                        android:text="Aqib Mehedi"/>
+
+                    <TextView
+                        android:id="@+id/durationTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:textColor="@color/white"
+                        android:text="00:00:00s"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/mRequestSenderInfo"
@@ -73,11 +90,9 @@
                     android:layout_height="fill_parent"
                     android:layout_width="match_parent"
                     android:maxLines="2"
-                    android:lines="2"
                     android:fontFamily="@font/roboto_condensed_regular"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="wants to park a car in your parking place."
                     />
 
                 <LinearLayout
@@ -126,18 +141,6 @@
                     android:orientation="horizontal"
                     android:layout_gravity="bottom"
                     android:gravity="right">
-
-                    <TextView
-                        android:id="@+id/durationTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="@font/roboto_condensed_bold"
-                        android:textColor="@color/white"
-                        android:text="00:00:00s"/>
 
                     <Button
                         android:id="@+id/mAcceptButton"

@@ -52,7 +52,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public static ProgressDialog progressDialog;
     public static List<ParkingRequest> requestList;
     public static List<ParkPlace> parkPlaceList = new ArrayList<>();
-    private ParkingRequest model;
     public static Context context;
     public static String mConsumerID;
     public static String mConsumerName;
@@ -102,25 +101,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             phoneNumberTv=(TextView)itemView.findViewById(R.id.phoneNumberTV);
 
 
-/*
-            mIgnoreButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-
-                }
-            });*/
-
-
-           /* mAcceptButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                }
-            });*/
-
         }
     }
 
@@ -134,7 +114,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(final Viewholder holder, int position) {
 
-        model = requestList.get(position);
+
+        final ParkingRequest model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
         holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
