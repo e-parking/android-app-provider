@@ -16,12 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Schedule of A1"
+        android:fontFamily="@font/roboto_regular"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
         android:gravity="center"
         android:textSize="25dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Day"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -45,6 +47,7 @@
             android:layout_weight="1"
             android:text="From"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"/>
@@ -54,6 +57,7 @@
             android:text="To"
             android:layout_weight="1"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="20dp"
             android:textSize="20dp"
             android:textStyle="bold"/>
@@ -62,6 +66,7 @@
             android:layout_height="wrap_content"
             android:text="For rent"
             android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"/>
@@ -87,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sat"
+            android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:textColor="@color/black"
@@ -99,6 +105,7 @@
             android:layout_weight="1"
             android:text="09.00 AM"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="16dp"/>
 
         <TextView
@@ -106,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="12.00 PM"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -140,6 +148,7 @@
             android:text="Sun"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
@@ -149,6 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="09.00 AM"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp"/>
 
@@ -157,6 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="12.00 PM"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -190,6 +201,7 @@
             android:layout_height="wrap_content"
             android:text="Mon"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -198,6 +210,7 @@
             android:id="@+id/monFromId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:text="09.00 AM"
             android:textColor="@color/black"
@@ -208,6 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="05.00 PM"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -241,6 +255,7 @@
             android:layout_height="wrap_content"
             android:text="Tue"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -251,6 +266,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="09.00 AM"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp"/>
 
@@ -259,6 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="05.00 PM"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -293,6 +310,7 @@
             android:layout_height="wrap_content"
             android:text="Wed"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -303,6 +321,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="09.00 AM"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp"/>
 
@@ -311,6 +330,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="05.00 PM"
+            android:fontFamily="@font/roboto_regular"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -344,6 +364,7 @@
             android:text="Thu"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
@@ -353,6 +374,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="09.00 AM"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp"/>
 
@@ -362,6 +384,7 @@
             android:layout_height="wrap_content"
             android:text="05.00 PM"
             android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
@@ -396,6 +419,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="16dp" />
 
         <TextView
@@ -404,6 +428,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="09.00 AM"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp"/>
 
@@ -413,6 +438,7 @@
             android:layout_height="wrap_content"
             android:text="05.00 PM"
             android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
