@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.AddScheduleActivity">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule of A1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Day"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="From"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="For rent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/black"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/satFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/satToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/satCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/sunFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/sunToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/sunCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mon"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/monFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/monToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="05.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/monCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tue"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tueFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/tueToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="05.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/tueCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wed"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/wesFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/wedToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="05.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/wedCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thu"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/thusFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/thuToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="05.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/thusCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/ash"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fri"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/friFromId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="09.00 AM"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/friToId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="05.00 PM"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/friCheckboxId"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
