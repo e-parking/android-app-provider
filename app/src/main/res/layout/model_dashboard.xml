@@ -68,7 +68,7 @@
                         android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
                         android:text="Aqib Mehedi"/>
 
@@ -106,7 +106,7 @@
                     android:id="@+id/mVehicleNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Vehicle Number: Cha-15642 DMC"
                     android:textColor="@color/white"/>
 
@@ -121,7 +121,7 @@
                         android:layout_weight="6"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
                         android:gravity="left|center"
                         android:text="017xxxxxxxx"/>
@@ -147,7 +147,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textAllCaps="false"
-                        android:fontFamily="@font/roboto_condensed_regular"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
                         android:backgroundTint="@color/green"
                         android:text="Start"/>

@@ -33,7 +33,7 @@
                 android:layout_marginBottom="20dp"
                 android:paddingLeft="20dp"
                 android:text="@string/get_moving"
-                android:fontFamily="@font/roboto_condensed_bold"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="24sp" />
 
 
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:hint="@string/phone_hint"
-                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColorHint="#DADBDF"
                     android:textSize="20sp"/>
 

@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Basic Parking Information."
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:textSize="20dp"
             android:background="@color/colorPrimary"
@@ -50,8 +51,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Parking Rate Per Hour: "/>
 
             <EditText
@@ -61,6 +63,7 @@
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/roboto_regular"
                 android:hint="Amount In TK" />
 
         </LinearLayout>
@@ -75,8 +78,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Vehicle Type: "/>
 
             <RadioGroup
@@ -90,18 +94,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Car"
+                    android:fontFamily="@font/roboto_regular"
                     android:checked="true" />
 
                 <RadioButton
                     android:id="@+id/radioBike"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Bike" />
 
                 <RadioButton
                     android:id="@+id/radioCycle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Bicycle" />
 
             </RadioGroup>
@@ -121,6 +128,7 @@
             android:background="@color/colorPrimary"
             android:textSize="18dp"
             android:textStyle="bold"
+            android:fontFamily="@font/roboto_regular"
             android:text="Add Parking Place"/>
 
     </LinearLayout>

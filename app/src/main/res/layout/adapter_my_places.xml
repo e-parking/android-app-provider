@@ -50,7 +50,7 @@
                     android:text="Park Place Status"
                     android:textSize="20dp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/josefinsans_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
