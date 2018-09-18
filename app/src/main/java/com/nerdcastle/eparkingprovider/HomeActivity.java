@@ -59,6 +59,7 @@ import com.nerdcastle.eparkingprovider.Fragment.MainFragment;
 import com.nerdcastle.eparkingprovider.Fragment.MyParkingPlacesFragment;
 import com.nerdcastle.eparkingprovider.Fragment.NotificationFragment;
 import com.nerdcastle.eparkingprovider.Fragment.PaymentFragment;
+import com.nerdcastle.eparkingprovider.Fragment.ScheduleFragment;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,10 +69,10 @@ public class HomeActivity extends AppCompatActivity implements
         , GarageRegistrationFragment.GarageRegistrationFragmentInterface
         , DashBoardFragment.MainFragmentInterface
         ,MainFragment.MainFragmentInterface
-        , PaymentFragment.PaymentFragmentInterface
-        , AddParkPlaceFragment.AddParkPlaceFragmentInterface
+        ,
+        AddParkPlaceFragment.AddParkPlaceFragmentInterface
         , NotificationFragment.NotificationFragmentInterface
-        , MyParkingPlacesFragment.MainFragmentInterface {
+        , MyParkingPlacesFragment.MainFragmentInterface, PaymentFragment.PaymentFragmentInterface,ScheduleFragment.ScheduleFragmentInterface {
 
 
     private FragmentManager fm;
@@ -280,7 +281,10 @@ public class HomeActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_addParkPlace) {
             //goToAddPark();
             goToMyParkingPlace();
-        } else if (id == R.id.nav_share) {
+        }else if(id==R.id.nav_schedule){
+            goToSchedule();
+        }
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
 
@@ -386,6 +390,14 @@ public class HomeActivity extends AppCompatActivity implements
         ft.commit();
     }
 
+    @Override
+    public void goToSchedule() {
+        ft = fm.beginTransaction();
+        ScheduleFragment scheduleFragment = new ScheduleFragment();
+        ft.replace(R.id.fragmentContainer, scheduleFragment);
+        ft.addToBackStack("goToSchedule");
+        ft.commit();
+    }
 
     public void setNotification(String title, String msg) {
 

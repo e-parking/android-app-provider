@@ -14,12 +14,17 @@
             android:title="Notifiactions" />
         <item
             android:id="@+id/nav_payments"
-            android:icon="@drawable/ic_list_icon"
+            android:icon="@drawable/payment"
             android:title="Payments" />
         <item
             android:id="@+id/nav_addParkPlace"
             android:icon="@drawable/parking_icon"
             android:title="My Parking Places" />
+
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_list_icon"
+            android:title="Add Schedule" />
     </group>
 
     <item android:title="Communicate">

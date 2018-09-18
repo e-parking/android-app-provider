@@ -76,7 +76,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="5dp"
                     android:layout_gravity="right"
-                    android:fontFamily="@font/josefinsans_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:src="@drawable/ic_vehicle_car"/>
 
                 <TextView
