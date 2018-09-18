@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Add New Parking Place"
         android:background="@color/colorPrimary"
-        android:fontFamily="@font/josefinsans_regular"
+        android:fontFamily="@font/roboto_regular"
         android:textColor="@color/white"
         android:textAllCaps="false" />
 
