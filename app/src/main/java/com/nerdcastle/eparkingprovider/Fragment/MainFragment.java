@@ -91,18 +91,12 @@ public class MainFragment extends Fragment {
                 "while we are preparing your app.", true);
 
 
-
         mRefreshParkPlaces.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getAllParkingPlaces();
             }
         });
-
-
-
-
-
         getAllParkingPlaces();
 
 

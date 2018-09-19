@@ -17,11 +17,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.nerdcastle.eparkingprovider.DataModel.Day;
+import com.nerdcastle.eparkingprovider.DataModel.Schedule;
 import com.nerdcastle.eparkingprovider.R;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class ScheduleFragment extends Fragment implements View.OnClickListener {
@@ -34,7 +46,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private int hour,minute;
     private long fromTimeInMilis;
     private Context context;
-
+    private DatabaseReference scheduleDB,addScheduleDB;
+    private FirebaseAuth mAuth;
+    private String UserId;
+    private String parkPlaceId;
+    private List<Schedule> scheduleList=new ArrayList<>();
+    private List<String> keyValueList=new ArrayList<>();
+    String[] day={Day.Satar,Day.Sun,Day.Mon,Day.Tues,Day.Wednes,Day.Thurs,Day.Fri};
 
 
     public interface ScheduleFragmentInterface {
@@ -44,18 +62,59 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-          init(view);
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        mAuth=FirebaseAuth.getInstance();
+        UserId=mAuth.getCurrentUser().getUid();
+        parkPlaceId="-LMC36go61uH4-9WglhG";
+        scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule");
+        scheduleDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    /*for (DataSnapshot data:dataSnapshot.getChildren()){
+                        Schedule schedule=data.getValue(Schedule.class);
+
+                        scheduleList.add(schedule);
+                        String key=data.getKey();
+                        keyValueList.add(key);
+
+                    }*/
+                }
+                else {
+                    //Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show();
+                    CreatNewSchedule();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        init(view);
 
         return view;
+    }
+    
+    private void CreatNewSchedule() {
+
+        HashMap<String,Object>addSchedule=new HashMap<>();
+
+        for (int i=0;i<=6;i++){
+            scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule/"+day[i]);
+            addSchedule.put("mDay","Sat");
+            addSchedule.put("mFromTime",62476999);
+            addSchedule.put("mToTime",62476999);
+            addSchedule.put("mStatus","false");
+
+            scheduleDB.setValue(addSchedule);
+        }
+
     }
 
     private void init(View view) {
