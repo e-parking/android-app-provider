@@ -282,7 +282,7 @@ public class HomeActivity extends AppCompatActivity implements
             //goToAddPark();
             goToMyParkingPlace();
         }else if(id==R.id.nav_schedule){
-            goToSchedule();
+            goToMain();
         }
         else if (id == R.id.nav_share) {
 

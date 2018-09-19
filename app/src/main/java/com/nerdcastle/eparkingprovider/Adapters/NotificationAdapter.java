@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,18 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
-import com.nerdcastle.eparkingprovider.DataModel.Request;
 import com.nerdcastle.eparkingprovider.DataModel.Status;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfConsumer;
-import com.nerdcastle.eparkingprovider.DataModel.StatusOfProvider;
-import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.R;
 
 import java.util.ArrayList;

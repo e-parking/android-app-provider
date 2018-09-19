@@ -4,6 +4,8 @@ package com.nerdcastle.eparkingprovider.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements ParkPlaceAdapter.PlaceClickListener {
 
 
     private SwipeRefreshLayout mRefreshParkPlaces;
@@ -49,6 +51,8 @@ public class MainFragment extends Fragment {
     private String mParkPlaceID;
     private String mProviderID;
     private TextView mItemInfo;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
     public interface  MainFragmentInterface {
         public void goToMain ();
@@ -60,6 +64,20 @@ public class MainFragment extends Fragment {
 
 
     @Override
+    public void onPlaceClicked(ParkPlace parkPlace) {
+
+        ft = fm.beginTransaction();
+        ScheduleFragment fragment = new ScheduleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("PlaceId", parkPlace.getmParkPlaceID());
+        bundle.putString("PlaceTitle", parkPlace.getmParkPlaceTitle());
+        fragment.setArguments(bundle);
+        ft.replace(R.id.fragmentContainer, fragment);
+        ft.addToBackStack("goToMain");
+        ft.commit();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -67,7 +85,7 @@ public class MainFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_main, container, false);
 
         mRefreshParkPlaces = view.findViewById(R.id.mRefreshParkPlaces);
-
+        fm = getActivity().getSupportFragmentManager();
         mAuth = FirebaseAuth.getInstance();
 
         userPreferences = new UserPreferences(getActivity());
@@ -124,7 +142,7 @@ public class MainFragment extends Fragment {
                 {
                     mItemInfo.setVisibility(View.VISIBLE);
                 }
-                mParkPlaceAdapter = new ParkPlaceAdapter(parkPlaceList,getActivity(),getActivity());
+                mParkPlaceAdapter = new ParkPlaceAdapter(parkPlaceList,getActivity(), getActivity(), MainFragment.this);
                 mEventRecyclerView.setAdapter(mParkPlaceAdapter);
                 mRefreshParkPlaces.setRefreshing(false);
                 //setMomentRecyclerView (momentList);

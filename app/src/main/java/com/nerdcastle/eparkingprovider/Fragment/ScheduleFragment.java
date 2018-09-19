@@ -44,9 +44,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private String satCheck,sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck;
     private TextView satToTV,sunToTV,monToTV,tueToTV,wedToTV,thuToTV,friToTV;
     private TextView satDayTV,sunDayTV,monDayTV,tueDayTV,wedDayTV,thuDayTV,friDayTV;
+    private TextView placeTitleTV;
     private CheckBox satCheckbox,sunCheckbox,monCheckbox,tueCheckbox,wedCheckbox,thuCheckbox,friCheckbox;
     private Button saveScheduleBtn;
     private int count=0;
+    private String PlaceTitle;
     private int hour,minute;
     private long fromTimeInMilis;
     private Context context;
@@ -73,7 +75,15 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
         mAuth=FirebaseAuth.getInstance();
         UserId=mAuth.getCurrentUser().getUid();
-        parkPlaceId="-LMC36go61uH4-9WglhG";
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            parkPlaceId = bundle.getString("PlaceId");
+            PlaceTitle = bundle.getString("PlaceTitle");
+        }
+
+
+
         count=0;
         scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule");
         scheduleDB.addValueEventListener(new ValueEventListener() {
@@ -174,6 +184,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
     private void init(View view) {
 
+
+        placeTitleTV=view.findViewById(R.id.placeTitleId);
         satDayTV = view.findViewById(R.id.satDay);
         sunDayTV = view.findViewById(R.id.sunDay);
         monDayTV = view.findViewById(R.id.monDay);
@@ -209,6 +221,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
         saveScheduleBtn = view.findViewById(R.id.saveSchedule);
 
+
         satFromTV.setOnClickListener(this);
         sunFromTV.setOnClickListener(this);
         monFromTV.setOnClickListener(this);
@@ -225,6 +238,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         thuToTV.setOnClickListener(this);
         friToTV.setOnClickListener(this);
         saveScheduleBtn.setOnClickListener(this);
+
+
+        if (!PlaceTitle.isEmpty()){
+            placeTitleTV.setText("Schedule of "+PlaceTitle);
+        }
     }
 
 
