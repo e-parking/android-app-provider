@@ -9,16 +9,16 @@ public class Schedule {
     private String mDay;
     private long mFromTime;
     private long mToTime;
-    private String mStatus;
+    private String mIsForRent;
 
     public Schedule() {
     }
 
-    public Schedule(String mDay, long mFromTime, long mToTime, String mStatus) {
+    public Schedule(String mDay, long mFromTime, long mToTime, String mIsForRent) {
         this.mDay = mDay;
         this.mFromTime = mFromTime;
         this.mToTime = mToTime;
-        this.mStatus = mStatus;
+        this.mIsForRent = mIsForRent;
     }
 
     public String getmDay() {
@@ -45,11 +45,11 @@ public class Schedule {
         this.mToTime = mToTime;
     }
 
-    public String getmStatus() {
-        return mStatus;
+    public String getmIsForRent() {
+        return mIsForRent;
     }
 
-    public void setmStatus(String mStatus) {
-        this.mStatus = mStatus;
+    public void setmIsForRent(String mIsForRent) {
+        this.mIsForRent = mIsForRent;
     }
 }
