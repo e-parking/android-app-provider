@@ -535,7 +535,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         }
         map.setMyLocationEnabled(true);
         mCurrentLocation = new LatLng(mLatitude, mLongitude);
-        map.addMarker(new MarkerOptions().position(mCurrentLocation).title("Selected Location").snippet(mProviderAddress).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon)));
+        map.addMarker(new MarkerOptions().position(mCurrentLocation).title("Selected Location").snippet(mProviderAddress).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 15));
 
     }

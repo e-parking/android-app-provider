@@ -233,6 +233,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
          hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
 
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(context,
                 new TimePickerDialog.OnTimeSetListener() {
 
@@ -243,8 +244,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         cal.set(Calendar.MINUTE, minute);
                         Format formatter = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
-                        textView.setText(formatter.format(cal.getTime()));
                         fromTimeInMilis = cal.getTimeInMillis();
+                        textView.setText(String.valueOf(fromTimeInMilis));
+                        //Toast.makeText(context, String.valueOf(hour), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(context, String.valueOf(minute), Toast.LENGTH_SHORT).show();
+
                         Log.e("Provider", "onTimeSet: ");
                     }
                 }, hour, minute, false);

@@ -180,7 +180,6 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     mParkPlaceRate = "";
                     if (!parkPlaceList.get(getAdapterPosition()).getmParkedVehicle().equals("null"))
                     {

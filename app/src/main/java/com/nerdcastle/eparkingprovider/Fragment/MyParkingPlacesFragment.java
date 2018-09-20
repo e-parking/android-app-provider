@@ -48,9 +48,15 @@ public class MyParkingPlacesFragment extends Fragment implements MyAllPlacesAdap
     public void onPlaceClicked(ParkPlace parkPlace) {
 
         ft = fm.beginTransaction();
-        SelfBookingFragment fragment = new SelfBookingFragment();
+        ParkPlaceInfoFragment fragment = new ParkPlaceInfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("PlaceId", parkPlace.getmParkPlaceID());
+        bundle.putString("PlaceTitle", parkPlace.getmParkPlaceTitle());
+        bundle.putString("PlaceAddress", parkPlace.getmAddress());
+        bundle.putString("PalceImage", parkPlace.getmParkPlacePhotoUrl());
+        bundle.putString("VehicleType", parkPlace.getmParkingType());
+        bundle.putString("Latitude",parkPlace.getmLatitude());
+        bundle.putString("Logitude",parkPlace.getmLongitude());
+
         fragment.setArguments(bundle);
         ft.replace(R.id.fragmentContainer, fragment);
         ft.addToBackStack("goToMain");
