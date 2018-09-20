@@ -266,7 +266,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if ((sunCheckbox.isChecked())){
                     selectTime(sunFromTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
             case R.id.monFromId:
@@ -294,14 +294,14 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if ((thuCheckbox.isChecked())){
                     selectTime(thuFromTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
             case R.id.friFromId:
                 if(friCheckbox.isChecked()){
                     selectTime(friFromTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
 
@@ -317,21 +317,21 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if(sunCheckbox.isChecked()){
                     selectTime(sunToTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
             case R.id.monToId:
                 if(monCheckbox.isChecked()){
                     selectTime(monToTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
             case R.id.tueToId:
                 if(tueCheckbox.isChecked()){
                     selectTime(tueToTV);
                 } else {
-                   ToastError();
+                    ToastError();
                 }
                 break;
             case R.id.wedToId:

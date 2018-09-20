@@ -284,9 +284,7 @@ public class HomeActivity extends AppCompatActivity implements
         }else if(id==R.id.nav_schedule){
             goToMain();
         }
-        else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_logout) {
+         else if (id == R.id.nav_logout) {
 
             signOut();
         }

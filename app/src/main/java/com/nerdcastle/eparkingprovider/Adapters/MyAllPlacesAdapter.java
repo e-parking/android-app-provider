@@ -163,7 +163,7 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
 
                         getParkedUserInfo(mParkPlaceID, mRequestID);
                     }*/
-                    listener.onPlaceClicked(parkPlaceList.get(getAdapterPosition()));
+                   listener.onPlaceClicked(parkPlaceList.get(getAdapterPosition()));
                 }
             });
         }
