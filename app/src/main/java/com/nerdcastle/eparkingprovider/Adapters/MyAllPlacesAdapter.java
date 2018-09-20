@@ -149,7 +149,6 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
             momentImageView = (ImageView) itemView.findViewById(R.id.momentImageView);
             momentTitle = (TextView) itemView.findViewById(R.id.mPlaceStatus);
 
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
