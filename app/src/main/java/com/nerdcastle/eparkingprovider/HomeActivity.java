@@ -62,6 +62,11 @@ import com.nerdcastle.eparkingprovider.Fragment.PaymentFragment;
 import com.nerdcastle.eparkingprovider.Fragment.ScheduleFragment;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements
@@ -83,6 +88,10 @@ public class HomeActivity extends AppCompatActivity implements
     private DatabaseReference mFirebaseLocationUpdate;
     private FirebaseDatabase mFirebaseInstance;
     private FirebaseUser mCurrentUser;
+
+
+
+
 
 
     //------------Custom Dialogs ---------
@@ -134,6 +143,9 @@ public class HomeActivity extends AppCompatActivity implements
         } else {
             goToMyParkingPlace();
         }
+
+
+
 
 
         //statusCheck();

@@ -2,11 +2,8 @@ package com.nerdcastle.eparkingprovider.Fragment;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,25 +19,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.nerdcastle.eparkingprovider.DataModel.Day;
 import com.nerdcastle.eparkingprovider.DataModel.Schedule;
 import com.nerdcastle.eparkingprovider.R;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
     private TextView satFromTV,sunFromTV,monFromTV,tueFromTV,wedFromTV,thuFromTV,friFromTV;
-    private long satFrom,sunFrom,monFrom,tuesFrom,wedFrom,thurFrom,friFrom;
-    private long satTo,sunTo,monTo,tuesTo,wedTo,thurTo,friTo;
+    private String satFrom,sunFrom,monFrom,tuesFrom,wedFrom,thurFrom,friFrom;
+    private String satTo,sunTo,monTo,tuesTo,wedTo,thurTo,friTo;
     private String satCheck,sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck;
     private TextView satToTV,sunToTV,monToTV,tueToTV,wedToTV,thuToTV,friToTV;
     private TextView satDayTV,sunDayTV,monDayTV,tueDayTV,wedDayTV,thuDayTV,friDayTV;
@@ -57,6 +53,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private String UserId;
     private String parkPlaceId;
     private boolean uiLoad=false;
+
     Format formatter = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
     String[] day={Day.Satar,Day.Sun,Day.Mon,Day.Tues,Day.Wednes,Day.Thurs,Day.Fri};
 
@@ -82,8 +79,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             PlaceTitle = bundle.getString("PlaceTitle");
         }
 
-
-
         count=0;
         scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule");
         scheduleDB.addValueEventListener(new ValueEventListener() {
@@ -96,50 +91,50 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
                         if (schedule.getmDay().equals(Day.Satar)){
 
-                            FormatedTime(satFromTV,schedule.getmFromTime());
-                            FormatedTime(satToTV,schedule.getmToTime());
+                            satFromTV.setText(schedule.getmFromTime());
+                            satToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 satCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Sun)){
-                            FormatedTime(sunFromTV,schedule.getmFromTime());
-                            FormatedTime(sunToTV,schedule.getmToTime());
+                            sunFromTV.setText(schedule.getmFromTime());
+                            sunToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 sunCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Mon)){
-                            FormatedTime(monFromTV,schedule.getmFromTime());
-                            FormatedTime(monToTV,schedule.getmToTime());
+                            monFromTV.setText(schedule.getmFromTime());
+                            monToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 monCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Tues)){
-                            FormatedTime(tueFromTV,schedule.getmFromTime());
-                            FormatedTime(tueToTV,schedule.getmToTime());
+                            tueFromTV.setText(schedule.getmFromTime());
+                            tueToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 tueCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Wednes)){
-                            FormatedTime(wedFromTV,schedule.getmFromTime());
-                            FormatedTime(wedToTV,schedule.getmToTime());
+                            wedFromTV.setText(schedule.getmFromTime());
+                            wedToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 wedCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Thurs)){
-                            FormatedTime(thuFromTV,schedule.getmFromTime());
-                            FormatedTime(thuToTV,schedule.getmToTime());
+                            thuFromTV.setText(schedule.getmFromTime());
+                            thuToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 thuCheckbox.setChecked(true);
                             }
                         }
                         else if (schedule.getmDay().equals(Day.Fri)){
-                            FormatedTime(friFromTV,schedule.getmFromTime());
-                            FormatedTime(friToTV,schedule.getmToTime());
+                            friFromTV.setText(schedule.getmFromTime());
+                            friToTV.setText(schedule.getmToTime());
                             if (schedule.getmIsForRent().equals("true")){
                                 friCheckbox.setChecked(true);
                             }
@@ -148,7 +143,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                     }
                 }
                 else {
-                    //Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show();
                     CreatNewSchedule();
                 }
             }
@@ -161,8 +155,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
         init(view);
 
-
-
         return view;
 
     }
@@ -174,8 +166,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         for (int i=0;i<=6;i++){
             scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule/"+day[i]);
             addSchedule.put("mDay",day[i]);
-            addSchedule.put("mFromTime",62476999);
-            addSchedule.put("mToTime",62476999);
+            addSchedule.put("mFromTime","09:00 AM");
+            addSchedule.put("mToTime","05:00 PM");
             addSchedule.put("mIsForRent","false");
             scheduleDB.setValue(addSchedule);
         }
@@ -366,30 +358,30 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         if (satCheckbox.isChecked()){
 
             satCheck="true";
-            satFrom=ConvertToMiliSeconds(satFromTV.getText().toString());
-            satTo=ConvertToMiliSeconds(satToTV.getText().toString());
+            satFrom=satFromTV.getText().toString();
+            satTo=satToTV.getText().toString();
             UpdateToFirebase(satCheck,satFrom,satTo,Day.Satar);
 
         }
         else {
             satCheck="false";
-            satFrom=ConvertToMiliSeconds(satFromTV.getText().toString());
-            satTo=ConvertToMiliSeconds(satToTV.getText().toString());
+            satFrom=satFromTV.getText().toString();
+            satTo=satToTV.getText().toString();
             UpdateToFirebase(satCheck,satFrom,satTo,Day.Satar);
         }
 
         if (sunCheckbox.isChecked()){
 
             sunCheck="true";
-            sunFrom=ConvertToMiliSeconds(sunFromTV.getText().toString());
-            sunTo=ConvertToMiliSeconds(sunToTV.getText().toString());
+            sunFrom=sunFromTV.getText().toString();
+            sunTo=sunToTV.getText().toString();
             UpdateToFirebase(sunCheck,sunFrom,sunTo,Day.Sun);
 
         }
         else {
             sunCheck="false";
-            sunFrom=ConvertToMiliSeconds(sunFromTV.getText().toString());
-            sunTo=ConvertToMiliSeconds(sunToTV.getText().toString());
+            sunFrom=sunFromTV.getText().toString();
+            sunTo=sunToTV.getText().toString();
             UpdateToFirebase(sunCheck,sunFrom,sunTo,Day.Sun);
         }
 
@@ -397,78 +389,78 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         if (monCheckbox.isChecked()){
 
             monCheck="true";
-            monFrom=ConvertToMiliSeconds(monFromTV.getText().toString());
-            monTo=ConvertToMiliSeconds(monToTV.getText().toString());
+            monFrom=monFromTV.getText().toString();
+            monTo=monToTV.getText().toString();
             UpdateToFirebase(monCheck,monFrom,monTo,Day.Mon);
 
         }
         else {
             monCheck="false";
-            monFrom=ConvertToMiliSeconds(monFromTV.getText().toString());
-            monTo=ConvertToMiliSeconds(monToTV.getText().toString());
+            monFrom=monFromTV.getText().toString();
+            monTo=monToTV.getText().toString();
             UpdateToFirebase(monCheck,monFrom,monTo,Day.Mon);
         }
 
         if (tueCheckbox.isChecked()){
 
             tueCheck="true";
-            tuesFrom=ConvertToMiliSeconds(tueFromTV.getText().toString());
-            tuesTo=ConvertToMiliSeconds(tueToTV.getText().toString());
+            tuesFrom=tueFromTV.getText().toString();
+            tuesTo=tueToTV.getText().toString();
             UpdateToFirebase(tueCheck,tuesFrom,tuesTo,Day.Tues);
 
         }
         else {
             tueCheck="false";
-            tuesFrom=ConvertToMiliSeconds(tueFromTV.getText().toString());
-            tuesTo=ConvertToMiliSeconds(tueToTV.getText().toString());
+            tuesFrom=tueFromTV.getText().toString();
+            tuesTo=tueToTV.getText().toString();
             UpdateToFirebase(tueCheck,tuesFrom,tuesTo,Day.Tues);
         }
         if (wedCheckbox.isChecked()){
 
             wedCheck="true";
-            wedFrom=ConvertToMiliSeconds(wedFromTV.getText().toString());
-            wedTo=ConvertToMiliSeconds(wedToTV.getText().toString());
+            wedFrom=wedFromTV.getText().toString();
+            wedTo=wedToTV.getText().toString();
             UpdateToFirebase(wedCheck,wedFrom,wedTo,Day.Wednes);
 
         }
         else {
             wedCheck="false";
-            wedFrom=ConvertToMiliSeconds(wedFromTV.getText().toString());
-            wedTo=ConvertToMiliSeconds(wedToTV.getText().toString());
+            wedFrom=wedFromTV.getText().toString();
+            wedTo=wedToTV.getText().toString();
             UpdateToFirebase(wedCheck,wedFrom,wedTo,Day.Wednes);
         }
         if (thuCheckbox.isChecked()){
 
             thuCheck="true";
-            thurFrom=ConvertToMiliSeconds(thuFromTV.getText().toString());
-            thurTo=ConvertToMiliSeconds(thuToTV.getText().toString());
+            thurFrom=thuFromTV.getText().toString();
+            thurTo=thuToTV.getText().toString();
             UpdateToFirebase(thuCheck,thurFrom,thurTo,Day.Thurs);
 
         }
         else {
             thuCheck="false";
-            thurFrom=ConvertToMiliSeconds(thuFromTV.getText().toString());
-            thurTo=ConvertToMiliSeconds(thuToTV.getText().toString());
+            thurFrom=thuFromTV.getText().toString();
+            thurTo=thuToTV.getText().toString();
             UpdateToFirebase(thuCheck,thurFrom,thurTo,Day.Thurs);
         }
         if (friCheckbox.isChecked()){
 
             friCheck="true";
-            friFrom=ConvertToMiliSeconds(friFromTV.getText().toString());
-            friTo=ConvertToMiliSeconds(friToTV.getText().toString());
+            friFrom=friFromTV.getText().toString();
+            friTo=friToTV.getText().toString();
             UpdateToFirebase(friCheck,friFrom,friTo,Day.Fri);
         }
         else {
             friCheck="false";
-            friFrom=ConvertToMiliSeconds(friFromTV.getText().toString());
-            friTo=ConvertToMiliSeconds(friToTV.getText().toString());
+            friFrom=friFromTV.getText().toString();
+            friTo=friToTV.getText().toString();
             UpdateToFirebase(friCheck,friFrom,friTo,Day.Fri);
         }
 
         Toast.makeText(context, "Schedule Updated Successfully", Toast.LENGTH_SHORT).show();
     }
 
-    private void UpdateToFirebase(String check, long from, long to,String day) {
+    private void UpdateToFirebase(String check, String from, String to,String day) {
 
         HashMap<String,Object>updateSchedule=new HashMap<>();
         updateSchedule.put("mDay",day);
@@ -480,21 +472,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         scheduleDBUpdate.setValue(updateSchedule);
     }
 
-    private long ConvertToMiliSeconds(String s) {
-        String[] spitedTime=s.split(":| ");
-        int curretHour=Integer.valueOf(spitedTime[0]);
-        int curretMin=Integer.valueOf(spitedTime[1]);
-
-        if (spitedTime[2].equals("PM")){
-            curretHour=curretHour+12;
-        }
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, curretHour);
-        cal.set(Calendar.MINUTE, curretMin);
-
-        return cal.getTimeInMillis();
-    }
 
     private void ToastError() {
         Toast.makeText(context, "Please checked for rent option to set parking Schedule", Toast.LENGTH_SHORT).show();
