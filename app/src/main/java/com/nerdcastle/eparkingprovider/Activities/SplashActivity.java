@@ -6,17 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nerdcastle.eparkingprovider.HomeActivity;
 import com.nerdcastle.eparkingprovider.R;
 
 public class SplashActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+        mFirebaseDatabase = mFirebaseInstance.getReference("ProviderList");
         mAuth=FirebaseAuth.getInstance();
 
         new Handler().postDelayed(new Runnable() {
