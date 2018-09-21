@@ -62,7 +62,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:text="+88"
-                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:textSize="16sp" />
 
                 <TextView

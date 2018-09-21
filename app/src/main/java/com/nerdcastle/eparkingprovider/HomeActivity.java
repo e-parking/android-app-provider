@@ -155,6 +155,7 @@ public class HomeActivity extends AppCompatActivity implements
         mAuth = FirebaseAuth.getInstance();
         mProviderID = mAuth.getUid();
         mCurrentUser = mAuth.getCurrentUser();
+
         //------------------------------------------------------------------------------------------
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

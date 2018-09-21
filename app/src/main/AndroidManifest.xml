@@ -120,13 +120,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".Activities.MainActivity"></activity>
-        <activity android:name=".Activities.AddScheduleActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
+        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.AddScheduleActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
