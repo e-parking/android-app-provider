@@ -283,8 +283,6 @@ public class HomeActivity extends AppCompatActivity implements
             goToDashBoard();
         } else if (id == R.id.nav_requests) {
             goToNotification();
-        } else if (id == R.id.nav_tutorials) {
-            goToPayment();
         } else if (id == R.id.nav_addParkPlace) {
             //goToAddPark();
             goToMyParkingPlace();
