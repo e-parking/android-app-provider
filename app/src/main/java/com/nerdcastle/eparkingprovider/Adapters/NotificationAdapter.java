@@ -25,6 +25,7 @@ import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
 import com.nerdcastle.eparkingprovider.DataModel.Status;
 import com.nerdcastle.eparkingprovider.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             // 2. Define your Views here
 
             mSenderImage = (ImageView)itemView.findViewById(R.id.mSenderImage);
-            mSenderRating = (me.zhanghai.android.materialratingbar.MaterialRatingBar)itemView.findViewById(R.id.mSenderRating);
             mRequestSenderName = (TextView)itemView.findViewById(R.id.mRequestSenderName);
             mRequestSenderInfo = (TextView)itemView.findViewById(R.id.mRequestSenderInfo);
             mVehicleNumber = (TextView)itemView.findViewById(R.id.mVehicleNumber);
@@ -113,6 +113,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
         holder.phoneNumberTv.setText(model.getmConsumerPhone());
+
+        if (model.getmConsumerPhotoUrl()==null | model.getmConsumerPhotoUrl().isEmpty()){
+        }
+        else {
+            Picasso.get().load(model.getmConsumerPhotoUrl()).placeholder(R.drawable.default_person_logo).error(R.drawable.default_person_logo).into(holder.mSenderImage);
+        }
         // 3. set the requestList to your Views here
 
 

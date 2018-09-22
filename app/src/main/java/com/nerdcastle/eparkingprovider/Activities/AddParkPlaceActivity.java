@@ -415,7 +415,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
                     Log.e(TAG, "Something went wrong Park Place is null!");
                     return;
                 } else {
-                    Toast.makeText(AddParkPlaceActivity.this, "New Parking Space Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddParkPlaceActivity.this, "New parking space added", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     mProviderRateET.setText("");
                     mPlaceTitle.setText("");
@@ -483,7 +483,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 mParkPlacePhotoUrl = taskSnapshot.getDownloadUrl().toString();
-                Picasso.get().load(mParkPlacePhotoUrl).into(mParkingPlacePhoto);
+                Picasso.get().load(mParkPlacePhotoUrl).placeholder(R.drawable.ic_park_false).error(R.drawable.ic_park_false).into(mParkingPlacePhoto);
                 Toast.makeText(AddParkPlaceActivity.this, "Parking space picture added successfully.", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
@@ -504,7 +504,7 @@ public class AddParkPlaceActivity extends AppCompatActivity implements OnMapRead
         //mProviderAddressET.setText(placeSelected.getAddress().toString());
         mProviderAddress = placeSelected.getAddress().toString();
 
-        Toast.makeText(this, "Location selected.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Location selected", Toast.LENGTH_SHORT).show();
         mLatitude = placeSelected.getLatLng().latitude;
         mLongitude = placeSelected.getLatLng().longitude;
 

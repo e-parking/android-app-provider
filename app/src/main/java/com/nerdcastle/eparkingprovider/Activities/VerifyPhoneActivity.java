@@ -88,7 +88,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_verify_phone);
 
         //Firebase initialization
@@ -247,7 +247,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.INVISIBLE);
                             signIn.setVisibility(View.VISIBLE);
-                            Toast.makeText(VerifyPhoneActivity.this, "Invalid OTP Code", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerifyPhoneActivity.this, "Invalid OTP code", Toast.LENGTH_SHORT).show();
                         }
 
                     }

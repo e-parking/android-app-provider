@@ -426,14 +426,14 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
                     Log.e(TAG, "Something went wrong Park Place is null!");
                     return;
                 } else {
-                    Toast.makeText(getActivity(), "New Parking Space Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "New parking space added", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     mProviderRateET.setText("");
                     mPlaceTitle.setText("");
 
                     ft = fm.beginTransaction();
-                    DashBoardFragment dashBoardFragment = new DashBoardFragment();
-                    ft.replace(R.id.fragmentContainer, dashBoardFragment);
+                    MyParkingPlacesFragment myParkingPlacesFragment = new MyParkingPlacesFragment();
+                    ft.replace(R.id.fragmentContainer, myParkingPlacesFragment);
                     ft.addToBackStack("goToMain");
                     ft.commit();
                 }
@@ -499,7 +499,7 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 mParkPlacePhotoUrl = taskSnapshot.getDownloadUrl().toString();
-                Picasso.get().load(mParkPlacePhotoUrl).into(mParkingPlacePhoto);
+                Picasso.get().load(mParkPlacePhotoUrl).placeholder(R.drawable.ic_park_false).error(R.drawable.ic_park_false).into(mParkingPlacePhoto);
                 Toast.makeText(getActivity(), "Parking space picture added successfully.", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
@@ -587,6 +587,7 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
 
         alertDialog.show();
     }
+
 
 
     public void statusCheck() {

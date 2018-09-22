@@ -97,8 +97,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         }
         else {
             Picasso.get().load(model.getmConsumerPhotoUrl())
-                    .placeholder(context.getResources().getDrawable(R.drawable.header_cover))
-                    .error(context.getResources().getDrawable(R.drawable.header_cover))
+                    .placeholder(context.getResources().getDrawable(R.drawable.default_person_logo))
+                    .error(context.getResources().getDrawable(R.drawable.default_person_logo))
                     .into(holder.mSenderImage);
         }
 
@@ -110,7 +110,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "You are calling "+number, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "You are calling this "+number, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:" + number));
                 if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -150,7 +150,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             int min= (int) (timeDistance/60000);
             timeDistance=timeDistance-(min*60000);
             int sec= (int) (timeDistance/1000);
-            holder.mDurationTV.setText(hour+"h:"+min+"m");
+            holder.mDurationTV.setText(hour+"h:"+min+"m"+"\n"+model.getmEstimatedCost()+" TK");
         }
 
 

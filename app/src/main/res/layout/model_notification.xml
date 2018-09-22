@@ -37,19 +37,12 @@
                     android:textSize="30dp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:src="@drawable/profile"
+                    android:src="@drawable/default_person_logo"
                     android:scaleType="centerCrop"
                     android:textColor="@color/red"
                     android:text="60 TK"/>
 
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/mSenderRating"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:padding="3dp"
-                    android:layout_weight="1"
-                    android:rating="3.5"
-                    style="@style/Widget.MaterialRatingBar.RatingBar" />
+
 
             </LinearLayout>
 
