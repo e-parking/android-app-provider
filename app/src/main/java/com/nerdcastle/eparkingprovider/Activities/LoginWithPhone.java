@@ -163,7 +163,7 @@ public class LoginWithPhone extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(LoginWithPhone.this, "We cant read.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginWithPhone.this, "We can't your data read.", Toast.LENGTH_SHORT).show();
             }
         });
     }

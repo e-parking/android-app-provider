@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:fontFamily="@font/roboto_regular"
-        android:text="No Data Found" />
+        android:text="No data found in dashboard" />
 
 
     <android.support.v7.widget.RecyclerView

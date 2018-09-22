@@ -104,19 +104,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
-                android:textColor="@color/black"
+                android:drawableRight="@drawable/arrow"
+                android:textAlignment="center"
+                android:textColor="@color/ash"
                 android:fontFamily="@font/roboto_regular"
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/satToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/ash"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/satCheckboxId"
@@ -159,19 +163,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
+                android:textAlignment="center"
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/sunToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:textAlignment="center"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/ash"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/sunCheckboxId"
@@ -215,18 +223,22 @@
                 android:fontFamily="@font/roboto_regular"
                 android:layout_weight="1"
                 android:text="9:00 AM"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
+                android:textAlignment="center"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/monToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/ash"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/monCheckboxId"
@@ -269,19 +281,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textColor="@color/ash"
+                android:textAlignment="center"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/tueToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/ash"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/tueCheckboxId"
@@ -325,19 +341,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textColor="@color/ash"
+                android:textAlignment="center"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/wedToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/ash"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/wedCheckboxId"
@@ -379,9 +399,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textAlignment="center"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/thuToId"
@@ -389,9 +411,11 @@
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
                 android:layout_weight="1"
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/thusCheckboxId"
@@ -434,19 +458,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="9:00 AM"
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textAlignment="center"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/friToId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5:00 PM"
+                android:textColor="@color/ash"
+                android:drawableRight="@drawable/arrow"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textAlignment="center"
+                android:textSize="14dp" />
 
             <CheckBox
                 android:id="@+id/friCheckboxId"

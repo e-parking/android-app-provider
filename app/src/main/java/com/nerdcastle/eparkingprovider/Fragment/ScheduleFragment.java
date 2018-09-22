@@ -1,8 +1,15 @@
 package com.nerdcastle.eparkingprovider.Fragment;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -157,6 +165,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
         return view;
 
+
+
     }
 
     private void CreatNewSchedule() {
@@ -235,6 +245,145 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         if (!PlaceTitle.isEmpty()){
             placeTitleTV.setText("Schedule of "+PlaceTitle);
         }
+
+        satCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    satFromTV.setTextColor(getResources().getColor(R.color.black));
+                    satFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    satToTV.setTextColor(getResources().getColor(R.color.black));
+                    satToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    satFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    satFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    satToTV.setTextColor(getResources().getColor(R.color.ash));
+                    satToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+
+        sunCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    sunFromTV.setTextColor(getResources().getColor(R.color.black));
+                    sunFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    sunToTV.setTextColor(getResources().getColor(R.color.black));
+                    sunToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    sunFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    sunFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    sunToTV.setTextColor(getResources().getColor(R.color.ash));
+                    sunToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+
+        monCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    monFromTV.setTextColor(getResources().getColor(R.color.black));
+                    monFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    monToTV.setTextColor(getResources().getColor(R.color.black));
+                    monToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    monFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    monFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    monToTV.setTextColor(getResources().getColor(R.color.ash));
+                    monToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+
+        tueCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    tueFromTV.setTextColor(getResources().getColor(R.color.black));
+                    tueFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    tueToTV.setTextColor(getResources().getColor(R.color.black));
+                    tueToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    tueFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    tueFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    tueToTV.setTextColor(getResources().getColor(R.color.ash));
+                    tueToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+
+        wedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    wedFromTV.setTextColor(getResources().getColor(R.color.black));
+                    wedFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    wedToTV.setTextColor(getResources().getColor(R.color.black));
+                    wedToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    wedFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    wedFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    wedToTV.setTextColor(getResources().getColor(R.color.ash));
+                    wedToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+
+        thuCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    thuFromTV.setTextColor(getResources().getColor(R.color.black));
+                    thuFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    thuToTV.setTextColor(getResources().getColor(R.color.black));
+                    thuToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    thuFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    thuFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    thuToTV.setTextColor(getResources().getColor(R.color.ash));
+                    thuToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
+        friCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    friFromTV.setTextColor(getResources().getColor(R.color.black));
+                    friFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                    friToTV.setTextColor(getResources().getColor(R.color.black));
+                    friToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow_2,0);
+                }
+                else{
+                    friFromTV.setTextColor(getResources().getColor(R.color.ash));
+                    friFromTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                    friToTV.setTextColor(getResources().getColor(R.color.ash));
+                    friToTV.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+                }
+
+            }
+        });
     }
 
 
@@ -457,8 +606,26 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             UpdateToFirebase(friCheck,friFrom,friTo,Day.Fri);
         }
 
-        Toast.makeText(context, "Schedule Updated Successfully", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        builder.setMessage("New Schedule Saved Successfully").setPositiveButton("OK",onClickListener).show();
+
     }
+
+
+
+    DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    dialog.dismiss();
+                    break;
+
+            }
+        }
+    };
+
 
     private void UpdateToFirebase(String check, String from, String to,String day) {
 
@@ -474,7 +641,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
 
     private void ToastError() {
-        Toast.makeText(context, "Please checked for rent option to set parking Schedule", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Please checked for rent option to set parking Schedule", Toast.LENGTH_LONG).show();
     }
 
     private void selectTime(final TextView textView) {

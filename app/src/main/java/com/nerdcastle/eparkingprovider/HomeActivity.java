@@ -141,12 +141,11 @@ public class HomeActivity extends AppCompatActivity implements
         if (!mInternetStatus) {
             showInternetDialogBox();
         } else {
-            goToMyParkingPlace();
+            MyParkingPlacesFragment myParkingPlacesFragment = new MyParkingPlacesFragment();
+            ft.replace(R.id.fragmentContainer, myParkingPlacesFragment);
+            ft.commit();
+
         }
-
-
-
-
 
         //statusCheck();
         //------------------------------------------------------------------------------------------
@@ -173,17 +172,6 @@ public class HomeActivity extends AppCompatActivity implements
                 startActivity(new Intent(HomeActivity.this, SignUpActivity.class));
             }
         });
-
-        /*if (mCurrentUser.getDisplayName()==null)
-        {
-            mUserName.setText(TempHolder.mUserName);
-
-        }else
-        {
-            mUserName.setText(mCurrentUser.getDisplayName());
-        }
-
-        mUserEmailAddress.setText(mCurrentUser.getEmail());*/
 
 
         //------------------------- Nottification --------------------------------
@@ -247,17 +235,23 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
+
     @Override
     public void onBackPressed() {
+        int backStackCount=getSupportFragmentManager().getBackStackEntryCount();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if (backStackCount==1){
+            super.onBackPressed();
+        }else {
             super.onBackPressed();
         }
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
@@ -277,7 +271,7 @@ public class HomeActivity extends AppCompatActivity implements
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -289,7 +283,7 @@ public class HomeActivity extends AppCompatActivity implements
             goToDashBoard();
         } else if (id == R.id.nav_requests) {
             goToNotification();
-        } else if (id == R.id.nav_payments) {
+        } else if (id == R.id.nav_tutorials) {
             goToPayment();
         } else if (id == R.id.nav_addParkPlace) {
             //goToAddPark();
@@ -487,7 +481,7 @@ public class HomeActivity extends AppCompatActivity implements
                     }
 
                     if (!TempHolder.mProvider.getmProfilePhoto().equals("")) {
-                        Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).into(mProfileImage);
+                        Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProfileImage);
                     } else {
                         mProfileImage.setImageResource(R.drawable.profile);
                     }
@@ -566,6 +560,9 @@ public class HomeActivity extends AppCompatActivity implements
         });
         mAddLocationDialog.show();
     }
+
+
+
 
 
     private boolean isNetworkAvailable() {

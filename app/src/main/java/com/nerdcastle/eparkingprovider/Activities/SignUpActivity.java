@@ -146,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //------------------------Profile Image load ----------------
         if (mAuth.getCurrentUser().getPhotoUrl() != null)
-            Picasso.get().load(mAuth.getCurrentUser().getPhotoUrl()).into(mProviderProfilePicture);
+            Picasso.get().load(mAuth.getCurrentUser().getPhotoUrl()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProviderProfilePicture);
         //-----------------------------------------------------------
 
 
@@ -198,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mUpdateProfile();
+                showExitDialog();
 
             }
         });
@@ -652,7 +652,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (!TempHolder.mProvider.getmProfilePhoto().equals(""))
             {
-                Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).into(mProviderProfilePicture);
+                Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProviderProfilePicture);
             }else
             {
                 mProviderProfilePicture.setImageResource(R.drawable.profile);
@@ -685,8 +685,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         Button mYesButton = dialog.findViewById(R.id.yesButton);
         Button mNoButton = dialog.findViewById(R.id.noButton);
-
-
         mYesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

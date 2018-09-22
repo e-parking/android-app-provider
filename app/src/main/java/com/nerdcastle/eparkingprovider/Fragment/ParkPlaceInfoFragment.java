@@ -63,7 +63,7 @@ public class ParkPlaceInfoFragment extends Fragment implements OnMapReadyCallbac
         prakTitle.setText(title);
         parkAddress.setText(address);
         if (photo.contains("https://")) {
-            Picasso.get().load(photo).into(parkImage);
+            Picasso.get().load(photo).placeholder(R.drawable.ic_park_false).error(R.drawable.ic_park_false).into(parkImage);
         } else {
             Bitmap bitmap = decodeBase64(bundle.getString("PalceImage"));
             parkImage.setImageBitmap(bitmap);

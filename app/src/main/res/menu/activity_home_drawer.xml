@@ -4,6 +4,12 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_addParkPlace"
+            android:icon="@drawable/parking_icon"
+            android:title="My Parking Places" />
+
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_myactivity_icon"
@@ -12,14 +18,6 @@
             android:id="@+id/nav_requests"
             android:icon="@drawable/ic_small_notifiaction_icon"
             android:title="Notifiactions" />
-        <item
-            android:id="@+id/nav_payments"
-            android:icon="@drawable/payment"
-            android:title="Payments" />
-        <item
-            android:id="@+id/nav_addParkPlace"
-            android:icon="@drawable/parking_icon"
-            android:title="My Parking Places" />
 
         <item
             android:id="@+id/nav_schedule"
@@ -27,9 +25,18 @@
             android:title="Manage Schedule" />
     </group>
 
-
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_tutorials"
+                android:icon="@drawable/tutorial"
+                android:title="Tutorial" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout_icon"
                 android:title="Log Out" />
+        </menu>
+    </item>
+
+
 </menu>
