@@ -289,6 +289,7 @@ public class HomeActivity extends AppCompatActivity implements
         }else if(id==R.id.nav_schedule){
             goToMain();
         }
+
          else if (id == R.id.nav_logout) {
 
             signOut();
@@ -470,15 +471,15 @@ public class HomeActivity extends AppCompatActivity implements
                 System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
                 if (TempHolder.mProvider != null) {
 
-                    if (!TempHolder.mProvider.getmName().equals("")) {
+                    if (TempHolder.mProvider.getmName()!=null && !TempHolder.mProvider.getmName().isEmpty()) {
                         mUserName.setText(TempHolder.mProvider.getmName());
                     }
 
-                    if (!TempHolder.mProvider.getmEmail().contains("@mail.com")) {
+                    if (TempHolder.mProvider.getmEmail()!=null && !TempHolder.mProvider.getmEmail().isEmpty() && !TempHolder.mProvider.getmEmail().contains("@mail.com")) {
                         mUserEmailAddress.setText(TempHolder.mProvider.getmEmail());
                     }
 
-                    if (!TempHolder.mProvider.getmProfilePhoto().equals("")) {
+                    if (TempHolder.mProvider.getmProfilePhoto()!=null && !TempHolder.mProvider.getmProfilePhoto().equals("")) {
                         Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProfileImage);
                     } else {
                         mProfileImage.setImageResource(R.drawable.profile);

@@ -110,7 +110,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         final ParkingRequest model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
-        holder.mRequestSenderInfo.setText("wants to park his car in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
+        holder.mRequestSenderInfo.setText("wants to park vehicle in"+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
         holder.phoneNumberTv.setText(model.getmConsumerPhone());
 
