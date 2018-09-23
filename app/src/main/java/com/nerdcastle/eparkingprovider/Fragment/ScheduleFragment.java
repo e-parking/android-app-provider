@@ -2,6 +2,7 @@ package com.nerdcastle.eparkingprovider.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +88,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             parkPlaceId = bundle.getString("PlaceId");
             PlaceTitle = bundle.getString("PlaceTitle");
         }
-
+        init(view);
         count=0;
         scheduleDB=FirebaseDatabase.getInstance().getReference("ProviderList/"+UserId+"/ParkPlaceList/"+parkPlaceId+"/Schedule");
         scheduleDB.addValueEventListener(new ValueEventListener() {
@@ -161,7 +163,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        init(view);
+
 
         return view;
 
@@ -618,7 +620,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
-                    getActivity().getSupportFragmentManager().popBackStack();
                     dialog.dismiss();
                     break;
 
