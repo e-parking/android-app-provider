@@ -147,12 +147,10 @@ public class LoginWithPhone extends AppCompatActivity {
                     intent.putExtra("user", "old_user");
                     intent.putExtra("mobile", phoneNumber);
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent, options.toBundle());
                 } else {
 
                     Intent intent=new Intent(LoginWithPhone.this,VerifyPhoneActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("mobile", phoneNumber);
                     intent.putExtra("user", "new_user");
                     startActivity(intent);
