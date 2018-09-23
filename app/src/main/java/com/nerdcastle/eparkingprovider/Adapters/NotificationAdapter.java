@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.nerdcastle.eparkingprovider.DataModel.ParkPlace;
 import com.nerdcastle.eparkingprovider.DataModel.ParkingRequest;
 import com.nerdcastle.eparkingprovider.DataModel.Status;
@@ -28,7 +29,9 @@ import com.nerdcastle.eparkingprovider.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.Viewholder> {
 
@@ -160,6 +163,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 holder.mIgnoreButton.setEnabled(false);
                 holder.mIgnoreButton.setText(Status.REJECTED);
 
+
+                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                Map<String,Object> notificationMap=new HashMap<>();
+                notificationMap.put("message",model.getmProviderName()+" has rejected your request.");
+                notificationMap.put("consumer",mProviderID);
+
+                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+
             }
         });
 
@@ -183,6 +194,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 holder.mAcceptButton.setEnabled(false);
                 holder.mIgnoreButton.setEnabled(false);
                 holder.mAcceptButton.setText(Status.ACCEPTED);
+
+
+                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                Map<String,Object> notificationMap=new HashMap<>();
+                notificationMap.put("message",model.getmProviderName()+" has accepted your request. "+model.getmParkPlaceAddress());
+                notificationMap.put("consumer",mProviderID);
+
+                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+
+
+
 
 
             }

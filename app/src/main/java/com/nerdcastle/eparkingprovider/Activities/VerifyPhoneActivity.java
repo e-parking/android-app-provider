@@ -31,12 +31,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nerdcastle.eparkingprovider.DataModel.Provider;
 import com.nerdcastle.eparkingprovider.DataModel.TempHolder;
 import com.nerdcastle.eparkingprovider.HomeActivity;
 import com.nerdcastle.eparkingprovider.R;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneActivity extends AppCompatActivity {
@@ -217,6 +221,15 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                 public void run() {
                                     if (mAuth !=null)
                                     {
+
+                                        FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                                        String token_id= FirebaseInstanceId.getInstance().getToken();
+                                        mProviderID = mAuth.getUid();
+                                        Map<String,Object> userMap=new HashMap<>();
+                                        userMap.put("token_id",token_id);
+                                        userMap.put("name","Nipon Roy");
+
+
                                         if (mUserType.equals("new_user")){
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             user.updateEmail(mPhoneNumber).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -230,11 +243,16 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                             Date todayDate = new Date();
                                             long currentDayMillis = todayDate.getTime();
                                             mThisDate = Long.toString(currentDayMillis);
-                                            mProviderID = mAuth.getUid();
                                             Provider provider = new Provider(mProviderID,"","","","","","","",mPhoneNumber,"","","", "0", "0");
                                             mFirebaseDatabase.child(mProviderID).setValue(provider);
+
+                                            //fireStore
+                                            mFireStore.collection("Users").document(mProviderID).set(userMap);
                                         }
                                         else if (mUserType.equals("old_user")){
+
+                                            mFireStore.collection("Users").document(mProviderID).set(userMap);
+
                                             Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
                                         }
 
