@@ -79,16 +79,18 @@
                     android:fontFamily="@font/roboto_regular"
                     android:textStyle="bold" />
 
-                <RadioGroup
-                    android:id="@+id/radioGroup"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
                         <RadioButton
                             android:id="@+id/radioCar"
                             android:layout_width="wrap_content"
@@ -98,25 +100,29 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/roboto_regular"
                             android:text="Car" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+
+
+                        <RadioButton
+                            android:id="@+id/radioBike"
                             android:textSize="16sp"
                             android:textColor="#232323"
-                            android:text="/Microbus"/>
-                    </LinearLayout>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Bike" />
+
+                    </RadioGroup>
 
 
-                    <RadioButton
-                        android:id="@+id/radioBike"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:textColor="#232323"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Bike" />
+                        android:text="/Microbus"/>
+                </LinearLayout>
 
-                </RadioGroup>
 
 
             </LinearLayout>
