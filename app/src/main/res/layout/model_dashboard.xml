@@ -37,7 +37,7 @@
                     android:textSize="30dp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:src="@drawable/header_cover"
+                    android:src="@drawable/default_person_logo"
                     android:scaleType="centerCrop"
                     android:textColor="@color/red"
                     android:text="60 TK"/>

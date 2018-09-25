@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/mParkImageView"
@@ -32,7 +32,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:padding="5dp"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -44,17 +43,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:padding="5dp"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Address goes here line by line"/>
+                    android:text="Address "/>
 
                 <TextView
                     android:id="@+id/mParkRateInTaka"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:padding="5dp"
                     android:fontFamily="@font/roboto_regular"
                     android:textStyle="bold"
                     android:textSize="18sp"
@@ -86,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <FrameLayout
                 android:id="@+id/mapcontainer"

@@ -12,12 +12,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="155dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="150dp"
-                android:layout_height="170dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageButton
@@ -60,19 +61,63 @@
                     android:id="@+id/mPlaceTitleET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"
                     android:fontFamily="@font/roboto_regular"
-                    android:hint="Place Title" />
+                    android:hint="Park Place Title" />
 
-                <EditText
-                    android:id="@+id/mProviderAddressET"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center|bottom"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Select Vehicle Type"
+                    android:textSize="18sp"
+                    android:maxLines="2"
+                    android:textColor="#232323"
+                    android:layout_marginLeft="7dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:hint="Address manually" />
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radioCar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:textColor="#232323"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Car" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="#232323"
+                            android:text="/Microbus"/>
+                    </LinearLayout>
+
+
+                    <RadioButton
+                        android:id="@+id/radioBike"
+                        android:textSize="16sp"
+                        android:textColor="#232323"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Bike" />
+
+                </RadioGroup>
+
 
             </LinearLayout>
 
@@ -112,43 +157,18 @@
         <LinearLayout
             android:id="@+id/mVehicleTypeSectionLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"
             android:orientation="horizontal"
             android:visibility="visible">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Vehicle Type: "
-                android:textSize="18dp"
+            <EditText
+                android:id="@+id/mProviderAddressET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioCar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:checked="true"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Car" />
-
-                <RadioButton
-                    android:id="@+id/radioBike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Bike" />
-
-            </RadioGroup>
+                android:hint="Address details" />
 
         </LinearLayout>
 
@@ -156,7 +176,7 @@
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <FrameLayout
@@ -190,57 +210,60 @@
             </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
 
 
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <Spinner
-                android:id="@+id/mCitySpinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/mAreaSpinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                <Spinner
+                    android:id="@+id/mCitySpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/mAreaSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/mPickParkPlaceLocation"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@color/gps"
+                android:src="@drawable/marker" />
+
+            <Button
+                android:id="@+id/mRegisterParkingPlace"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:text="Add Parking Place"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/mPickParkPlaceLocation"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="5dp"
-            android:background="@color/gps"
-            android:padding="10dp"
-            android:src="@drawable/ic_map_picker" />
-
-        <Button
-            android:id="@+id/mRegisterParkingPlace"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="Add Parking Place"
-            android:fontFamily="@font/roboto_regular"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
     </LinearLayout>
+
 
 </RelativeLayout>
 
