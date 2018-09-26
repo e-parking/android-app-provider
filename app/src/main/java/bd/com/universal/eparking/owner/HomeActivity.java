@@ -220,6 +220,10 @@ public class HomeActivity extends AppCompatActivity implements
         addRequestChangeListener();
         getUserInformations();
     }
+    //end of onCreat method.
+
+
+
 
 
     @Override

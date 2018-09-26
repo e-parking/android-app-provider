@@ -25,6 +25,7 @@ import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -98,8 +99,7 @@ public class DashBoardFragment extends Fragment {
                     ParkPlace parkPlace = data.getValue(ParkPlace.class);
                     DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
 
-                    Query query=requestDB.orderByKey().limitToLast(7);
-
+                    Query query=requestDB.orderByChild("mRequestTime").limitToLast(7);
 
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -146,6 +146,8 @@ public class DashBoardFragment extends Fragment {
         {
             mInfoText.setVisibility(View.INVISIBLE);
         }
+
+        Collections.reverse(requestList);
         dashboardAdapter = new DashboardAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(dashboardAdapter);
     }
