@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -150,6 +152,8 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
     private LatLng mCurrentLocation;
 
     private Dialog mGpsDialog;
+    private Dialog mInternetDialog;
+    private Boolean mInternetStatus;
 
     private Double mLatitude;
     private Double mLongitude;
@@ -276,14 +280,22 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
 
 
         mRegisterParkingPlace.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                mParkPlaceTitle = mPlaceTitle.getText().toString();
-                mParkPlaceHouseNo = mProviderHouseNoET.getText().toString();
-                mParkPlaceRoadNo = mProviderRoadNoET.getText().toString();
-                mProviderAddress = mProviderAddressET.getText().toString();
+                mInternetStatus = isNetworkAvailable();
+                if(mInternetStatus==true){
+                    mParkPlaceTitle = mPlaceTitle.getText().toString();
+                    mParkPlaceHouseNo = mProviderHouseNoET.getText().toString();
+                    mParkPlaceRoadNo = mProviderRoadNoET.getText().toString();
+                    mProviderAddress = mProviderAddressET.getText().toString();
 
-                addParkPlaceToFirebase();
+                    addParkPlaceToFirebase();
+                }
+                else {
+                    showInternetDialogBox();
+                }
+
             }
         });
 
@@ -773,5 +785,31 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
     public static Bitmap decodeBase64(String input) {
         byte[] decodedBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void showInternetDialogBox ()
+    {
+        mInternetDialog = new Dialog(getActivity());
+        mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mInternetDialog.setContentView(R.layout.dialog_internet);
+        mInternetDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mInternetDialog.setCancelable(false);
+
+        TextView mRefresh = mInternetDialog.findViewById(R.id.mTurnOnInternet);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInternetDialog.dismiss();
+
+            }
+        });
+        mInternetDialog.show();
     }
 }

@@ -278,14 +278,40 @@ public class HomeActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            goToDashBoard();
+            mInternetStatus = isNetworkAvailable();
+            if (mInternetStatus == true){
+                goToDashBoard();
+            }
+            else {
+                showInternetDialogfragment();
+            }
+
         } else if (id == R.id.nav_requests) {
-            goToNotification();
+            mInternetStatus = isNetworkAvailable();
+            if (mInternetStatus == true){
+                goToNotification();
+            }
+            else {
+                showInternetDialogfragment();
+            }
         } else if (id == R.id.nav_addParkPlace) {
             //goToAddPark();
-            goToMyParkingPlace();
+            mInternetStatus = isNetworkAvailable();
+            if (mInternetStatus == true){
+                goToMyParkingPlace();
+            }
+            else {
+                showInternetDialogfragment();
+            }
+
         }else if(id==R.id.nav_schedule){
-            goToMain();
+            mInternetStatus = isNetworkAvailable();
+            if (mInternetStatus == true){
+                goToMain();
+            }
+            else {
+                showInternetDialogfragment();
+            }
         }
 
          else if (id == R.id.nav_logout) {
@@ -532,6 +558,24 @@ public class HomeActivity extends AppCompatActivity implements
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();
+
+            }
+        });
+        mInternetDialog.show();
+    }
+    public void showInternetDialogfragment(){
+        mInternetDialog = new Dialog(this);
+        mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mInternetDialog.setContentView(R.layout.dialog_internet);
+        mInternetDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mInternetDialog.setCancelable(false);
+
+        TextView mRefresh = mInternetDialog.findViewById(R.id.mTurnOnInternet);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInternetDialog.dismiss();
 
             }
         });

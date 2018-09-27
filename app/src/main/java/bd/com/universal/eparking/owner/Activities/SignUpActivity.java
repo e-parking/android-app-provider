@@ -3,8 +3,11 @@ package bd.com.universal.eparking.owner.Activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -17,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -83,6 +87,8 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageButton mProviderDocument1, mProviderDocument2,mProviderDocument3;
     private ImageView mMapPicker;
     private ProgressDialog progressDialog;
+    private Dialog mInternetDialog;
+    private Boolean mInternetStatus;
 
     private String mProviderID, mSelectedLatitude ="0", mSelectedLongitude="0";
     private final int REQUEST_CODE_PLACEPICKER = 199;
@@ -196,8 +202,15 @@ public class SignUpActivity extends AppCompatActivity {
         mProviderRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mInternetStatus = isNetworkAvailable();
+                if (mInternetStatus == true){
+                    showExitDialog();
+                }
 
-                showExitDialog();
+                else {
+                    showInternetDialogBox();
+                }
+
 
             }
         });
@@ -677,6 +690,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void showExitDialog ()
     {
+
         final Dialog dialog = new Dialog(this);
         dialog.setCancelable(true);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -713,5 +727,31 @@ public class SignUpActivity extends AppCompatActivity {
         //String url = mProviderID+"<<>>"+millis;
         String url = mProviderID+"<<>>"+millis;
         return url;
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void showInternetDialogBox ()
+    {
+        mInternetDialog = new Dialog(this);
+        mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mInternetDialog.setContentView(R.layout.dialog_internet);
+        mInternetDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mInternetDialog.setCancelable(false);
+
+        TextView mRefresh = mInternetDialog.findViewById(R.id.mTurnOnInternet);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInternetDialog.dismiss();
+
+            }
+        });
+        mInternetDialog.show();
     }
 }

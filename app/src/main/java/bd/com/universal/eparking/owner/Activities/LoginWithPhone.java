@@ -1,10 +1,15 @@
 package bd.com.universal.eparking.owner.Activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -69,6 +74,8 @@ public class LoginWithPhone extends AppCompatActivity {
     List<Consumer> consumerList = new ArrayList<>();
     Boolean status = false;
     private String phoneNumber = "";
+    private Dialog mInternetDialog;
+    private Boolean mInternetStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,45 +118,82 @@ public class LoginWithPhone extends AppCompatActivity {
     public void getAllProvider() {
 
         status = false;
-        mFirebaseRefProvider.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        mInternetStatus = isNetworkAvailable();
+        if (mInternetStatus == true){
+            mFirebaseRefProvider.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Provider provider = data.getValue(Provider.class);
-                    System.out.println(provider);
-                    providerList.add(provider);
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Provider provider = data.getValue(Provider.class);
+                        System.out.println(provider);
+                        providerList.add(provider);
 
-                    if (provider != null && provider.getmPhone() != null) {
-                        if (provider.getmPhone().contains(phoneNumber) || provider.getmPhone().equals("+88" + phoneNumber)){
-                            status = true;
-                            break;
+                        if (provider != null && provider.getmPhone() != null) {
+                            if (provider.getmPhone().contains(phoneNumber) || provider.getmPhone().equals("+88" + phoneNumber)){
+                                status = true;
+                                break;
+                            }
                         }
                     }
+
+                    if (status) {
+                        Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
+                        intent.putExtra("user", "old_user");
+                        intent.putExtra("mobile", phoneNumber);
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
+                        startActivity(intent, options.toBundle());
+                    } else {
+
+                        Intent intent=new Intent(LoginWithPhone.this,VerifyPhoneActivity.class);
+                        intent.putExtra("mobile", phoneNumber);
+                        intent.putExtra("user", "new_user");
+                        startActivity(intent);
+                    }
+
+
                 }
 
-                if (status) {
-                    Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
-                    intent.putExtra("user", "old_user");
-                    intent.putExtra("mobile", phoneNumber);
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
-                    startActivity(intent, options.toBundle());
-                } else {
-
-                    Intent intent=new Intent(LoginWithPhone.this,VerifyPhoneActivity.class);
-                    intent.putExtra("mobile", phoneNumber);
-                    intent.putExtra("user", "new_user");
-                    startActivity(intent);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(LoginWithPhone.this, "We can't your data read.", Toast.LENGTH_SHORT).show();
                 }
+            });
+        }
+        else {
+            showInternetDialogBox();
+        }
+        }
 
 
-            }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
+    public void showInternetDialogBox ()
+    {
+        mInternetDialog = new Dialog(this);
+        mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mInternetDialog.setContentView(R.layout.dialog_internet);
+        mInternetDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mInternetDialog.setCancelable(false);
+
+        TextView mRefresh = mInternetDialog.findViewById(R.id.mTurnOnInternet);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(LoginWithPhone.this, "We can't your data read.", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                mInternetDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(),LoginWithPhone.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
             }
         });
+        mInternetDialog.show();
     }
 
 
