@@ -1,9 +1,13 @@
 package bd.com.universal.eparking.owner.Fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -25,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import bd.com.universal.eparking.owner.Activities.LoginWithPhone;
 import bd.com.universal.eparking.owner.DataModel.Day;
 import bd.com.universal.eparking.owner.DataModel.Schedule;
 import bd.com.universal.eparking.owner.R;
@@ -54,6 +61,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private String UserId;
     private String parkPlaceId;
+    private Dialog mInternetDialog;
+    private Boolean mInternetStatus;
     private boolean uiLoad=false;
 
     Format formatter = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
@@ -491,7 +500,14 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.saveSchedule:
-                SavedToFirebase();
+                mInternetStatus= isNetworkAvailable();
+                if (mInternetStatus == true){
+                    SavedToFirebase();
+                }
+                else {
+                    showInternetDialogBox();
+                }
+
                 break;
         }
 
@@ -673,6 +689,31 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         super.onAttach(context);
         this.context = context;
     }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
+    public void showInternetDialogBox ()
+    {
+        mInternetDialog = new Dialog(getActivity());
+        mInternetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mInternetDialog.setContentView(R.layout.dialog_internet);
+        mInternetDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mInternetDialog.setCancelable(false);
+
+        TextView mRefresh = mInternetDialog.findViewById(R.id.mTurnOnInternet);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInternetDialog.dismiss();
+
+            }
+        });
+        mInternetDialog.show();
+    }
 
 }
