@@ -132,7 +132,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     @Override
                     public void onClick(View v) {
 
-                        ShowToast("You are calling "+model.getmConsumerPhone());
+                        ShowToast("  You are calling "+model.getmConsumerPhone()+"  ");
                         //Toast.makeText(context, "You are calling "+model.getmConsumerPhone(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_CALL);
                         intent.setData(Uri.parse("tel:" + model.getmConsumerPhone()));
@@ -168,7 +168,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                 parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED,new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                        ShowToast(Status.REJECTED+" Successfully !");
+                                        ShowToast("  "+Status.REJECTED+" Successfully ! ");
                                         //Toast.makeText(context, Status.REJECTED+" Successfully !", Toast.LENGTH_LONG).show();
                                     }
                                 });
@@ -226,7 +226,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                                        ShowToast(Status.ACCEPTED+" ! Please Check in your Dashboard");
+                                        ShowToast("  "+Status.ACCEPTED+" ! Please Check in your Dashboard  ");
                                         //Toast.makeText(context, Status.ACCEPTED+" ! Please Check in your Dashboard", Toast.LENGTH_LONG).show();
                                     }
                                 });

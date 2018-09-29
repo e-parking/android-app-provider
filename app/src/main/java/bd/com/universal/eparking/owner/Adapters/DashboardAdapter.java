@@ -116,7 +116,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             @Override
             public void onClick(View v) {
 
-                ShowToast("You are calling this "+number);
+                ShowToast("   You are calling this "+number+"  ");
                // Toast.makeText(context, "You are calling this "+number, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:" + number));
@@ -201,7 +201,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                                        ShowToast(Status.STARTED+" ");
+                                        ShowToast("  "+Status.STARTED+"  ");
                                         //Toast.makeText(context, Status.STARTED+" ", Toast.LENGTH_LONG).show();
                                     }
                                 });
@@ -212,7 +212,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
                                 holder.mStartButton.setText(Status.STARTED);
                                 holder.mStartButton.setEnabled(false);
-
 
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
