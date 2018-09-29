@@ -6,7 +6,10 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -170,7 +173,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(VerifyPhoneActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+            ErrorToast(e.getMessage());
+            //Toast.makeText(VerifyPhoneActivity.this, , Toast.LENGTH_LONG).show();
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ e.getMessage());
         }
 
@@ -246,7 +251,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
                                             mFireStore.collection("Users").document(mProviderID).set(userMap);
 
-                                            Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
+                                            SuccessToast("Welcome Back");
+                                           // Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
                                         }
 
                                     }
@@ -258,7 +264,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.INVISIBLE);
                             signIn.setVisibility(View.VISIBLE);
-                            Toast.makeText(VerifyPhoneActivity.this, "Invalid OTP code", Toast.LENGTH_SHORT).show();
+                            ErrorToast("Invalid OTP code");
+
+                            //Toast.makeText(VerifyPhoneActivity.this, , Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -266,6 +274,32 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     }
 
+
+
+    private void SuccessToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.custom_toast_layout,(ViewGroup)findViewById(R.id.custom_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(this);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+    private void ErrorToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(this);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
 
 
 }

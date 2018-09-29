@@ -515,13 +515,17 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 mParkPlacePhotoUrl = taskSnapshot.getDownloadUrl().toString();
                 Picasso.get().load(mParkPlacePhotoUrl).placeholder(R.drawable.ic_park_false).error(R.drawable.ic_park_false).into(mParkingPlacePhoto);
-                Toast.makeText(getActivity(), "Parking space picture added successfully.", Toast.LENGTH_SHORT).show();
+                ShowToast("Parking space picture added successfully.");
+
+                //Toast.makeText(getActivity(), , Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                ErrorToast(e.getMessage());
+                //Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         });
@@ -535,7 +539,8 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
         //mProviderAddressET.setText(placeSelected.getAddress().toString());
         mProviderAddress = placeSelected.getAddress().toString();
 
-        Toast.makeText(getActivity(), "Location selected.", Toast.LENGTH_SHORT).show();
+        ShowToast("Location selected.");
+        //Toast.makeText(getActivity(), , Toast.LENGTH_SHORT).show();
         mLatitude = placeSelected.getLatLng().latitude;
         mLongitude = placeSelected.getLatLng().longitude;
 
@@ -820,7 +825,18 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
         View layout=layoutInflater.inflate(R.layout.custom_toast_layout,(ViewGroup)getView().findViewById(R.id.custom_toast_layout));
         TextView textView=layout.findViewById(R.id.toast_text_id);
         textView.setText(text);
+        Toast toast=new Toast(getActivity());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+    private void ErrorToast(String text){
 
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)getView().findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
         Toast toast=new Toast(getActivity());
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM,0,30);

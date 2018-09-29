@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -650,8 +651,20 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
 
     private void ToastError() {
-        Toast.makeText(context, "Please checked for rent option to set parking Schedule", Toast.LENGTH_LONG).show();
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)getView().findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText("Please checked for rent option to set parking Schedule");
+        Toast toast=new Toast(getActivity());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+
     }
+
+
 
     private void selectTime(final TextView textView) {
         final Calendar c = Calendar.getInstance();

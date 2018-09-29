@@ -2,8 +2,10 @@ package bd.com.universal.eparking.owner.Adapters;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -130,7 +132,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(context, "You are calling "+model.getmConsumerPhone(), Toast.LENGTH_SHORT).show();
+                        ShowToast("You are calling "+model.getmConsumerPhone());
+                        //Toast.makeText(context, "You are calling "+model.getmConsumerPhone(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_CALL);
                         intent.setData(Uri.parse("tel:" + model.getmConsumerPhone()));
                         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -148,29 +151,56 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.mIgnoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
-                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
-                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
 
-                parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED,new DatabaseReference.CompletionListener() {
+
+
+
+                DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        Toast.makeText(context, Status.REJECTED+" Successfully !", Toast.LENGTH_LONG).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
+
+                                parkPlaceRequestDB.child("mStatus").setValue(Status.REJECTED,new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                        ShowToast(Status.REJECTED+" Successfully !");
+                                        //Toast.makeText(context, Status.REJECTED+" Successfully !", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                consumerRequestDB.child("mStatus").setValue(Status.REJECTED);
+                                parkPlaceDB.child("mIsAvailable").setValue("true");
+                                holder.mAcceptButton.setEnabled(false);
+                                holder.mIgnoreButton.setEnabled(false);
+                                holder.mIgnoreButton.setText(Status.REJECTED);
+
+
+                                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                                Map<String,Object> notificationMap=new HashMap<>();
+                                notificationMap.put("message",model.getmProviderName()+" has rejected your request.");
+                                notificationMap.put("consumer",mProviderID);
+
+                                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.dismiss();
+                                break;
+                        }
                     }
-                });
-                consumerRequestDB.child("mStatus").setValue(Status.REJECTED);
-                parkPlaceDB.child("mIsAvailable").setValue("true");
-                holder.mAcceptButton.setEnabled(false);
-                holder.mIgnoreButton.setEnabled(false);
-                holder.mIgnoreButton.setText(Status.REJECTED);
+                };
 
 
-                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
-                Map<String,Object> notificationMap=new HashMap<>();
-                notificationMap.put("message",model.getmProviderName()+" has rejected your request.");
-                notificationMap.put("consumer",mProviderID);
-
-                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setTitle("Alert");
+                builder.setIcon(R.drawable.warning_red);
+                builder.setMessage("Are you sure to ignore this request?").setPositiveButton("YES",onClickListener)
+                        .setNegativeButton("NO",onClickListener).show();
 
             }
         });
@@ -179,33 +209,60 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onClick(View v) {
 
-                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
-                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
-                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
 
-                parkPlaceRequestDB.child("mStatus").setValue(Status.ACCEPTED, new DatabaseReference.CompletionListener() {
+
+                DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        Toast.makeText(context, Status.ACCEPTED+" ! Please Check in your Dashboard", Toast.LENGTH_LONG).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+
+                                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
+
+                                parkPlaceRequestDB.child("mStatus").setValue(Status.ACCEPTED, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                        ShowToast(Status.ACCEPTED+" ! Please Check in your Dashboard");
+                                        //Toast.makeText(context, Status.ACCEPTED+" ! Please Check in your Dashboard", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                consumerRequestDB.child("mStatus").setValue(Status.ACCEPTED);
+                                parkPlaceDB.child("mIsAvailable").setValue("false");
+
+                                holder.mAcceptButton.setEnabled(false);
+                                holder.mIgnoreButton.setEnabled(false);
+                                holder.mAcceptButton.setText(Status.ACCEPTED);
+
+
+                                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                                Map<String,Object> notificationMap=new HashMap<>();
+                                notificationMap.put("message",model.getmProviderName()+" has accepted your request. "+model.getmParkPlaceAddress());
+                                notificationMap.put("consumer",mProviderID);
+
+                                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+
+
+
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.dismiss();
+                                break;
+                        }
                     }
-                });
-                consumerRequestDB.child("mStatus").setValue(Status.ACCEPTED);
-                parkPlaceDB.child("mIsAvailable").setValue("false");
-
-                holder.mAcceptButton.setEnabled(false);
-                holder.mIgnoreButton.setEnabled(false);
-                holder.mAcceptButton.setText(Status.ACCEPTED);
+                };
 
 
-                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
-                Map<String,Object> notificationMap=new HashMap<>();
-                notificationMap.put("message",model.getmProviderName()+" has accepted your request. "+model.getmParkPlaceAddress());
-                notificationMap.put("consumer",mProviderID);
-
-                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
-
-
-
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setTitle("Alert");
+                builder.setIcon(R.drawable.warning_red);
+                builder.setMessage("Do you want to accept this parking request?").setPositiveButton("YES",onClickListener)
+                        .setNegativeButton("NO",onClickListener).show();
 
 
             }
@@ -338,6 +395,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
 */
+
+
+
+    public void ShowToast(String text){
+
+        Toast ToastMessage = Toast.makeText(context,text,Toast.LENGTH_SHORT);
+        View toastView = ToastMessage.getView();
+        toastView.setBackgroundResource(R.drawable.custom_toast);
+        ToastMessage.show();
+
+    }
 
 
 }

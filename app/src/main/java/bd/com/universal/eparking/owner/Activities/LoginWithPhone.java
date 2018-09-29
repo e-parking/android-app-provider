@@ -8,7 +8,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -156,7 +159,9 @@ public class LoginWithPhone extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(LoginWithPhone.this, "We can't your data read.", Toast.LENGTH_SHORT).show();
+
+                    ErrorToast("We can't your data read.");
+                    //Toast.makeText(LoginWithPhone.this, , Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -194,6 +199,20 @@ public class LoginWithPhone extends AppCompatActivity {
             }
         });
         mInternetDialog.show();
+    }
+
+
+    private void ErrorToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(this);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
     }
 
 

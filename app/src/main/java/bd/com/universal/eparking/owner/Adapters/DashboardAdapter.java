@@ -2,8 +2,10 @@ package bd.com.universal.eparking.owner.Adapters;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,9 +27,12 @@ import bd.com.universal.eparking.owner.DataModel.ParkingRequest;
 import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Viewholder> {
 
@@ -111,7 +116,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "You are calling this "+number, Toast.LENGTH_SHORT).show();
+                ShowToast("You are calling this "+number);
+               // Toast.makeText(context, "You are calling this "+number, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:" + number));
                 if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -181,25 +187,57 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             @Override
             public void onClick(View v) {
 
-                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
-                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
-                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
 
-                parkPlaceRequestDB.child("mStatus").setValue(Status.STARTED, new DatabaseReference.CompletionListener() {
+                DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        Toast.makeText(context, Status.STARTED+" ", Toast.LENGTH_LONG).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                DatabaseReference parkPlaceRequestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference consumerRequestDB=mFirebaseInstance.getReference("ConsumerList/"+model.getmConsumerID()+"/Request/"+model.getmRequestID());
+                                DatabaseReference parkPlaceDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + model.getmParkPlaceID());
+
+                                parkPlaceRequestDB.child("mStatus").setValue(Status.STARTED, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                        ShowToast(Status.STARTED+" ");
+                                        //Toast.makeText(context, Status.STARTED+" ", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                consumerRequestDB.child("mStatus").setValue(Status.STARTED);
+                                consumerRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
+                                parkPlaceRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
+                                parkPlaceDB.child("mIsAvailable").setValue("false");
+
+                                holder.mStartButton.setText(Status.STARTED);
+                                holder.mStartButton.setEnabled(false);
+
+
+
+                                FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+                                Map<String,Object> notificationMap=new HashMap<>();
+                                notificationMap.put("message",model.getmProviderName()+" has started perking session.");
+                                notificationMap.put("consumer",mProviderID);
+
+                                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+
+
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.dismiss();
+                                break;
+                        }
                     }
-                });
-                consumerRequestDB.child("mStatus").setValue(Status.STARTED);
-                consumerRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
-                parkPlaceRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
-                parkPlaceDB.child("mIsAvailable").setValue("false");
+                };
 
-                holder.mStartButton.setText(Status.STARTED);
-                holder.mStartButton.setEnabled(false);
-
-
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setTitle("Alert");
+                builder.setIcon(R.drawable.warning_red);
+                builder.setMessage("Do you want to accept this parking request?").setPositiveButton("YES",onClickListener)
+                        .setNegativeButton("NO",onClickListener).show();
 
 
             }
@@ -216,6 +254,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
 
 
+
+    public void ShowToast(String text){
+
+        Toast ToastMessage = Toast.makeText(context,text,Toast.LENGTH_SHORT);
+        View toastView = ToastMessage.getView();
+        toastView.setBackgroundResource(R.drawable.custom_toast);
+        ToastMessage.show();
+
+    }
 
 
 

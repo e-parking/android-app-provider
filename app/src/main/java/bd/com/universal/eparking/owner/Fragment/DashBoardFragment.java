@@ -147,7 +147,6 @@ public class DashBoardFragment extends Fragment {
             mInfoText.setVisibility(View.INVISIBLE);
         }
 
-        Collections.reverse(requestList);
         dashboardAdapter = new DashboardAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(dashboardAdapter);
     }
