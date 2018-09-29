@@ -155,7 +155,7 @@
                         android:textAllCaps="false"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
-                        android:backgroundTint="@color/green"
+                        android:backgroundTint="@color/dark_green"
                         android:text="Accept"/>
 
                 </LinearLayout>

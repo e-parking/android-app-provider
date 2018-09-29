@@ -95,7 +95,7 @@
                     android:layout_height="fill_parent"
                     android:layout_width="match_parent"
                     android:maxLines="2"
-                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     />
@@ -154,7 +154,7 @@
                         android:textAllCaps="false"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
-                        android:backgroundTint="@color/green"
+                        android:backgroundTint="@color/dark_green"
                         android:text="Start"/>
 
                 </LinearLayout>

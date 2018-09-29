@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -439,7 +440,8 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
                     Log.e(TAG, "Something went wrong Park Place is null!");
                     return;
                 } else {
-                    Toast.makeText(getActivity(), "New parking space added", Toast.LENGTH_SHORT).show();
+                    ShowToast("New parking space added");
+                   // Toast.makeText(getActivity(), "New parking space added", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     mProviderRateET.setText("");
                     mPlaceTitle.setText("");
@@ -811,5 +813,18 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
             }
         });
         mInternetDialog.show();
+    }
+    private void ShowToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.custom_toast_layout,(ViewGroup)getView().findViewById(R.id.custom_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+
+        Toast toast=new Toast(getActivity());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
     }
 }
