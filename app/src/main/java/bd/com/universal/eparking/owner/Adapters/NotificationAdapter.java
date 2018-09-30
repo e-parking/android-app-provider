@@ -152,9 +152,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onClick(View v) {
 
-
-
-
                 DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -177,6 +174,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                 holder.mAcceptButton.setEnabled(false);
                                 holder.mIgnoreButton.setEnabled(false);
                                 holder.mIgnoreButton.setText(Status.REJECTED);
+                                holder.mAcceptButton.setVisibility(View.GONE);
 
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
@@ -236,6 +234,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                 holder.mAcceptButton.setEnabled(false);
                                 holder.mIgnoreButton.setEnabled(false);
                                 holder.mAcceptButton.setText(Status.ACCEPTED);
+                                holder.mIgnoreButton.setVisibility(View.GONE);
 
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();

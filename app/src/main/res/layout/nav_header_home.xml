@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_regular"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="No Name"
+        android:hint="No Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white" />
 
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_regular"
-        android:text="No Email Address"
+        android:hint="No Email Address"
         android:textColor="@color/white" />
 
 </LinearLayout>
