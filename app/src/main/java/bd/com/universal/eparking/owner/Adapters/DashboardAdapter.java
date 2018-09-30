@@ -26,10 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import bd.com.universal.eparking.owner.DataModel.ParkingRequest;
 import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public static String mProviderID;
     public static String mParkPlaceID;
 
+    SimpleDateFormat formatedDate = new SimpleDateFormat("dd MMM yyyy");
+
     public DashboardAdapter(List<ParkingRequest> requestList, Context context) {
         this.requestList = requestList;
         this.context = context;
@@ -56,11 +60,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public static class Viewholder extends RecyclerView.ViewHolder {
 
 
-        public ImageView mSenderImage;
-        public TextView mRequestSenderName;
+        public CircleImageView mSenderImage;
+        public TextView mRequestSenderName,requestTimeTV;
         public TextView mRequestSenderInfo;
         public TextView mVehicleNumber;
-        public TextView mDurationTV,phoneNumberTV;
+        public TextView mDurationTV,phoneNumberTV,statusTV;
         public Button mStartButton,callButton;
 
 
@@ -69,7 +73,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
             // 2. Define your Views here
 
-            mSenderImage = (ImageView)itemView.findViewById(R.id.mSenderImage);
+            mSenderImage = (CircleImageView) itemView.findViewById(R.id.mSenderImage);
             mRequestSenderName = (TextView)itemView.findViewById(R.id.mRequestSenderName);
             mRequestSenderInfo = (TextView)itemView.findViewById(R.id.mRequestSenderInfo);
             mVehicleNumber = (TextView)itemView.findViewById(R.id.mVehicleNumber);
@@ -77,6 +81,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             mStartButton = (Button)itemView.findViewById(R.id.mAcceptButton);
             phoneNumberTV=(TextView)itemView.findViewById(R.id.phoneNumberTV);
             callButton=(Button)itemView.findViewById(R.id.callButton);
+            requestTimeTV=itemView.findViewById(R.id.requestDateId);
+            statusTV=itemView.findViewById(R.id.status_id);
 
 
         }
@@ -98,6 +104,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         holder.mRequestSenderInfo.setText(model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
 
+        holder.requestTimeTV.setText(formatedDate.format(model.getmRequestTime()));
         if (model.getmConsumerPhotoUrl().isEmpty())
         {
         }
@@ -161,22 +168,34 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         }
 
 
-
-
-
         String mStatus=model.getmStatus();
-        if (mStatus.equals(Status.STARTED))
+
+
+        if (mStatus.equals(Status.PENDING)){
+            holder.mStartButton.setVisibility(View.VISIBLE);
+            holder.statusTV.setVisibility(View.GONE);
+        }
+        else if (mStatus.equals(Status.STARTED))
         {
             holder.mStartButton.setText(Status.STARTED);
             holder.mStartButton.setEnabled(false);
+            holder.mStartButton.setVisibility(View.GONE);
+            holder.statusTV.setVisibility(View.VISIBLE);
+            holder.statusTV.setText(Status.STARTED);
         }
         else if (mStatus.equals(Status.ENDED)){
             holder.mStartButton.setText(Status.ENDED);
             holder.mStartButton.setEnabled(false);
+            holder.mStartButton.setVisibility(View.GONE);
+            holder.statusTV.setVisibility(View.VISIBLE);
+            holder.statusTV.setText(Status.ENDED);
         }
         else if (mStatus.equals(Status.REJECTED)){
             holder.mStartButton.setText(Status.REJECTED);
             holder.mStartButton.setEnabled(false);
+            holder.mStartButton.setVisibility(View.GONE);
+            holder.statusTV.setVisibility(View.VISIBLE);
+            holder.statusTV.setText(Status.REJECTED);
         }
 
 
@@ -186,7 +205,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         holder.mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
@@ -212,6 +230,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
                                 holder.mStartButton.setText(Status.STARTED);
                                 holder.mStartButton.setEnabled(false);
+                                holder.mStartButton.setVisibility(View.GONE);
+                                holder.statusTV.setVisibility(View.VISIBLE);
+                                holder.statusTV.setText(Status.STARTED);
 
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
@@ -220,8 +241,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                                 notificationMap.put("consumer",mProviderID);
 
                                 mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
-
-
 
                                 break;
 
@@ -235,7 +254,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                 AlertDialog.Builder builder=new AlertDialog.Builder(context);
                 builder.setTitle("Alert");
                 builder.setIcon(R.drawable.warning_red);
-                builder.setMessage("Do you want to accept this parking request?").setPositiveButton("YES",onClickListener)
+                builder.setMessage("Do you want to start this parking session?").setPositiveButton("YES",onClickListener)
                         .setNegativeButton("NO",onClickListener).show();
 
 

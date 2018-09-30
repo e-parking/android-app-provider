@@ -22,12 +22,13 @@ public class ParkingRequest {
     private String mConsumerPhotoUrl;
     private long mEndTime;
     private double mEstimatedCost;
+    private long mRequestTime;
 
 
     public ParkingRequest() {
     }
 
-    public ParkingRequest(String mConsumerID, String mProviderID, String mParkPlaceID, String mParkPlaceTitle, String mRequestID, String mConsumerName, String mConsumerPhone, String mConsumerVehicleNumber, String mProviderName, String mProviderPhone, String mParkPlaceAddress, String mParkPlaceLatitude, String mParkPlaceLongitude, String mStatus, String mParkPlacePhotoUrl,long mStartTime, String mConsumerPhotoUrl,long mEndTime,double mEstimatedCost) {
+    public ParkingRequest(String mConsumerID, String mProviderID, String mParkPlaceID, String mParkPlaceTitle, String mRequestID, String mConsumerName, String mConsumerPhone, String mConsumerVehicleNumber, String mProviderName, String mProviderPhone, String mParkPlaceAddress, String mParkPlaceLatitude, String mParkPlaceLongitude, String mStatus, String mParkPlacePhotoUrl,long mStartTime, String mConsumerPhotoUrl,long mEndTime,double mEstimatedCost, long mRequestTime) {
         this.mConsumerID = mConsumerID;
         this.mProviderID = mProviderID;
         this.mParkPlaceID = mParkPlaceID;
@@ -47,6 +48,7 @@ public class ParkingRequest {
         this.mConsumerPhotoUrl=mConsumerPhotoUrl;
         this.mEndTime=mEndTime;
         this.mEstimatedCost=mEstimatedCost;
+        this.mRequestTime=mRequestTime;
     }
 
 
@@ -202,5 +204,13 @@ public class ParkingRequest {
 
     public void setmEndTime(long mEndTime) {
         this.mEndTime = mEndTime;
+    }
+
+    public long getmRequestTime() {
+        return mRequestTime;
+    }
+
+    public void setmRequestTime(long mRequestTime) {
+        this.mRequestTime = mRequestTime;
     }
 }
