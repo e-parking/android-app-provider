@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -216,7 +217,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     }
 
@@ -657,6 +658,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (TempHolder.mProvider != null)
         {
             mProviderName.setText(TempHolder.mProvider.getmName());
+            mProviderName.setSelection(mProviderName.getText().length());
             if (!TempHolder.mProvider.getmEmail().contains("@mail.com"))
             {
                 mProviderEmail.setText(TempHolder.mProvider.getmEmail());
