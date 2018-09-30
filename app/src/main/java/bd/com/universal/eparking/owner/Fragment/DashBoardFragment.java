@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +47,8 @@ public class DashBoardFragment extends Fragment {
     private DatabaseReference mFirebaseRequestRef;
     private FirebaseDatabase mFirebaseInstance;
     private DatabaseReference mFirebaseDatabase;
-    String mProviderID;
+    private String mProviderID;
+    private ProgressBar progressBar;
 
     //---------------------------------------------------
     private TextView mInfoText;
@@ -72,6 +74,7 @@ public class DashBoardFragment extends Fragment {
         mProviderID = auth.getCurrentUser().getUid();
 
         mNotificationRecyclerView = (RecyclerView) view.findViewById(R.id.mNotificationRecyclerView);
+        progressBar=view.findViewById(R.id.progressBarId);
         llm = new LinearLayoutManager(view.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mNotificationRecyclerView.setLayoutManager(llm);
@@ -99,24 +102,32 @@ public class DashBoardFragment extends Fragment {
                     ParkPlace parkPlace = data.getValue(ParkPlace.class);
                     DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
 
-                    Query query=requestDB.orderByChild("mRequestTime").limitToLast(7);
+                    Query query=requestDB.orderByChild("mRequestTime").limitToLast(15);
 
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot data:dataSnapshot.getChildren()) {
 
-                                ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
-                                if (parkingRequest.getmStatus().equals(Status.ACCEPTED)
-                                        || parkingRequest.getmStatus().equals(Status.STARTED)
-                                        || parkingRequest.getmStatus().equals(Status.ENDED)
-                                        || parkingRequest.getmStatus().equals(Status.REJECTED))
-                                {
-                                    requestList.add(parkingRequest);
-                                    //Toast.makeText(getActivity(), parkingRequest.getmStatus(), Toast.LENGTH_SHORT).show();
-                                    setNotifactionRecyclerView ();
+                            if(dataSnapshot.exists()){
+                                for(DataSnapshot data:dataSnapshot.getChildren()) {
+
+                                    ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
+                                    if (parkingRequest.getmStatus().equals(Status.ACCEPTED)
+                                            || parkingRequest.getmStatus().equals(Status.STARTED)
+                                            || parkingRequest.getmStatus().equals(Status.ENDED)
+                                            || parkingRequest.getmStatus().equals(Status.REJECTED))
+                                    {
+                                        requestList.add(parkingRequest);
+                                        //Toast.makeText(getActivity(), parkingRequest.getmStatus(), Toast.LENGTH_SHORT).show();
+
+                                    }
                                 }
+                                setNotifactionRecyclerView ();
                             }
+                            else {
+                                setNotifactionRecyclerView ();
+                            }
+
                         }
 
                         @Override
@@ -124,8 +135,6 @@ public class DashBoardFragment extends Fragment {
 
                         }
                     });
-
-
 
 
                 }
@@ -142,11 +151,16 @@ public class DashBoardFragment extends Fragment {
 
     public void setNotifactionRecyclerView ()
     {
-        if (requestList.size()!=0)
+        progressBar.setVisibility(View.GONE);
+        if (requestList.size()<1)
         {
-            mInfoText.setVisibility(View.INVISIBLE);
+            mInfoText.setVisibility(View.VISIBLE);
+        }
+        else {
+            mInfoText.setVisibility(View.GONE);
         }
 
+        Collections.reverse(requestList);
         dashboardAdapter = new DashboardAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(dashboardAdapter);
     }
