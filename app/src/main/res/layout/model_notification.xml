@@ -145,8 +145,8 @@
                         android:layout_height="40dp"
                         android:textAllCaps="false"
                         android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/red"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/white"
                         android:text="Ignore"/>
                     <Button
                         android:id="@+id/mAcceptButton"
