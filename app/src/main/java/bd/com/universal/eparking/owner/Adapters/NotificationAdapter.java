@@ -28,9 +28,11 @@ import bd.com.universal.eparking.owner.DataModel.ParkPlace;
 import bd.com.universal.eparking.owner.DataModel.ParkingRequest;
 import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +64,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public static String mParkPlaceID;
     public static String mRequestID;
 
+    SimpleDateFormat formatedDate = new SimpleDateFormat("dd MMM yyyy");
+
     public NotificationAdapter(List<ParkingRequest> requestList, Context context) {
         this.requestList = requestList;
         this.context = context;
@@ -75,9 +79,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         // 1. Declare your Views here
 
-        public ImageView mSenderImage;
+        public CircleImageView mSenderImage;
         public me.zhanghai.android.materialratingbar.MaterialRatingBar mSenderRating;
-        public TextView mRequestSenderName;
+        public TextView mRequestSenderName,requestTimeTV;
         public TextView mRequestSenderInfo;
         public TextView mVehicleNumber,phoneNumberTv;
         public Button mIgnoreButton;
@@ -90,7 +94,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             // 2. Define your Views here
 
-            mSenderImage = (ImageView)itemView.findViewById(R.id.mSenderImage);
+            mSenderImage = (CircleImageView) itemView.findViewById(R.id.mSenderImage);
             mRequestSenderName = (TextView)itemView.findViewById(R.id.mRequestSenderName);
             mRequestSenderInfo = (TextView)itemView.findViewById(R.id.mRequestSenderInfo);
             mVehicleNumber = (TextView)itemView.findViewById(R.id.mVehicleNumber);
@@ -98,6 +102,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             mAcceptButton = (Button)itemView.findViewById(R.id.mAcceptButton);
             callButton=(Button)itemView.findViewById(R.id.callButton);
             phoneNumberTv=(TextView)itemView.findViewById(R.id.phoneNumberTV);
+            requestTimeTV=itemView.findViewById(R.id.requestDateId);
 
 
         }
@@ -116,9 +121,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         final ParkingRequest model = requestList.get(position);
         holder.mRequestSenderName.setText(model.getmConsumerName());
-        holder.mRequestSenderInfo.setText("wants to park vehicle in"+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
+        holder.mRequestSenderInfo.setText("wants to park vehicle in "+model.getmParkPlaceTitle()+", "+model.getmParkPlaceAddress());
         holder.mVehicleNumber.setText(model.getmConsumerVehicleNumber());
         holder.phoneNumberTv.setText(model.getmConsumerPhone());
+        holder.requestTimeTV.setText(formatedDate.format(model.getmRequestTime()));
 
         if (model.getmConsumerPhotoUrl()==null | model.getmConsumerPhotoUrl().isEmpty()){
         }

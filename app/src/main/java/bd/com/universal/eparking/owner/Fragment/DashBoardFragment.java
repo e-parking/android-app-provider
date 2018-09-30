@@ -104,7 +104,7 @@ public class DashBoardFragment extends Fragment {
 
                     Query query=requestDB.orderByChild("mRequestTime").limitToLast(15);
 
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -118,8 +118,6 @@ public class DashBoardFragment extends Fragment {
                                             || parkingRequest.getmStatus().equals(Status.REJECTED))
                                     {
                                         requestList.add(parkingRequest);
-                                        //Toast.makeText(getActivity(), parkingRequest.getmStatus(), Toast.LENGTH_SHORT).show();
-
                                     }
                                 }
                                 setNotifactionRecyclerView ();
@@ -160,7 +158,7 @@ public class DashBoardFragment extends Fragment {
             mInfoText.setVisibility(View.GONE);
         }
 
-        Collections.reverse(requestList);
+        //Collections.reverse(requestList);
         dashboardAdapter = new DashboardAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(dashboardAdapter);
     }
