@@ -25,6 +25,7 @@ import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -138,6 +139,8 @@ public class NotificationFragment extends Fragment {
         {
             mInfoText.setVisibility(View.INVISIBLE);
         }
+
+        Collections.sort(requestList,ParkingRequest.SORT_BY_TIME);
         notificationAdapter = new NotificationAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(notificationAdapter);
     }
