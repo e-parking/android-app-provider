@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import bd.com.universal.eparking.owner.DataModel.ParkPlace;
 import bd.com.universal.eparking.owner.DataModel.Request;
+import bd.com.universal.eparking.owner.DataModel.VehicleType;
 import bd.com.universal.eparking.owner.R;
 
 import java.util.List;
@@ -70,7 +71,12 @@ public class ParkPlaceAdapter extends RecyclerView.Adapter<ParkPlaceAdapter.View
     public void onBindViewHolder(ParkPlaceAdapter.Viewholder holder, int position) {
 
         model = parkPlaceList.get(position);
-        holder.momentImageView.setImageResource(R.drawable.parking_icon);
+        if (model.getmParkingType().equals(VehicleType.Car)){
+            holder.momentImageView.setImageResource(R.drawable.car_park_place_icon);
+        }else if (model.getmParkingType().equals(VehicleType.MotorCycle)){
+            holder.momentImageView.setImageResource(R.drawable.bike_park_place_icon);
+        }
+
         holder.momentTitle.setText(model.getmParkPlaceTitle());
 
     }

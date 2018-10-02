@@ -62,6 +62,8 @@ import bd.com.universal.eparking.owner.Fragment.MyParkingPlacesFragment;
 import bd.com.universal.eparking.owner.Fragment.NotificationFragment;
 import bd.com.universal.eparking.owner.Fragment.PaymentFragment;
 import bd.com.universal.eparking.owner.Fragment.ScheduleFragment;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -335,6 +337,8 @@ public class HomeActivity extends AppCompatActivity implements
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         startActivity(intent);
+        FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+        mFireStore.collection("Owners").document(mProviderID).update("token_id","");
     }
 
 
