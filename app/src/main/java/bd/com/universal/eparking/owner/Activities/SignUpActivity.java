@@ -230,7 +230,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-
     }
 
 
@@ -670,6 +669,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (TempHolder.mProvider != null)
         {
             mProviderName.setText(TempHolder.mProvider.getmName());
+            mProviderName.setSelection(mProviderName.getText().length());
             if (!TempHolder.mProvider.getmEmail().contains("@mail.com"))
             {
                 mProviderEmail.setText(TempHolder.mProvider.getmEmail());
