@@ -214,7 +214,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onClick(View v) {
 
 
-
                 DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -248,10 +247,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                 notificationMap.put("message",model.getmProviderName()+" has accepted your request. "+model.getmParkPlaceAddress());
                                 notificationMap.put("consumer",mProviderID);
 
-                                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
-
-
-
+                                mFireStore.collection("Seekers").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
 
                                 break;
 

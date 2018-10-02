@@ -21,6 +21,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +31,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -491,6 +494,18 @@ public class HomeActivity extends AppCompatActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+                if (dataSnapshot.child("mName").getValue().toString().isEmpty()
+                        || dataSnapshot.child("mName").getValue().toString().equals("")
+                        || dataSnapshot.child("mName").getValue().toString().equals(null))
+                {
+                    Intent intent=new Intent(HomeActivity.this,SignUpActivity.class);
+                    startActivity(intent);
+                    ErrorToast("Please update your profile first");
+
+                }
+
+
                 TempHolder.mProvider = dataSnapshot.getValue(Provider.class);
                 System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
                 if (TempHolder.mProvider != null) {
@@ -689,5 +704,21 @@ public class HomeActivity extends AppCompatActivity implements
             TempHolder.mParkPlaceID = "";
         }
     }
+
+
+
+    private void ErrorToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+
 
 }

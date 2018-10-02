@@ -90,7 +90,7 @@ public class DashBoardFragment extends Fragment {
 
     private void addRequestChangeListener() {
         // User requestList change listener
-
+        requestList.clear();
         System.out.println(">>>>>>>>>>>>>> Provider ID >>>>>>>> "+mProviderID);
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mFirebaseRequestRef = mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList");
@@ -98,20 +98,21 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requestList.clear();
+
                 for(DataSnapshot data:dataSnapshot.getChildren()){
                     ParkPlace parkPlace = data.getValue(ParkPlace.class);
                     DatabaseReference requestDB=mFirebaseInstance.getReference("ProviderList/"+mProviderID+"/ParkPlaceList/" + parkPlace.getmParkPlaceID()+"/Request");
 
-                    Query query=requestDB.orderByChild("mRequestTime").limitToLast(15);
+                    Query query=requestDB.orderByChild("mRequestTime").limitToLast(7);
 
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             if(dataSnapshot.exists()){
                                 for(DataSnapshot data:dataSnapshot.getChildren()) {
 
-                                    ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
+                                    final ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
                                     if (parkingRequest.getmStatus().equals(Status.ACCEPTED)
                                             || parkingRequest.getmStatus().equals(Status.STARTED)
                                             || parkingRequest.getmStatus().equals(Status.ENDED)
@@ -159,6 +160,7 @@ public class DashBoardFragment extends Fragment {
         }
 
         //Collections.reverse(requestList);
+        Collections.sort(requestList,ParkingRequest.SORT_BY_TIME);
         dashboardAdapter = new DashboardAdapter(requestList,getActivity());
         mNotificationRecyclerView.setAdapter(dashboardAdapter);
     }
