@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -42,6 +43,7 @@ import bd.com.universal.eparking.owner.DataModel.Process;
 import bd.com.universal.eparking.owner.DataModel.Request;
 import bd.com.universal.eparking.owner.DataModel.TempHolder;
 import bd.com.universal.eparking.owner.DataModel.TransactionHistory;
+import bd.com.universal.eparking.owner.DataModel.VehicleType;
 import bd.com.universal.eparking.owner.R;
 
 import com.squareup.picasso.Picasso;
@@ -133,7 +135,11 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
     public void onBindViewHolder(Viewholder holder, int position) {
 
         model = parkPlaceList.get(position);
-        holder.momentImageView.setImageResource(R.drawable.parking_icon);
+        if (model.getmParkingType().equals(VehicleType.Car)){
+            holder.momentImageView.setImageResource(R.drawable.car_park_place_icon);
+        }else if (model.getmParkingType().equals(VehicleType.MotorCycle)){
+            holder.momentImageView.setImageResource(R.drawable.bike_park_place_icon);
+        }
         holder.momentTitle.setText(model.getmParkPlaceTitle());
 
     }
@@ -167,6 +173,17 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
                    listener.onPlaceClicked(parkPlaceList.get(getAdapterPosition()));
                 }
             });
+
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(context, "This is for delete option", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+
+
         }
 
     }

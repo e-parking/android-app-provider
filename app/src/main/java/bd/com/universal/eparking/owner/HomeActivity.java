@@ -21,6 +21,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +31,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +62,8 @@ import bd.com.universal.eparking.owner.Fragment.MyParkingPlacesFragment;
 import bd.com.universal.eparking.owner.Fragment.NotificationFragment;
 import bd.com.universal.eparking.owner.Fragment.PaymentFragment;
 import bd.com.universal.eparking.owner.Fragment.ScheduleFragment;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -332,6 +337,8 @@ public class HomeActivity extends AppCompatActivity implements
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         startActivity(intent);
+        FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
+        mFireStore.collection("Owners").document(mProviderID).update("token_id","");
     }
 
 
@@ -490,6 +497,18 @@ public class HomeActivity extends AppCompatActivity implements
         mFirebaseUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if (dataSnapshot.child("mName").getValue().toString().isEmpty()
+                        || dataSnapshot.child("mName").getValue().toString().equals("")
+                        || dataSnapshot.child("mName").getValue().toString().equals(null))
+                {
+                    Intent intent=new Intent(HomeActivity.this,SignUpActivity.class);
+                    startActivity(intent);
+                    ErrorToast("Please update your profile first");
+
+                }
+
 
                 TempHolder.mProvider = dataSnapshot.getValue(Provider.class);
                 System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
@@ -689,5 +708,21 @@ public class HomeActivity extends AppCompatActivity implements
             TempHolder.mParkPlaceID = "";
         }
     }
+
+
+
+    private void ErrorToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+
 
 }

@@ -14,7 +14,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -205,7 +208,15 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mInternetStatus = isNetworkAvailable();
                 if (mInternetStatus == true){
-                    showExitDialog();
+
+                    if (mProviderName.getText().toString()==null || mProviderName.getText().toString().isEmpty() && mProviderName.getText().toString().equals(""))
+                    {
+                        ErrorToast("Enter a valid Name");
+                    }
+                    else {
+                        showExitDialog();
+                    }
+
                 }
 
                 else {
@@ -756,4 +767,20 @@ public class SignUpActivity extends AppCompatActivity {
         });
         mInternetDialog.show();
     }
+
+
+
+    private void ErrorToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+        Toast toast=new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+
 }

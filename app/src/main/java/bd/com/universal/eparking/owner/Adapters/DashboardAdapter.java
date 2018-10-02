@@ -64,6 +64,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         public TextView mRequestSenderName,requestTimeTV;
         public TextView mRequestSenderInfo;
         public TextView mVehicleNumber;
+        public ImageView mobileIcon;
         public TextView mDurationTV,phoneNumberTV,statusTV;
         public Button mStartButton,callButton;
 
@@ -83,6 +84,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             callButton=(Button)itemView.findViewById(R.id.callButton);
             requestTimeTV=itemView.findViewById(R.id.requestDateId);
             statusTV=itemView.findViewById(R.id.status_id);
+            mobileIcon=itemView.findViewById(R.id.mobileIcon);
+            mStartButton.setVisibility(View.GONE);
 
 
         }
@@ -170,32 +173,38 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
         String mStatus=model.getmStatus();
 
-
-        if (mStatus.equals(Status.PENDING)){
-            holder.mStartButton.setVisibility(View.VISIBLE);
+        if (mStatus.equals(Status.ACCEPTED)){
             holder.statusTV.setVisibility(View.GONE);
+            holder.mStartButton.setVisibility(View.VISIBLE);
+            holder.mobileIcon.setVisibility(View.VISIBLE);
+            holder.phoneNumberTV.setVisibility(View.VISIBLE);
+            holder.callButton.setVisibility(View.VISIBLE);
         }
         else if (mStatus.equals(Status.STARTED))
         {
-            holder.mStartButton.setText(Status.STARTED);
-            holder.mStartButton.setEnabled(false);
             holder.mStartButton.setVisibility(View.GONE);
             holder.statusTV.setVisibility(View.VISIBLE);
             holder.statusTV.setText(Status.STARTED);
+            holder.mobileIcon.setVisibility(View.VISIBLE);
+            holder.phoneNumberTV.setVisibility(View.VISIBLE);
+            holder.callButton.setVisibility(View.VISIBLE);
         }
         else if (mStatus.equals(Status.ENDED)){
-            holder.mStartButton.setText(Status.ENDED);
-            holder.mStartButton.setEnabled(false);
+
             holder.mStartButton.setVisibility(View.GONE);
             holder.statusTV.setVisibility(View.VISIBLE);
             holder.statusTV.setText(Status.ENDED);
+            holder.mobileIcon.setVisibility(View.GONE);
+            holder.phoneNumberTV.setVisibility(View.GONE);
+            holder.callButton.setVisibility(View.GONE);
         }
         else if (mStatus.equals(Status.REJECTED)){
-            holder.mStartButton.setText(Status.REJECTED);
-            holder.mStartButton.setEnabled(false);
             holder.mStartButton.setVisibility(View.GONE);
             holder.statusTV.setVisibility(View.VISIBLE);
             holder.statusTV.setText(Status.REJECTED);
+            holder.mobileIcon.setVisibility(View.GONE);
+            holder.phoneNumberTV.setVisibility(View.GONE);
+            holder.callButton.setVisibility(View.GONE);
         }
 
 
@@ -220,27 +229,33 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
                                         ShowToast("  "+Status.STARTED+"  ");
+                                       /* // holder.mStartButton.setText(Status.STARTED);
+                                        holder.mStartButton.setVisibility(View.GONE);
+                                        holder.statusTV.setVisibility(View.VISIBLE);
+                                        holder.statusTV.setText(Status.STARTED);*/
                                         //Toast.makeText(context, Status.STARTED+" ", Toast.LENGTH_LONG).show();
+                                        holder.mStartButton.setVisibility(View.GONE);
                                     }
                                 });
+
+
+
                                 consumerRequestDB.child("mStatus").setValue(Status.STARTED);
                                 consumerRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
                                 parkPlaceRequestDB.child("mStartTime").setValue(System.currentTimeMillis());
                                 parkPlaceDB.child("mIsAvailable").setValue("false");
 
-                                holder.mStartButton.setText(Status.STARTED);
-                                holder.mStartButton.setEnabled(false);
+
                                 holder.mStartButton.setVisibility(View.GONE);
                                 holder.statusTV.setVisibility(View.VISIBLE);
                                 holder.statusTV.setText(Status.STARTED);
-
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
                                 Map<String,Object> notificationMap=new HashMap<>();
                                 notificationMap.put("message",model.getmProviderName()+" has started perking session.");
                                 notificationMap.put("consumer",mProviderID);
 
-                                mFireStore.collection("Users").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
+                                mFireStore.collection("Seekers").document(model.getmConsumerID()).collection("Notifications").add(notificationMap);
 
                                 break;
 

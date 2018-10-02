@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="bd.com.universal.eparking.owner.Fragment.ParkPlaceInfoFragment">
 
     <LinearLayout
@@ -10,72 +11,84 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <ImageView
-                android:id="@+id/mParkImageView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="left"/>
+            app:cardCornerRadius="5dp"
+            android:elevation="5dp"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <TextView
-                    android:id="@+id/mParkTitle"
+                <ImageView
+                    android:id="@+id/mParkImageView"
+                    android:layout_width="200dp"
+                    android:scaleType="centerCrop"
+                    android:layout_height="200dp"
+                    android:layout_gravity="left"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Title goes here"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mParkTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Title goes here"/>
 
 
-                <TextView
-                    android:id="@+id/mParkAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Address "/>
+                    <TextView
+                        android:id="@+id/mParkAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Address "/>
 
-                <TextView
-                    android:id="@+id/mParkRateInTaka"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="৳50 "/>
-
-
-                <TextView
-                    android:id="@+id/typeVehical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="Car"/>
+                    <TextView
+                        android:id="@+id/mParkRateInTaka"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:text="৳50 "/>
 
 
+                    <TextView
+                        android:id="@+id/typeVehical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:text="Car"/>
+
+
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-        </LinearLayout>
 
+
+        </android.support.v7.widget.CardView>
 
 
 

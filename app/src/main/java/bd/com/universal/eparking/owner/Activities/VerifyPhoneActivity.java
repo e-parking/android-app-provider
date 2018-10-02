@@ -245,11 +245,11 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                             mFirebaseDatabase.child(mProviderID).setValue(provider);
 
                                             //fireStore
-                                            mFireStore.collection("Users").document(mProviderID).set(userMap);
+                                            mFireStore.collection("Owners").document(mProviderID).set(userMap);
                                         }
                                         else if (mUserType.equals("old_user")){
 
-                                            mFireStore.collection("Users").document(mProviderID).set(userMap);
+                                            mFireStore.collection("Owners").document(mProviderID).set(userMap);
 
                                             SuccessToast("Welcome Back");
                                            // Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
