@@ -113,15 +113,17 @@ public class DashBoardFragment extends Fragment {
                                 for(DataSnapshot data:dataSnapshot.getChildren()) {
 
                                     final ParkingRequest parkingRequest = data.getValue(ParkingRequest.class);
+
                                     if (parkingRequest.getmStatus().equals(Status.ACCEPTED)
                                             || parkingRequest.getmStatus().equals(Status.STARTED)
                                             || parkingRequest.getmStatus().equals(Status.ENDED)
-                                            || parkingRequest.getmStatus().equals(Status.REJECTED))
-                                    {
+                                            || parkingRequest.getmStatus().equals(Status.REJECTED)) {
+
                                         requestList.add(parkingRequest);
+                                        setNotifactionRecyclerView ();
                                     }
                                 }
-                                setNotifactionRecyclerView ();
+
                             }
                             else {
                                 setNotifactionRecyclerView ();

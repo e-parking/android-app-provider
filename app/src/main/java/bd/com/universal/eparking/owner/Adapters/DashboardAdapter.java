@@ -143,7 +143,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
 
         final long startTime=model.getmStartTime();
-        if (model.getmStatus().equals(Status.STARTED))
+
+        final String mStatus=model.getmStatus();
+
+        if (mStatus.equals(Status.STARTED))
         {
             if (startTime!=0){
                 holder.mDurationTV.setVisibility(View.VISIBLE);
@@ -157,7 +160,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                 holder.mDurationTV.setText(hour+"h:"+min+"m"+" ago");
             }
         }
-        else if (model.getmStatus().equals(Status.ENDED))
+        else if (mStatus.equals(Status.ENDED))
         {
             holder.mDurationTV.setVisibility(View.VISIBLE);
             long endTime=model.getmEndTime();
@@ -169,9 +172,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             int sec= (int) (timeDistance/1000);
             holder.mDurationTV.setText(hour+"h:"+min+"m"+"\n"+model.getmEstimatedCost()+" TK");
         }
+        else if (mStatus.equals(Status.PENDING)){
+            holder.mDurationTV.setText("0h:0m");
+        }
 
 
-        String mStatus=model.getmStatus();
 
         if (mStatus.equals(Status.ACCEPTED)){
             holder.statusTV.setVisibility(View.GONE);
@@ -229,15 +234,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
                                         ShowToast("  "+Status.STARTED+"  ");
-                                       /* // holder.mStartButton.setText(Status.STARTED);
-                                        holder.mStartButton.setVisibility(View.GONE);
-                                        holder.statusTV.setVisibility(View.VISIBLE);
-                                        holder.statusTV.setText(Status.STARTED);*/
-                                        //Toast.makeText(context, Status.STARTED+" ", Toast.LENGTH_LONG).show();
-                                        holder.mStartButton.setVisibility(View.GONE);
+
                                     }
                                 });
-
 
 
                                 consumerRequestDB.child("mStatus").setValue(Status.STARTED);
@@ -249,6 +248,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                                 holder.mStartButton.setVisibility(View.GONE);
                                 holder.statusTV.setVisibility(View.VISIBLE);
                                 holder.statusTV.setText(Status.STARTED);
+                                holder.mobileIcon.setVisibility(View.VISIBLE);
+                                holder.phoneNumberTV.setVisibility(View.VISIBLE);
+                                holder.callButton.setVisibility(View.VISIBLE);
 
                                 FirebaseFirestore mFireStore=FirebaseFirestore.getInstance();
                                 Map<String,Object> notificationMap=new HashMap<>();
