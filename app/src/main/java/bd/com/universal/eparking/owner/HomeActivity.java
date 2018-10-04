@@ -499,37 +499,41 @@ public class HomeActivity extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                if (dataSnapshot.child("mName").getValue().toString().isEmpty()
-                        || dataSnapshot.child("mName").getValue().toString().equals("")
-                        || dataSnapshot.child("mName").getValue().toString().equals(null))
+                if (dataSnapshot.exists())
                 {
-                    Intent intent=new Intent(HomeActivity.this,SignUpActivity.class);
-                    startActivity(intent);
-                    ErrorToast("Please update your profile first");
+                    if (dataSnapshot.child("mName").getValue().toString().isEmpty()
+                            || dataSnapshot.child("mName").getValue().toString().equals("")
+                            || dataSnapshot.child("mName").getValue().toString().equals(null))
+                    {
+                        Intent intent=new Intent(HomeActivity.this,SignUpActivity.class);
+                        startActivity(intent);
+                        ErrorToast("Please update your profile first");
 
+                    }
+
+
+                    TempHolder.mProvider = dataSnapshot.getValue(Provider.class);
+                    System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
+                    if (TempHolder.mProvider != null) {
+
+                        if (TempHolder.mProvider.getmName()!=null && !TempHolder.mProvider.getmName().isEmpty()) {
+                            mUserName.setText(TempHolder.mProvider.getmName());
+                        }
+
+                        if (TempHolder.mProvider.getmEmail()!=null && !TempHolder.mProvider.getmEmail().isEmpty() && !TempHolder.mProvider.getmEmail().contains("@mail.com")) {
+                            mUserEmailAddress.setText(TempHolder.mProvider.getmEmail());
+                        }
+
+                        if (TempHolder.mProvider.getmProfilePhoto()!=null && !TempHolder.mProvider.getmProfilePhoto().equals("")) {
+                            Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProfileImage);
+                        } else {
+                            mProfileImage.setImageResource(R.drawable.profile);
+                        }
+
+
+                    }
                 }
 
-
-                TempHolder.mProvider = dataSnapshot.getValue(Provider.class);
-                System.out.println(">>>>>>>>>>>>>> Get Status Called  from firebase");
-                if (TempHolder.mProvider != null) {
-
-                    if (TempHolder.mProvider.getmName()!=null && !TempHolder.mProvider.getmName().isEmpty()) {
-                        mUserName.setText(TempHolder.mProvider.getmName());
-                    }
-
-                    if (TempHolder.mProvider.getmEmail()!=null && !TempHolder.mProvider.getmEmail().isEmpty() && !TempHolder.mProvider.getmEmail().contains("@mail.com")) {
-                        mUserEmailAddress.setText(TempHolder.mProvider.getmEmail());
-                    }
-
-                    if (TempHolder.mProvider.getmProfilePhoto()!=null && !TempHolder.mProvider.getmProfilePhoto().equals("")) {
-                        Picasso.get().load(TempHolder.mProvider.getmProfilePhoto()).placeholder(R.drawable.profile).error(R.drawable.profile).into(mProfileImage);
-                    } else {
-                        mProfileImage.setImageResource(R.drawable.profile);
-                    }
-
-
-                }
             }
 
             @Override
