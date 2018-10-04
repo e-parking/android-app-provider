@@ -206,11 +206,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent intent = new Intent(VerifyPhoneActivity.this, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(VerifyPhoneActivity.this);
-                            startActivity(intent, options.toBundle());
-
 
 
                             final Handler handler = new Handler();
@@ -242,14 +237,24 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                             long currentDayMillis = todayDate.getTime();
                                             mThisDate = Long.toString(currentDayMillis);
                                             Provider provider = new Provider(mProviderID,"","","","","","","",mPhoneNumber,"","","", "0", "0");
-                                            mFirebaseDatabase.child(mProviderID).setValue(provider);
+                                            mFirebaseDatabase.child(mProviderID).setValue(provider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    goToHomeActivity();
+                                                }
+                                            });
 
                                             //fireStore
                                             mFireStore.collection("Owners").document(mProviderID).set(userMap);
                                         }
                                         else if (mUserType.equals("old_user")){
 
-                                            mFireStore.collection("Owners").document(mProviderID).set(userMap);
+                                            mFireStore.collection("Owners").document(mProviderID).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    goToHomeActivity();
+                                                }
+                                            });
 
                                             SuccessToast("Welcome Back");
                                            // Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
@@ -274,6 +279,13 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     }
 
+    private void goToHomeActivity() {
+        Intent intent = new Intent(VerifyPhoneActivity.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(VerifyPhoneActivity.this);
+        startActivity(intent, options.toBundle());
+
+    }
 
 
     private void SuccessToast(String text){
