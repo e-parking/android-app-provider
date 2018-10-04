@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,10 +26,8 @@ import bd.com.universal.eparking.owner.DataModel.ParkingRequest;
 import bd.com.universal.eparking.owner.DataModel.Status;
 import bd.com.universal.eparking.owner.R;
 import de.hdodenhof.circleimageview.CircleImageView;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -279,7 +276,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         });
 
 
-
     }
 
     @Override
@@ -288,7 +284,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     }
 
 
-
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
     public void ShowToast(String text){
 
