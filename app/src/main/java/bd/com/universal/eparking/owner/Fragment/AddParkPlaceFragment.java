@@ -430,7 +430,7 @@ public class AddParkPlaceFragment extends Fragment implements OnMapReadyCallback
 
     private void addParkPlaceChangeListener() {
         // User requestList change listener
-        mFirebaseRefParkPlace.child(mParkPlaceID).addValueEventListener(new ValueEventListener() {
+        mFirebaseRefParkPlace.child(mParkPlaceID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ParkPlace parkPlace = dataSnapshot.getValue(ParkPlace.class);

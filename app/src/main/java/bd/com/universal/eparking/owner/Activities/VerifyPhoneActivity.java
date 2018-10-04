@@ -136,11 +136,13 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 if (code.isEmpty() || code.length() < 6) {
                     editTextCode.setError("Enter valid code");
                     editTextCode.requestFocus();
-                    return;
+
+                }else {
+
+                    //verifying the code entered manually
+                    verifyVerificationCode(code);
                 }
 
-                //verifying the code entered manually
-                verifyVerificationCode(code);
             }
         });
 
@@ -240,7 +242,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                             mFirebaseDatabase.child(mProviderID).setValue(provider).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    goToHomeActivity();
+                                                    goToProfileActivity();
                                                 }
                                             });
 
@@ -253,13 +255,16 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     goToHomeActivity();
+                                                    SuccessToast("Welcome Back");
                                                 }
                                             });
 
-                                            SuccessToast("Welcome Back");
+
                                            // Toast.makeText(VerifyPhoneActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
                                         }
 
+                                    }else {
+                                        ErrorToast("Invalid OTP code");
                                     }
                                 }
                             }, 2000);
@@ -269,7 +274,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.INVISIBLE);
                             signIn.setVisibility(View.VISIBLE);
-                            ErrorToast("Invalid OTP code");
+
 
                             //Toast.makeText(VerifyPhoneActivity.this, , Toast.LENGTH_SHORT).show();
                         }
@@ -279,11 +284,17 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     }
 
+    private void goToProfileActivity() {
+        Intent intent=new Intent(VerifyPhoneActivity.this,SignUpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
     private void goToHomeActivity() {
         Intent intent = new Intent(VerifyPhoneActivity.this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(VerifyPhoneActivity.this);
-        startActivity(intent, options.toBundle());
+        //ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(VerifyPhoneActivity.this);
+        startActivity(intent);
 
     }
 

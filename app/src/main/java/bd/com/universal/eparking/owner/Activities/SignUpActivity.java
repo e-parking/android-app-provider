@@ -285,18 +285,20 @@ public class SignUpActivity extends AppCompatActivity {
 
         mUpdateAllInputFields();
 
-        // clear edit text
+       /* // clear edit text
         mProviderName.setText("");
         mProviderEmail.setText("");
         mProviderPassword1.setText("");
         mProviderPassword1.setText("");
         mProviderPhone.setText("");
         mProviderAddress.setText("");
-        mProviderNID.setText("");
+        mProviderNID.setText("");*/
 
-        startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+        //startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
         progressDialog.dismiss();
-        finish();
+
+        SuccessToast("Profile updated successfully");
+        //finish();
 
 
         /*
@@ -442,12 +444,15 @@ public class SignUpActivity extends AppCompatActivity {
         filepath.putFile(uri).addOnSuccessListener(new    OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                SuccessToast("Upload Successful!");
                 Toast.makeText(SignUpActivity.this, "Upload Successful!",    Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
+                ErrorToast(e.getMessage());
                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
@@ -468,13 +473,17 @@ public class SignUpActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 mProfileURL = taskSnapshot.getDownloadUrl().toString();
                 mFirebaseUserInformation.child("mProfilePhoto").setValue(mProfileURL);
+
+                SuccessToast("Profile picture added successfully.");
                 Toast.makeText(SignUpActivity.this, "Profile picture added successfully.",    Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                ErrorToast(e.getMessage());
+                //Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         });
@@ -723,7 +732,7 @@ public class SignUpActivity extends AppCompatActivity {
         mNoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
                 dialog.dismiss();
             }
         });
@@ -776,6 +785,20 @@ public class SignUpActivity extends AppCompatActivity {
         View layout=layoutInflater.inflate(R.layout.error_custom_toast,(ViewGroup)findViewById(R.id.error_toast_layout));
         TextView textView=layout.findViewById(R.id.toast_text_id);
         textView.setText(text);
+        Toast toast=new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM,0,30);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    private void SuccessToast(String text){
+
+        LayoutInflater layoutInflater=getLayoutInflater();
+        View layout=layoutInflater.inflate(R.layout.custom_toast_layout,(ViewGroup)findViewById(R.id.custom_toast_layout));
+        TextView textView=layout.findViewById(R.id.toast_text_id);
+        textView.setText(text);
+
         Toast toast=new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM,0,30);
