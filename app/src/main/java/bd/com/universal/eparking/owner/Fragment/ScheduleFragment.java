@@ -618,7 +618,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         }
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-        builder.setMessage("New Schedule Saved Successfully").setPositiveButton("OK",onClickListener).show();
+        builder.setMessage("New schedule saved successfully").setPositiveButton("OK",onClickListener).show();
 
     }
 

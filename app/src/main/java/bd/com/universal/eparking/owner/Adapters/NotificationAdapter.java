@@ -229,7 +229,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                                        ShowToast("  "+Status.ACCEPTED+" ! Please Check in your Dashboard  ");
+                                        ShowToast("  "+Status.ACCEPTED+" ! Please check in your dashboard  ");
                                         //Toast.makeText(context, Status.ACCEPTED+" ! Please Check in your Dashboard", Toast.LENGTH_LONG).show();
                                     }
                                 });
