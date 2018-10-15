@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -65,7 +66,8 @@ public class LoginWithPhone extends AppCompatActivity {
     @BindView(R.id.llphone)
     LinearLayout llPhone;
 
-
+    private CheckBox termsAndConditionCheckBox;
+    private TextView terms;
     private Dialog mUserAlertDialog;
     //Firebase Section
     private FirebaseAuth mAuth;
@@ -86,6 +88,8 @@ public class LoginWithPhone extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_with_phone);
 
+        termsAndConditionCheckBox = findViewById(R.id.termsAndCondition);
+        terms = findViewById(R.id.termsAndConditionTV);
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mFirebaseRefProvider = mFirebaseInstance.getReference("ProviderList");
         mAuth = FirebaseAuth.getInstance();
@@ -139,20 +143,29 @@ public class LoginWithPhone extends AppCompatActivity {
                             }
                         }
                     }
+                    if (termsAndConditionCheckBox.isChecked()) {
+                        if (status) {
+                            Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
+                            intent.putExtra("user", "old_user");
+                            intent.putExtra("mobile", phoneNumber);
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
+                            startActivity(intent, options.toBundle());
+                        } else {
 
-                    if (status) {
-                        Intent intent = new Intent(LoginWithPhone.this, VerifyPhoneActivity.class);
-                        intent.putExtra("user", "old_user");
-                        intent.putExtra("mobile", phoneNumber);
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginWithPhone.this);
-                        startActivity(intent, options.toBundle());
-                    } else {
+                            Intent intent=new Intent(LoginWithPhone.this,VerifyPhoneActivity.class);
+                            intent.putExtra("mobile", phoneNumber);
+                            intent.putExtra("user", "new_user");
+                            startActivity(intent);
+                        }
 
-                        Intent intent=new Intent(LoginWithPhone.this,VerifyPhoneActivity.class);
-                        intent.putExtra("mobile", phoneNumber);
-                        intent.putExtra("user", "new_user");
-                        startActivity(intent);
                     }
+                    else {
+
+                        Toast.makeText(LoginWithPhone.this, "Read terms and condition and checked it", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
 
 
                 }

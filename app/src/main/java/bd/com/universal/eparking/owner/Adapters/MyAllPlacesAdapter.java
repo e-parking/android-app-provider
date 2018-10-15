@@ -135,7 +135,7 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
     public void onBindViewHolder(Viewholder holder, int position) {
 
         model = parkPlaceList.get(position);
-        if (model.getmParkingType().equals(VehicleType.Car)){
+        if(model.getmParkingType().equals(VehicleType.Car)){
             holder.momentImageView.setImageResource(R.drawable.car_park_place_icon);
         }else if (model.getmParkingType().equals(VehicleType.MotorCycle)){
             holder.momentImageView.setImageResource(R.drawable.bike_park_place_icon);
@@ -143,8 +143,6 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
         holder.momentTitle.setText(model.getmParkPlaceTitle());
 
     }
-
-
     public class Viewholder extends RecyclerView.ViewHolder {
 
         public ImageView momentImageView;
@@ -182,8 +180,6 @@ public class MyAllPlacesAdapter extends RecyclerView.Adapter<MyAllPlacesAdapter.
                     return true;
                 }
             });
-
-
         }
 
     }

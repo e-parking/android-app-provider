@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAh7_ccZixU4rYJo5aKprA_Y-auyaQNw8U" />
+            android:value="AIzaSyAh7_ccZixU4rYJo5aKprA_Y-auyaQNw8U"/>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />

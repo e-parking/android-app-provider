@@ -40,10 +40,8 @@ public class ParkPlaceInfoFragment extends Fragment implements OnMapReadyCallbac
     private android.support.v4.app.FragmentTransaction ft;
 
     public ParkPlaceInfoFragment() {
-        // Required empty public constructor
+
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
